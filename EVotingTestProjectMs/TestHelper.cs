@@ -55,8 +55,22 @@ namespace EVotingTestProjectMs
             Assert.IsTrue(LoginSertPage.isLoginSertPage());
             LoginSertPage.loadFileClick("C:\\temp\\sert.pem");
             Assert.Equals(LoginSertPage.getFileNameLoad(), "sert.pem");
-            LoginSertPage.sendPassword("paSS123#");
+            LoginSertPage.setPassword("paSS123#");
             LoginSertPage.submit();
+            //проверка авторизованности
+        }
+
+        [TestMethod]
+        public void TestLoginEsia()
+        {
+            //как передать тут браузер?)
+            Assert.IsTrue(LoginPage.isLoginPage());
+            LoginPage.caseMenuParam(MenuParam.registrators);
+            LoginPage.caseLoginParam(LoginParam.esia);
+            Assert.IsTrue(LoginEsiaPage.isLoginEsiaPage());
+            LoginEsiaPage.setMobileMail("repon06@ya.ru");
+            LoginEsiaPage.setPassword("paSS123#");
+            LoginEsiaPage.submit();
             //проверка авторизованности
         }
 

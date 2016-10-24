@@ -39,7 +39,7 @@ namespace EVotingTestProjectMs.Pages
             return browser.Describe<IWebElement>(labelNameFile).GetVisibleText();
         }
 
-        public static void sendPassword(string psw)
+        public static void setPassword(string psw)
         {
             IEditField password = browser.Describe<IEditField>(pass);
             password.SetValue(psw);
