@@ -41,13 +41,13 @@ namespace EVotingTestProjectMs.Pages
         private static XPathDescription textMeeting = new XPathDescription(".//div[@id='wrap-meeting-list']/div/div/label");
 
 
-        //
+        //список собраний - редактировать выбранное
         private static CSSDescription meetingsList = new CSSDescription("ul#form:meetingsList_list li");//список созданных собраний:
         private static CSSDescription meetingState = new CSSDescription("span.status-meeting-item"); //статус внутри meetingsList
         private static CSSDescription meetingOrgName = new CSSDescription("span.header-meeting-item"); // наименование орг -//-
         private static XPathDescription meetingDate = new XPathDescription(".//div[div[contains(text(),'Дата собрания')]]/div/span");//дата собрания -//-
         private static XPathDescription meetingDateFix = new XPathDescription(".//div[div[contains(text(),'Дата фиксации списка участников')]]/div/span");//Дата фиксации списка участников-//-
-        private static XPathDescription meetingEdit = new XPathDescription(".//a[text()='Редактирование']");
+        private static XPathDescription meetingEdit = new XPathDescription(".//a[text()='Редактирование']");//ведет на MeetingPage
 
 
 

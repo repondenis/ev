@@ -54,12 +54,20 @@ namespace EVotingTestProjectMs.Pages
 
         private static CSSDescription issuerOrganizationInput = new CSSDescription("input[id='form:issuerOrganization_input']");
 
+        //ВЫПУСК Ценных бумаг
         private static CSSDescription addSecurityButton = new CSSDescription("button[id='form:addSecurityButton']");//добавить выпуск
+        private static CSSDescription securitiesDialog = new CSSDescription("div#securitiesDialog");//окно диплога
+        private static CSSDescription securitiesDialogTitle = new CSSDescription("div#securitiesDialog div span#securitiesDialog_title");//"Выбор выпусков ЦБ" окно диплога title
+        private static CSSDescription securitiesDialogclose = new CSSDescription("div#securitiesDialog div a[aria-label='Close']");//окно диплога
+        private static CSSDescription securitiesDialogInput = new CSSDescription("input[id='securityForm:securityTable:globalFilter']");
+        private static CSSDescription securityTableTrTd = new CSSDescription("tbody[id='securityForm:securityTable_data'] tr");//выбрать нужн ев или тд <td role="gridcell">RU2222222222</td> td role="gridcell">24-1-429</td><td role="gridcell">Акция 2</td>
+        private static CSSDescription securityFormApplyButton = new CSSDescription("button[id='securityForm:applyButton']");
 
+        //Договор на проведение собрания - сервисы договора
         private static CSSDescription contractsInput = new CSSDescription("input[id='form:contracts_input']");// Договор на проведение собрания
+        private static CSSDescription contractInputToggle = new CSSDescription("div.contracts-auto span[id='form:contracts'] button span.ui-button-icon-primary");
+        private static CSSDescription contractInputSelect = new CSSDescription("div[id='form:contracts_panel'] ul");
 
-        //Выпуски ЦБ участников- недоступен
-        //Договор на проведение собрания-- недоступен
 
         private static XPathDescription submit = new XPathDescription(".//button[span[text()='продолжить']]");
         private static XPathDescription cancel = new XPathDescription(".//button[span[text()='Отменить']]");
