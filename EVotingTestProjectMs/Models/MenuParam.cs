@@ -46,4 +46,29 @@
         public const string MN = "Из загруженных";
     }
 
+
+    class securityType
+    {
+        public const string akcii = "Акции";
+        public const string pai = "Паи";
+        public const string obligation = "Облигации";
+        public const string ipotekSert = "Ипотечные сертификаты";
+    }
+
+    class meetingType
+    {
+        public const string years = "Годовое собрание акционеров";
+        public const string extra = "Внеочередное общее собрание акционеров";
+    }
+
+
+
+    class formType
+    {
+        public const string sendList = "Собрание (предусмотрена возможность направления заполненных бюллетеней)";
+        public const string notSendList = "Собрание (не предусмотрена возможность направления заполненных бюллетеней)";
+        public const string absentBallot = "Заочное голосование";
+
+    }
+
 }
