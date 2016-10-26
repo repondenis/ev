@@ -3,139 +3,83 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HP.LFT.SDK.Web;
 
 namespace EVotingTestProjectMs.Pages
 {
-    class MeetingPage
+    class MeetingPage : Helpers.PageHelper
     {
+        private static CSSDescription block = new CSSDescription("div#meeting-block");//главн див
+        private static CSSDescription state = new CSSDescription("div.meeting-menu div span.result-header-page");//статус - Доступно заочное голосование на собрании
+        private static CSSDescription name = new CSSDescription("div.meeting-menu div span.header-meeting-item");//Годовое собрание акционеров
+        private static CSSDescription emitent = new CSSDescription("div.meeting-menu div span.header-meeting-item");//Акционерный коммерческий Сберегательный бан
 
-       главн див
-            <div id= "meeting-block" >
+        private static CSSDescription dateMeet = new CSSDescription("form#controlPanelForm div span.result-label-data");//Дата собрания
 
-           статус
-< div class="meeting-menu">
-<div>
-<span class="result-header-page">Доступно заочное голосование на собрании</span>
-
-
-<div class="meeting-menu">
-<div>
-<span class="header-meeting-item">Годовое собрание акционеров</span>
-</div>
+        private static XPathDescription editMeeting = new XPathDescription(".//button[span[text()='Редактирование собрания']]");//Редактирование собран, вылезает подкнопка
+        private static XPathDescription manageMeeting = new XPathDescription(".//a[span[text()='Управление собранием']]"); // meetingControlPage
 
 
+        private static XPathDescription previewMeeting = new XPathDescription(".//button[span[text()='Предпросмотр собрания']]");//Предпросмотр собрания
 
-<div class="meeting-menu">
-<div>
-<span class="header-meeting-item">Акционерный коммерческий Сберегательный банк Российской Федерации(открытое акционерное общество)</span>
-</div>
+        private static XPathDescription loadInfo = new XPathDescription(".//button[span[text()='Загрузить информацию']]");
 
+        private static XPathDescription unloadInfo = new XPathDescription(".//button[span[text()='Выгрузить сообщение о собрании']]");//появляется след кнопка
+        private static XPathDescription unloadInfotoFile = new XPathDescription(".//a[span[text()='В файл']]");
 
-<form id = "controlPanelForm" enctype="application/x-www-form-urlencoded" action="/portal/meeting/edit.xhtml" method="post" name="controlPanelForm">
-<input type = "hidden" value="controlPanelForm" name="controlPanelForm">
-<div class="meeting-menu">
-<div>
-<span class="result-label-data-text">Дата собрания: </span>
-<span class="result-label-data">11.10.2016 18:45</span>
-</div>
+        private static CSSDescription editState = new CSSDescription("button[id='controlPanelForm:changeStatus_button']");//Изменить статус
+        private static XPathDescription editStateOpen = new XPathDescription(".//a[span[text()='Открыть эмитенту и регистратору']]");
 
-редактировать собрание
-            <div class="ui-toolbar-group-left">
-<div class="wrap-btn-e-voting">
-<span id = "controlPanelForm:j_idt52" class="ui-menubutton">
-<button id = "controlPanelForm:j_idt52_button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" type="button" name="controlPanelForm:j_idt52_button" role="button" aria-disabled="false">
-<span class="ui-button-icon-left ui-icon ui-c ui-icon-triangle-1-s"></span>
-<span class="ui-button-text ui-c">Редактирование собрания</span>
-</button>
-</span>
+        //Отменить собрание
+        private static XPathDescription cancelMeeting = new XPathDescription(".//button[span[text()='Отменить собрание']]");//появляется диалог
+        private static CSSDescription cancelDialog = new CSSDescription("div#cancelDialog");//новый диалог  с полями
+        private static CSSDescription cancelDialogTitle = new CSSDescription("span#cancelDialog_title");//"Отменить собрание"
+        private static CSSDescription cancelDialogReasson = new CSSDescription("textarea[id='cancelForm:cancelReason']");//причина отмены
+        private static CSSDescription cancelDialogCode = new CSSDescription("label[id='cancelForm:cancelReasonCode_label']");//Код причины отмены
+        private static CSSDescription cancelDialogCodeToggle = new CSSDescription("div[id='cancelForm:cancelReasonCode'] div span");//
+        private static CSSDescription cancelDialogCodeSelect = new CSSDescription("ul[id='cancelForm:cancelReasonCode_items']");//выпад списко
+        private static CSSDescription addFile = new CSSDescription("div.wrap-button-upload>span>span>input");//прикрепить файл
+        private static CSSDescription cancelDialogCancelMeeting = new CSSDescription("button[id='cancelForm:cancelMeetingFile']");
+        private static XPathDescription cancelDialogCloseForm = new XPathDescription(".//button[span[text()='закрыть']]");
 
 
-предспросмотр собрания
-<div class="ui-toolbar-group-left">
-<div class="wrap-btn-e-voting">
-<div class="wrap-btn-additional-e-voting">
-<button id = "controlPanelForm:j_idt60" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" onclick="PrimeFaces.bcn(this,event,[function(event){window.open('/public/#/meeting-item/b2f83a55-2f76-420f-acb2-24d64a306057', '_blank')},function(event){PrimeFaces.ab({s:"controlPanelForm:j_idt60"});return false;}]);" 
-            name="controlPanelForm:j_idt60" role="button" aria-disabled="false">
-<span class="ui-button-text ui-c">Предпросмотр собрания</span>
-</button>
+        //MENU
+        private static XPathDescription menuFullInfo = new XPathDescription(".///a[text()='Общая информация']");
+        private static XPathDescription menuMater = new XPathDescription(".///a[text()='Материалы']");
+        private static XPathDescription menuBullet = new XPathDescription(".///a[text()='Бюллетень']");
+        private static XPathDescription menuList = new XPathDescription(".///a[text()='Список к собранию']");
+        private static XPathDescription menuViewers = new XPathDescription(".///a[text()='Наблюдатели']");
+        private static XPathDescription menuSettings = new XPathDescription(".///a[text()='Настройки']");
 
 
-Загрузить информацию
-<button id = "controlPanelForm:j_idt65_button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-state-disabled" disabled="disabled" type="button" name="controlPanelForm:j_idt65_button">
-<span class="ui-button-icon-left ui-icon ui-c ui-icon-triangle-1-s"></span>
-<span class="ui-button-text ui-c">Загрузить информацию</span>
-</button>
+        //
+        private static CSSDescription emitentName = new CSSDescription("div.header-meeting-item-inside");//эмитент
 
+        private static CSSDescription orgName = new CSSDescription("div#main-form >div>div>div.table-row-e-voting > div.table-content-style");//- 4 items
 
-Выгрузить сообщение о собрании
-<button id = "controlPanelForm:j_idt68_button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" type="button" name="controlPanelForm:j_idt68_button" role="button" aria-disabled="false">
-<span class="ui-button-icon-left ui-icon ui-c ui-icon-triangle-1-s"></span>
-<span class="ui-button-text ui-c">Выгрузить сообщение о собрании</span>
-</button>
+        private static XPathDescription securities = new XPathDescription();
 
 
 
-
-Изменить стату
-<span id = "controlPanelForm:changeStatus" class="ui-menubutton menu-ui-icon-document">
-<button id = "controlPanelForm:changeStatus_button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" type="button" name="controlPanelForm:changeStatus_button" role="button" aria-disabled="false">
-<span class="ui-button-icon-left ui-icon ui-c ui-icon-triangle-1-s"></span>
-<span class="ui-button-text ui-c">Изменить статус</span>
-</button>
-
-
-
-Отменить собрани
-<button id = "controlPanelForm:j_idt74" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" type="submit" onclick="PrimeFaces.ab({s:"controlPanelForm:j_idt74",p:"@none",u:"@none",onco:function(xhr,status,args){PF('cancelDialog').show();;}});return false;" name="controlPanelForm:j_idt74" role="button" aria-disabled="false">
-<span class="ui-button-icon-left ui-icon ui-c ui-icon-circle-close"></span>
-<span class="ui-button-text ui-c">Отменить собрание</span>
-</button>
-
-
-меню
-<div id="tabView" class="ui-tabs ui-widget ui-widget-content ui-corner-all ui-hidden-container ui-tabs-top" data-widget="widget_tabView">
-<ul class="ui-tabs-nav ui-helper-reset ui-widget-header ui-corner-all" role="tablist">
-<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active" aria-selected="true" aria-expanded="true" role="tab" tabindex="0">
-<a tabindex = "-1" href="#tabView:main">Общая информация</a>
-</li>
-
-разделы меню
-Общая информация
-Материалы Бюллетень Список к собранию Наблюдатели Настройки
-
-
-
-РАЗДЕЛЫ:
-ОБЩАЯ ИНФ:
-<div id = "tabView"
-
-имя
-<div class="header-meeting-item-inside">эмитент: Акционерный коммерческий Сберегательный банк Российской Федерации(открытое акционерное общество)</div>
-
-
-
-наименование орг
-"div#main-form >div>div>div.table-row-e-voting > div.table-content-style"; - 4 items
-
-редактировать ценные бумаги
+        редактировать ценные бумаги
 ".//div[div[div[text()='ценные бумаги']]]/div/div/button[span[text()='редактировать']]"
 
 Полное фирменное наименование эмитента
 <input id = "tabView:mainForm:issuerFullName"
 
 Идентификатор собрания
-< input id= "tabView:mainForm:meetingId"
+< input id = "tabView:mainForm:meetingId"
 
 
 Форма проведения общего собрания
-< label id= "tabView:mainForm:formType_label"
+< label id = "tabView:mainForm:formType_label"
 
 
 Дата и время проведения собрания*
-    < input id= "tabView:mainForm:meetingStart_input"
+    < input id = "tabView:mainForm:meetingStart_input"
 
     Страна проведения собрания
-    < input id= "tabView:mainForm:meetingCountry_input"
+    <input id= "tabView:mainForm:meetingCountry_input"
 
 Адрес проведения собрания
 <input id="tabView:mainForm:meetingAddress" 
@@ -176,7 +120,7 @@ namespace EVotingTestProjectMs.Pages
 
 
 Дополнительные требования к голосованию
-< textarea id= "tabView:mainForm:additionalVotingReq"
+< textarea id = "tabView:mainForm:additionalVotingReq"
 
 
 checkBox

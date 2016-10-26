@@ -71,4 +71,10 @@
 
     }
 
+
+    class СancelDialogCode {
+        public const string noKvorum = "Отсутствие кворума";
+        public const string errorEdit = "Отмена из-за ошибки обработки";
+        public const string cancelEmitent = "Отмена в связи с отменой собрания эмитентом";
+    }
 }

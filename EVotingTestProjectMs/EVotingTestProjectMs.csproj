@@ -79,6 +79,7 @@
     <Compile Include="Pages\LoginEsiaPage.cs" />
     <Compile Include="Pages\LoginLocalPage.cs" />
     <Compile Include="Pages\LoginSertPage.cs" />
+    <Compile Include="Pages\MeetingControlPage.cs" />
     <Compile Include="Pages\MeetingPage.cs" />
     <Compile Include="Pages\NewMeetingPage.cs" />
     <Compile Include="Pages\PortalPage.cs" />
