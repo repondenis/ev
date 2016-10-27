@@ -38,7 +38,7 @@ namespace EVotingTestProjectMs.Pages
         private static CSSDescription cancelDialogCode = new CSSDescription("label[id='cancelForm:cancelReasonCode_label']");//Код причины отмены
         private static CSSDescription cancelDialogCodeToggle = new CSSDescription("div[id='cancelForm:cancelReasonCode'] div span");//
         private static CSSDescription cancelDialogCodeSelect = new CSSDescription("ul[id='cancelForm:cancelReasonCode_items']");//выпад списко
-        private static CSSDescription addFile = new CSSDescription("div.wrap-button-upload>span>span>input");//прикрепить файл
+        private static CSSDescription addFileMeeting = new CSSDescription("div.wrap-button-upload>span>span>input");//прикрепить файл
         private static CSSDescription cancelDialogCancelMeeting = new CSSDescription("button[id='cancelForm:cancelMeetingFile']");
         private static XPathDescription cancelDialogCloseForm = new XPathDescription(".//button[span[text()='закрыть']]");
 
@@ -52,91 +52,50 @@ namespace EVotingTestProjectMs.Pages
         private static XPathDescription menuSettings = new XPathDescription(".///a[text()='Настройки']");
 
 
-        //
-        private static CSSDescription emitentName = new CSSDescription("div.header-meeting-item-inside");//эмитент
-
+        //Общая информация
+        private static CSSDescription emitentName = new CSSDescription("div#main-form>div>div>div>div.header-meeting-item-inside");//эмитент 2 элемента почему-то
         private static CSSDescription orgName = new CSSDescription("div#main-form >div>div>div.table-row-e-voting > div.table-content-style");//- 4 items
-
         private static XPathDescription securities = new XPathDescription();
+        private static XPathDescription editSecurities = new XPathDescription(".//div[div[div[text()='ценные бумаги']]]/div/div/button[span[text()='редактировать']]");// редактировать ценные бумаги
+        private static CSSDescription issuerFullName = new CSSDescription("input[id='tabView:mainForm:issuerFullName']");//Полное фирменное наименование эмитента
+        private static CSSDescription meetingId = new CSSDescription("input[id='tabView:mainForm:meetingId']");//Идентификатор собрания
+        private static CSSDescription formTypeLabel = new CSSDescription("label[id='tabView:mainForm:formType_label']");//Форма проведения общего собрания
+        private static CSSDescription meetingStartInput = new CSSDescription("input[id='tabView:mainForm:meetingStart_input']");//Дата и время проведения собрания
+        private static CSSDescription meetingCountryInput = new CSSDescription("input[id='tabView:mainForm:meetingCountry_input']");//Страна проведения собрания
+        private static CSSDescription meetingAddress = new CSSDescription("input[id='tabView:mainForm:meetingAddress']");//Адрес проведения собрания
+        private static CSSDescription voteMktDdlnInput = new CSSDescription("input[id='tabView:mainForm:voteMktDdln_input']");//Дата окончания приема бюллетеней
+        private static CSSDescription participantsRegisterStartInput = new CSSDescription("input[id='tabView:mainForm:participantsRegisterStart_input']");//Время начала регистрации участников
+        private static CSSDescription entitlementFixingDate_input = new CSSDescription("input[id='tabView:mainForm:entitlementFixingDate_input']");//Дата определения участников собрания
+        private static CSSDescription postCountry_input = new CSSDescription("input[id='tabView:mainForm:postCountry_input']");//Страна
+        private static CSSDescription postAddressInput = new CSSDescription("input[id='tabView:mainForm:postAddress']");//Адрес
+        private static CSSDescription agenda = new CSSDescription("textarea[id='tabView:mainForm:agenda']");//Повестка собрания
+        private static CSSDescription procOfFamiliarWMaterials = new CSSDescription("textarea[id='tabView:mainForm:procOfFamiliarWMaterials']");//Порядок ознакомления с информацией
+        private static XPathDescription addAddress = new XPathDescription(".//button[span[text()='Добавить адрес']]");//Dобавить адрес - появл поле
+        private static CSSDescription addAddressCountryInput = new CSSDescription("div[id='tabView:mainForm:addresses'] span>input.ui-autocomplete-dd-input");//страна input+list
+        private static CSSDescription addAddressCityInput = new CSSDescription("div[id='tabView:mainForm:addresses'] div>input.ui-inputtext");//city
+        private static CSSDescription announcementDate_input = new CSSDescription("input[id='tabView:mainForm:announcementDate_input']");//Дата принятия решения о созыве собрания
+        private static CSSDescription additionalVotingReq = new CSSDescription("textarea[id='tabView:mainForm:additionalVotingReq']");//Дополнительные требования к голосованию
+        private static XPathDescription editComplete = new XPathDescription(".//div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - ui-state-active
+        private static XPathDescription save = new XPathDescription(".//button[span[text()='Сохранить']]");//
+        // end Общая информация
+
+        //МАТЕРИАЛЫ
+        private static CSSDescription divMaterial = new CSSDescription("div#material-page");
+        private static XPathDescription addFileMat = new XPathDescription(".//button[span[text()='прикрепить']]");
+        private static XPathDescription addFileMatLink = new XPathDescription(".//a[span[text()='Ссылку']]");
+        private static XPathDescription addFileMatFile = new XPathDescription(".//a[span[text()='Файл']]");
+        //МАТЕРИАЛЫ - форма прикрепления файла
+        private static CSSDescription addFileMatFileDiv = new CSSDescription("div[id='tabView:materialUpload']");
+        private static CSSDescription addFileMatFileDivTitle = new CSSDescription("span[id='tabView:materialUpload_title']");//"прикрепить файл"
+        private static CSSDescription addFileMatFileDivButton = new CSSDescription("input[id='tabView:materialUploadForm:materialUploader_input']");//загрузить файл
+        private static CSSDescription addFileMatFileDivFileName = new CSSDescription("span[id='tabView:materialUploadForm:fileName']");//после загрузки - имя файла
+        private static CSSDescription addFileMatFileDivMaterial = new CSSDescription("div[id='tabView:materialUploadForm:uploadType'] label");//material
+        private static CSSDescription addFileMatFileDivMaterialToggle = new CSSDescription("div[id='tabView:materialUploadForm:uploadType'] div>span");
+        private static CSSDescription addFileMatFileDivMaterialSelect = new CSSDescription("ul[id='tabView:materialUploadForm:uploadType_items']");//список выбор MaterialSelect
+        private static CSSDescription addFileMatFileDivMaterialAdd = new CSSDescription("button[span='Прикрепить']");
+        private static CSSDescription addFileMatFileDivMaterialCancel = new CSSDescription("button[span='Отмена']");
 
 
-
-        редактировать ценные бумаги
-".//div[div[div[text()='ценные бумаги']]]/div/div/button[span[text()='редактировать']]"
-
-Полное фирменное наименование эмитента
-<input id = "tabView:mainForm:issuerFullName"
-
-Идентификатор собрания
-< input id = "tabView:mainForm:meetingId"
-
-
-Форма проведения общего собрания
-< label id = "tabView:mainForm:formType_label"
-
-
-Дата и время проведения собрания*
-    < input id = "tabView:mainForm:meetingStart_input"
-
-    Страна проведения собрания
-    <input id= "tabView:mainForm:meetingCountry_input"
-
-Адрес проведения собрания
-<input id="tabView:mainForm:meetingAddress" 
-
-    Дата окончания приема бюллетеней
-    <input id="tabView:mainForm:voteMktDdln_input"
-
-Время начала регистрации участников
-<input id="tabView:mainForm:participantsRegisterStart_input" 
-
-
-Дата определения участников собрания
-<input id="tabView:mainForm:entitlementFixingDate_input" 
-
-Страна
-<input id="tabView:mainForm:postCountry_input"
-
-Адрес
-<input id="tabView:mainForm:postAddress" 
-
-Повестка собрания
-<textarea id="tabView:mainForm:agenda" 
-
-    Порядок ознакомления с информацией
-    <textarea id="tabView:mainForm:procOfFamiliarWMaterials" 
-
-
-
-
-обавить адрес
-<button id="tabView:mainForm:j_idt259" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" onclick="PrimeFaces.ab({s:"tabView:mainForm:j_idt259",p:"tabView:mainForm:j_idt259 tabView:mainForm:addresses",u:"tabView:mainForm:addresses"});return false;" 
-            name="tabView:mainForm:j_idt259" role="button" aria-disabled="false">
-<span class="ui-button-text ui-c">Добавить адрес</span>
-</button>
-
-Дата принятия решения о созыве собрания
-<input id = "tabView:mainForm:announcementDate_input"
-
-
-Дополнительные требования к голосованию
-< textarea id = "tabView:mainForm:additionalVotingReq"
-
-
-checkBox
-<div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default ui-state-active">
-<span class="ui-chkbox-icon ui-icon ui-c ui-icon-check"></span>
-</div>
-<span class="ui-chkbox-label">Редактирование раздела завершено</span>
-</div>
-
-            <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default ui-state-active">Checket
-            <div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"> unchecked
-
-save
-<button id="tabView:mainForm:j_idt273" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" onclick="PrimeFaces.ab({s:"tabView:mainForm:j_idt273",p:"tabView:mainForm",u:"tabView:mainForm tabView controlPanelForm"});return false;" name="tabView:mainForm:j_idt273" role="button" aria-disabled="false">
-<span class="ui-button-text ui-c">Сохранить</span>
-</button>
 
     }
 }

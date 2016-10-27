@@ -77,4 +77,9 @@
         public const string errorEdit = "Отмена из-за ошибки обработки";
         public const string cancelEmitent = "Отмена в связи с отменой собрания эмитентом";
     }
+
+    class MaterialSelect {
+        public const string materialMeeting = "Материалы собрания";
+        public const string bulleten = "Бюллетень";
+    }
 }
