@@ -153,8 +153,16 @@ namespace EVotingTestProjectMs.Pages
 
         //список решений
         private static CSSDescription decisionItem = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g");//сколко штук
+        private static CSSDescription decisionItemNumb = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div.table-results__number");//номер решения
+        private static CSSDescription decisionItemDescriptions = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div.table-results__description");//_description решения
+        private static CSSDescription decisionItemToggle = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div.toggle-row-icon>div");//toggle решения
+        private static CSSDescription decisionItemDelete = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div>a");//delete решения
+                                                                                                                                                      //private static CSSDescription decisionItemDelete = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div>a");
 
-        
+        input.namber-question-input
+            textarea.description-question-input
+
+
         private static XPathDescription questionSave = new XPathDescription(".//form[@id='questionForm'] //button[span[text()='Сохранить']]");//
         private static XPathDescription questionCancel = new XPathDescription(".//form[@id='questionForm'] //a[text()='Отменить']");//
 
