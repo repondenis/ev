@@ -75,7 +75,7 @@ namespace EVotingTestProjectMs.Pages
         private static CSSDescription addAddressCityInput = new CSSDescription("div[id='tabView:mainForm:addresses'] div>input.ui-inputtext");//city
         private static CSSDescription announcementDate_input = new CSSDescription("input[id='tabView:mainForm:announcementDate_input']");//Дата принятия решения о созыве собрания
         private static CSSDescription additionalVotingReq = new CSSDescription("textarea[id='tabView:mainForm:additionalVotingReq']");//Дополнительные требования к голосованию
-        private static XPathDescription editComplete = new XPathDescription(".//div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - ui-state-active
+        private static XPathDescription editCompleteAll = new XPathDescription(".//div[@id='meeting-block'] //div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - почему-то 2 шт - ui-state-active
         private static XPathDescription save = new XPathDescription(".//button[span[text()='Сохранить']]");//
         // end Общая информация
 
@@ -92,8 +92,78 @@ namespace EVotingTestProjectMs.Pages
         private static CSSDescription addFileMatFileDivMaterial = new CSSDescription("div[id='tabView:materialUploadForm:uploadType'] label");//material
         private static CSSDescription addFileMatFileDivMaterialToggle = new CSSDescription("div[id='tabView:materialUploadForm:uploadType'] div>span");
         private static CSSDescription addFileMatFileDivMaterialSelect = new CSSDescription("ul[id='tabView:materialUploadForm:uploadType_items']");//список выбор MaterialSelect
-        private static CSSDescription addFileMatFileDivMaterialAdd = new CSSDescription("button[span='Прикрепить']");
-        private static CSSDescription addFileMatFileDivMaterialCancel = new CSSDescription("button[span='Отмена']");
+        private static XPathDescription addFileMatFileDivMaterialAdd = new XPathDescription(".//button[span[text()='Прикрепить']]");
+        private static XPathDescription addFileMatFileDivMaterialCancel = new XPathDescription(".//button[span[text()='Отмена']]");
+        //end МАТЕРИАЛЫ - форма прикрепления файла
+
+        //прикрепленные файлы
+        private static CSSDescription materialTableDataFiles = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr");//кол-во прикрепл материалов
+        private static CSSDescription materialTableDataFile = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)");//1 элемент из прикрепл файлов
+
+        private static CSSDescription materialTableDataFileFileName = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(1)>a");//1 элемент -назван файла-ссылка
+        private static CSSDescription materialTableDataFileFileType = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(2)");//1 элемент -тип файла
+        private static CSSDescription materialTableDataFileMaterialType = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(3)");//1 элемент из прикрепл файлов
+        private static CSSDescription materialTableDataFileLang = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(4)");//1 элемент -language
+        private static CSSDescription materialTableDataFileDelete = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(5)>a");//1 элемент -delete
+        //end прикрепленные файлы
+        private static XPathDescription editCompleteMaterial = new XPathDescription(".//div[@id='material-page'] //div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - ui-state-active
+
+
+        //МАТЕРИАЛЫ прикрепление ссылки форма
+        private static CSSDescription addFileMatLinkDiv = new CSSDescription("div[id='tabView:materialLink']");
+        private static CSSDescription addFileMatLinkDivTitle = new CSSDescription("span[id='tabView:materialLink_title']");//"прикрепить файл"
+        private static CSSDescription linkName = new CSSDescription("input[id='tabView:materialLinkForm:linkName']");// имя ссылки
+        private static CSSDescription linkUrl = new CSSDescription("input[id='tabView:materialLinkForm:linkUrl']");// имя ссылки
+
+        private static CSSDescription addFileMatLinkDivLink = new CSSDescription("div[id='tabView:materialLinkForm:linkType'] label");//material
+        private static CSSDescription addFileMatLinkDivLinkToggle = new CSSDescription("div[id='tabView:materialLinkForm:linkType'] div>span");
+        private static CSSDescription addFileMatLinkDivLinkSelect = new CSSDescription("ul[id='tabView:materialLinkForm:linkType_items']");//список выбор MaterialSelect
+
+        private static XPathDescription addFileMatLinkAdd = new XPathDescription(".//div[@id='tabView:materialLink'] //button[span[text()='Прикрепить']]");
+        private static XPathDescription addFileMatLinkCancel = new XPathDescription(".//div[@id='tabView:materialLink'] //button[span[text()='Отмена']]"); // .//button[span[text()='Отмена']]
+        //end МАТЕРИАЛЫ прикрепление ссылки форма
+        //end МАТЕРИАЛЫ
+
+
+        //ПОВЕСТКА ДНЯ
+        private static CSSDescription divQuestions = new CSSDescription("div#questions");
+        private static CSSDescription divQuestionsLabel = new CSSDescription("div#questions>div>div>label");//"повестка дня"
+
+        private static XPathDescription createReport = new XPathDescription(".//button[span[text()='сформировать отчет']]");
+        private static XPathDescription addQuestions = new XPathDescription(".//button[span[text()='Добавить вопрос']]");
+        private static XPathDescription addQuestionsWithoutChoice = new XPathDescription(".//a[span[text()='Вопрос']]");
+        private static XPathDescription addQuestionsWithChoice = new XPathDescription(".//a[span[text()='Вопрос с выбором']]");
+        private static CSSDescription questions = new CSSDescription("dl[id='tabView:questionsForm:questionsTable_list']>dt");//кол-во вопросов
+        private static CSSDescription questionsNumb = new CSSDescription("dl[id='tabView:questionsForm:questionsTable_list']>dt:nth-child(1)>div>div:nth-child(1)>div");//1 вопрос - номер
+        private static CSSDescription questionsNotice = new CSSDescription("dl[id='tabView:questionsForm:questionsTable_list']>dt:nth-child(1)>div>div:nth-child(2)>div>span");//1 вопрос - повестка
+        private static XPathDescription questionsEdit = new XPathDescription(".//dl[@id='tabView:questionsForm:questionsTable_list']/dt[1] //a[text()='Редактировать']");//1 вопрос - Редактировать
+        private static XPathDescription questionsDelete = new XPathDescription(".//dl[@id='tabView:questionsForm:questionsTable_list']/dt[1] //a[text()='Удалить']");//1 вопрос - Редактировать
+                                                                                                                                                                     //
+          //форма редактирования вопроса                                                                                                                                                           //форма редактирвоания/созд вопроса
+        private static CSSDescription questionForm = new CSSDescription("form#questionForm");
+        private static CSSDescription questionFormTitle = new CSSDescription("form#questionForm>label");//"редактирование вопроса"
+        private static XPathDescription return2Bulleten = new XPathDescription(".//a[span[text()='бюллетень']]");
+        private static CSSDescription number = new CSSDescription("input[id='questionForm:issuerLabel']");//номер вопроса - почему -то надо ставить по порядку 1 2 3 4
+        private static CSSDescription description = new CSSDescription("textarea[id='questionForm:description']");//вопрос повестки дня <textarea id="" 
+        private static CSSDescription proceduralCheckBox = new CSSDescription("div[id='questionForm:procedural']");//Процедурный вопрос
+
+        private static XPathDescription addDecision = new XPathDescription(".//button[span[text()='Добавить решение']]");
+        private static XPathDescription addDecisionSimple = new XPathDescription(".//a[span[text()='Простое голосование']]");
+        private static XPathDescription addDecisionDiff = new XPathDescription(".//a[span[text()='Кумулятивное голосование']]");
+
+        //список решений
+        private static CSSDescription decisionItem = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g");//сколко штук
+
+        
+        private static XPathDescription questionSave = new XPathDescription(".//form[@id='questionForm'] //button[span[text()='Сохранить']]");//
+        private static XPathDescription questionCancel = new XPathDescription(".//form[@id='questionForm'] //a[text()='Отменить']");//
+
+
+
+
+        private static XPathDescription editCompleteQuestions = new XPathDescription(".//div[@id='questions'] //div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - ui-state-active
+
+
 
 
 

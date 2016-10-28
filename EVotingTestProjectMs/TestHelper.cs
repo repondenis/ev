@@ -15,6 +15,7 @@ namespace EVotingTestProjectMs
     {
         public IBrowser browser;
         private string url = "https://demo-evoting.test.gosuslugi.ru";
+        private string url2 = "https://portal-dev-evoting.test.gosuslugi.ru";
 
 
         [ClassInitialize]
