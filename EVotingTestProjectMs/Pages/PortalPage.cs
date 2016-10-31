@@ -13,11 +13,13 @@ namespace EVotingTestProjectMs.Pages
     class PortalPage:Helpers.PageHelper
     {
 
-        //
+        //MENU
         private static XPathDescription menuPortal = new XPathDescription(".//a[@href='/portal/' and span[img]]");
         private static XPathDescription menuMeetings = new XPathDescription(".//a[span[text()='Собрания']]");
         private static XPathDescription menuUsers = new XPathDescription(".//a[span[text()='Пользователи']]");
         private static XPathDescription menuEmitents = new XPathDescription(".//a[span[text()='Эмитенты']]");
+        private static XPathDescription menuProfileOrg = new XPathDescription(".//a[span[text()='Профиль организации']]");
+
 
         //
         private static CSSDescription menuUserName = new CSSDescription("a.user-name");

@@ -82,4 +82,12 @@
         public const string materialMeeting = "Материалы собрания";
         public const string bulleten = "Бюллетень";
     }
+
+    class availRoles {
+        public const string admin = "Администратор регистратора";
+        public const string memberOfCounter = "Участник счетной комиссии";
+    }
+
+
+
 }
