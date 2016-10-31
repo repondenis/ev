@@ -14,7 +14,6 @@ namespace EVotingTestProjectMs.Pages
         private static CSSDescription menuInfo = new CSSDescription("div[id='form:tabView']>ul>li:nth-child(1)>a");//ДАННЫЕ
         private static CSSDescription menuRole = new CSSDescription("div[id='form:tabView']>ul>li:nth-child(2)>a");//ROLE
 
-
         //ДАННЫЕ
         private static CSSDescription organization = new CSSDescription("input[id='form:tabView:organization_input']");
         private static CSSDescription lastName = new CSSDescription("input[id='form:tabView:lastName']");
