@@ -11,7 +11,6 @@ namespace EVotingTestProjectMs.Pages
     {
         private static CSSDescription description = new CSSDescription("div.wrapper>div>div>div.ng-scope");
 
-
         public static bool isForgotPasswordPage()
         {
             return browser.Describe<IWebElement>(description).Exists() && browser.Describe<IWebElement>(description).GetVisibleText().Equals("Восстановление пароля");
