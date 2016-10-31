@@ -133,19 +133,22 @@ namespace EVotingTestProjectMs.Pages
         private static XPathDescription addQuestions = new XPathDescription(".//button[span[text()='Добавить вопрос']]");
         private static XPathDescription addQuestionsWithoutChoice = new XPathDescription(".//a[span[text()='Вопрос']]");
         private static XPathDescription addQuestionsWithChoice = new XPathDescription(".//a[span[text()='Вопрос с выбором']]");
+
         private static CSSDescription questions = new CSSDescription("dl[id='tabView:questionsForm:questionsTable_list']>dt");//кол-во вопросов
         private static CSSDescription questionsNumb = new CSSDescription("dl[id='tabView:questionsForm:questionsTable_list']>dt:nth-child(1)>div>div:nth-child(1)>div");//1 вопрос - номер
         private static CSSDescription questionsNotice = new CSSDescription("dl[id='tabView:questionsForm:questionsTable_list']>dt:nth-child(1)>div>div:nth-child(2)>div>span");//1 вопрос - повестка
         private static XPathDescription questionsEdit = new XPathDescription(".//dl[@id='tabView:questionsForm:questionsTable_list']/dt[1] //a[text()='Редактировать']");//1 вопрос - Редактировать
         private static XPathDescription questionsDelete = new XPathDescription(".//dl[@id='tabView:questionsForm:questionsTable_list']/dt[1] //a[text()='Удалить']");//1 вопрос - Редактировать
                                                                                                                                                                      //
-          //форма редактирования вопроса                                                                                                                                                           //форма редактирвоания/созд вопроса
+                                                                                                                                                                     //создание-редактирование вопроса                                                                                                                                                            //форма редактирования вопроса                                                                                                                                                           //форма редактирвоания/созд вопроса
         private static CSSDescription questionForm = new CSSDescription("form#questionForm");
         private static CSSDescription questionFormTitle = new CSSDescription("form#questionForm>label");//"редактирование вопроса"
         private static XPathDescription return2Bulleten = new XPathDescription(".//a[span[text()='бюллетень']]");
         private static CSSDescription number = new CSSDescription("input[id='questionForm:issuerLabel']");//номер вопроса - почему -то надо ставить по порядку 1 2 3 4
         private static CSSDescription description = new CSSDescription("textarea[id='questionForm:description']");//вопрос повестки дня <textarea id="" 
         private static CSSDescription proceduralCheckBox = new CSSDescription("div[id='questionForm:procedural']");//Процедурный вопрос
+        private static CSSDescription decisionTextOne = new CSSDescription("div#wrap-question-block>div:nth-child(5) textarea");//если вопрос с выбором -Текст решения
+        private static CSSDescription coutPlaces = new CSSDescription("div#wrap-question-block>div:nth-child(5) input");//если вопрос с выбором -Количество мест в избираемом органе
 
         private static XPathDescription addDecision = new XPathDescription(".//button[span[text()='Добавить решение']]");
         private static XPathDescription addDecisionSimple = new XPathDescription(".//a[span[text()='Простое голосование']]");
@@ -153,23 +156,212 @@ namespace EVotingTestProjectMs.Pages
 
         //список решений
         private static CSSDescription decisionItem = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g");//сколко штук
-        private static CSSDescription decisionItemNumb = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div.table-results__number");//номер решения
+        private static CSSDescription decisionItemNumber = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div.table-results__number");//номер решения
         private static CSSDescription decisionItemDescriptions = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div.table-results__description");//_description решения
         private static CSSDescription decisionItemToggle = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div.toggle-row-icon>div");//toggle решения
         private static CSSDescription decisionItemDelete = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div>a");//delete решения
                                                                                                                                                       //private static CSSDescription decisionItemDelete = new CSSDescription("span[id='questionForm:resolutionsTable']>div.ui-g:nth-child(1)>div>a");
 
-        input.namber-question-input
-            textarea.description-question-input
+        private static XPathDescription decisionNumber = new XPathDescription(".//span[@id='questionForm:resolutionsTable']/div[@style='display: block;'][1]/div/div/input");//Номер 1go решения
+        private static XPathDescription decisionText = new XPathDescription(".//span[@id='questionForm:resolutionsTable']/div[@style='display: block;'][1]/div/div/textarea");//Текст решения
+
 
 
         private static XPathDescription questionSave = new XPathDescription(".//form[@id='questionForm'] //button[span[text()='Сохранить']]");//
         private static XPathDescription questionCancel = new XPathDescription(".//form[@id='questionForm'] //a[text()='Отменить']");//
 
-
-
-
         private static XPathDescription editCompleteQuestions = new XPathDescription(".//div[@id='questions'] //div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - ui-state-active
+        //енд бюллетень
+
+        //список к собранию
+        private static CSSDescription divParticipants = new CSSDescription("div#participants-page");
+        private static XPathDescription loadListParticipants = new XPathDescription(".//button[span[text()='Загрузить список участников']]");
+        private static CSSDescription findListParticipants = new CSSDescription("input[id='tabView:participantsForm:searchText']");//Поиск по списку участников
+
+        //form load list participants
+        private static XPathDescription formLoadListParticipants = new XPathDescription(".//div[div[span[text()='Загрузка списка участников собрания']]]");
+        private static XPathDescription formLoadListParticipantsClose = new XPathDescription(".//div[div[span[text()='Загрузка списка участников собрания']]]/div/a");//close
+        private static CSSDescription selectFileParticipants = new CSSDescription("div#dialog-upload-e-voting>div>div>span");// Выбрать файл
+        private static XPathDescription loadFileParticipants = new XPathDescription(".//button[span[text()='Загрузить файлы']]");//загрузить файлы
+        private static XPathDescription loadFileParticipantsCancel = new XPathDescription(".//button[span[text()='Отменить']]");//cancel загрузить файлы
+                                                                                                                                //end 
+
+        private static CSSDescription listParticipants = new CSSDescription("tbody[id='tabView:participantsForm:ownersList_data']>tr");//кол-во участников
+
+        private static CSSDescription participantName = new CSSDescription("tbody[id='tabView:participantsForm:ownersList_data']>tr:nth-child(1)>td:nth-child(1)");//1 участкник - имя
+        private static CSSDescription participantId = new CSSDescription("tbody[id='tabView:participantsForm:ownersList_data']>tr:nth-child(1)>td:nth-child(2)");//1 участкник - имя
+        private static CSSDescription participantTypeId = new CSSDescription("tbody[id='tabView:participantsForm:ownersList_data']>tr:nth-child(1)>td:nth-child(3)");//1 участкник - имя
+        private static CSSDescription participantSert = new CSSDescription("tbody[id='tabView:participantsForm:ownersList_data']>tr:nth-child(1)>td:nth-child(4)");//1 участкник - имя
+                                                                                                                                                                   //end list4PArticipants
+
+        //НАБЛЮДЖАТЕЛИ 
+        private static CSSDescription divObservers = new CSSDescription("div#observers-page");
+        private static CSSDescription observersLabel = new CSSDescription("div#observers-page>div>div>label");
+        private static CSSDescription observersSave = new CSSDescription("div#observers-page>div>div>div>button[type='submit']");//SAVE
+        private static CSSDescription observersSearchName = new CSSDescription("input[id='tabView:observersForm:searchName']");//Поиск по ФИО
+
+        //НОВЫЙ НАБЛЮДАТЕЛь
+        private static CSSDescription observerForm = new CSSDescription("form#observerForm");
+        private static CSSDescription observerFormLastName = new CSSDescription("input[id='observerForm:lastName']");//имя
+        private static CSSDescription observerFormFirstName = new CSSDescription("input[id='observerForm:firstName']");//фамилия
+        private static CSSDescription observerFormOtherName = new CSSDescription("input[id='observerForm:otherName']");//отчество
+        private static XPathDescription observerFormRefresh = new XPathDescription(".//button[span[text()='Обновить']]");
+
+        private static CSSDescription observerFormLogin = new CSSDescription("input[id='observerForm:login']");//login
+        private static CSSDescription observerFormPassw = new CSSDescription("input[id='observerForm:password']");//pass
+
+        private static CSSDescription privilegeesForums = new CSSDescription("table[id='observerForm:privilegees']>tbody>tr:nth-child(1) input[name='observerForm:privilegees']");//привелегии-форум чекбокс
+        private static CSSDescription privilegeesQuestion = new CSSDescription("table[id='observerForm:privilegees']>tbody>tr:nth-child(2) input[name='observerForm:privilegees']");//привелегии-форум чекбокс
+        private static CSSDescription privilegeesMessages = new CSSDescription("table[id='observerForm:privilegees']>tbody>tr:nth-child(3) input[name='observerForm:privilegees']");//привелегии-форум чекбокс
+        private static CSSDescription privilegeesMaterials = new CSSDescription("table[id='observerForm:privilegees']>tbody>tr:nth-child(4) input[name='observerForm:privilegees']");//привелегии-форум чекбокс
+        private static CSSDescription privilegeesReports = new CSSDescription("table[id='observerForm:privilegees']>tbody>tr:nth-child(5) input[name='observerForm:privilegees']");//привелегии-форум чекбокс
+
+
+
+        //form autorise new observers
+        private static XPathDescription autorizeTitle = new XPathDescription(".//div[div/span[text()='Данные авторизации']]");
+        private static XPathDescription autorizeTitleDetailFIO = new XPathDescription(".//div[@id='observerForm:authorizationDetail']/div[1]");//данные авторизации-фио
+        private static XPathDescription autorizeTitleDetailLogin = new XPathDescription(".//div[@id='observerForm:authorizationDetail']/div[2]");//данные авторизации-login
+        private static XPathDescription autorizeTitleDetailPass = new XPathDescription(".//div[@id='observerForm:authorizationDetail']/div[3]");//данные авторизации-pass
+
+        private static XPathDescription closeAutorize = new XPathDescription(".//button[span[text()='Закрыть']]");
+        private static XPathDescription copyAutorizeData = new XPathDescription(".//a[text()='Скопировать данные авторизации']");
+        //END НОВЫЙ НАБЛЮДАТЕЛь
+        //private string error = "<span class='ui-messages-warn-summary'>Внимание</span><span class='ui-messages-warn-detail'>
+        //NSD-000000 - InvalidOperation(code:0, message:The given id must not be null!; nested exception is java.lang.IllegalArgumentException: 
+        //The given id must not be null!)</span>";
+        //end form autorize
+
+        //Табл с наблюдателями
+        private static CSSDescription observersTableData = new CSSDescription(
+           "tbody[id='tabView:observersForm:observersTable_data'] tr");//сколькео наблюдателей
+        private static CSSDescription observersName = new CSSDescription(
+            "tbody[id='tabView:observersForm:observersTable_data'] tr:nth-child(1)>td:nth-child(1)");//первый наблюдатель-name
+        private static CSSDescription observersAccess = new CSSDescription(
+            "tbody[id='tabView:observersForm:observersTable_data'] tr:nth-child(1)>td:nth-child(2)>span:not(.disable)");//первый наблюдатель-доступы
+        private static XPathDescription observersEdit = new XPathDescription(
+            ".//tbody[@id='tabView:observersForm:observersTable_data']/tr[1] //a[text()='Редактировать']");//первый наблюдатель-edit
+        private static XPathDescription observersDataAutorize = new XPathDescription(
+             ".//tbody[@id='tabView:observersForm:observersTable_data']/tr[1] //a[text()='Данные авторизации']");//первый наблюдатель-данные авторизации
+        private static XPathDescription observersDelete = new XPathDescription(
+             ".//tbody[@id='tabView:observersForm:observersTable_data']/tr[1] //a[text()='Удалить']");//первый наблюдатель-удалить
+
+
+        private static XPathDescription createObserv = new XPathDescription(".//button[span[text()='Создать']]");
+        private static XPathDescription CancelObserv = new XPathDescription(".//button[span[text()='Отменить']]");
+        //END НАБЛЮДАТЕЛИ 
+
+
+
+        //НАСТРОЙКИ
+        private static CSSDescription divSettingsVoting = new CSSDescription("div#setting-voting");
+        private static XPathDescription settingsSave = new XPathDescription(".//div[@id='setting-voting'] //button[span[text()='Сохранить']]");
+
+        private static CSSDescription publishingTimeManualCb = new CSSDescription("div[id='tabView:settingsForm:publishingTimeManual']>div>span.ui-chkbox-icon");//Публикация собрания вручную чекбокс
+        private static CSSDescription publishingTimeManualDate = new CSSDescription("input[id='tabView:settingsForm:publishingTimeDate_input']");//date
+        private static CSSDescription publishingTimeManualTime = new CSSDescription("input[id='tabView:settingsForm:publishingTimeTime_input'");//time
+
+        private static XPathDescription dateCreateList = new XPathDescription(".//div[div[label[text()='Дата составления списка лиц,имеющих право на участие в собрании']]]/div/span/input");
+
+        private static CSSDescription bulletinTimeEndManualCb = new CSSDescription(
+            "div[id='tabView:settingsForm:bulletinTimeEndManual']>div>span.ui-chkbox-icon");//Публикация собрания вручную чекбокс
+        private static CSSDescription bulletinTimeEndManualDate = new CSSDescription(
+            "input[id='tabView:settingsForm:bulletinTimeEndDate_input']");//Date
+        private static CSSDescription bulletinTimeEndManualTime = new CSSDescription(
+            "input[id='tabView:settingsForm:bulletinTimeEndTime_input']");//Time
+
+        private static CSSDescription meetingStartDate = new CSSDescription("input[id='tabView:settingsForm:meetingStartDate_input']");//date
+        private static CSSDescription meetingStartTime = new CSSDescription("input[id='tabView:settingsForm:meetingStartTime_input']");//time
+
+        private static CSSDescription participantsRegisterStartManualCb = new CSSDescription(
+            "div[id='tabView:settingsForm:participantsRegisterStartManual']>div>span.ui-chkbox-icon");//Начало регистрации участников чекбокс
+        private static CSSDescription participantsRegisterStartDate = new CSSDescription(
+            "input[id='tabView:settingsForm:participantsRegisterStartDate_input']");//date
+        private static CSSDescription participantsRegisterStartTime = new CSSDescription(
+            "input[id='tabView:settingsForm:participantsRegisterStartTime_input']");//date
+
+        private static CSSDescription participantsRegisterEndManualCb = new CSSDescription(
+            "div[id='tabView:settingsForm:participantsRegisterEndManual']>div>span.ui-chkbox-icon");//Окончание регистрации участников чекбокс
+        private static CSSDescription participantsRegisterEndTime = new CSSDescription(
+            "input[id='tabView:settingsForm:participantsRegisterEndTime_input']");//time
+
+        private static CSSDescription voteMktDdlnManualCb = new CSSDescription(
+           "div[id='tabView:settingsForm:voteMktDdlnManual']>div>span.ui-chkbox-icon");//Окончание голосования на собрании чекбокс
+        private static CSSDescription voteMktDdlnTime = new CSSDescription(
+            "input[id='tabView:settingsForm:voteMktDdlnTime_input']");//time
+
+        private static CSSDescription meetingEndManualCb = new CSSDescription(
+          "div[id='tabView:settingsForm:meetingEndManual']>div>span.ui-chkbox-icon");//Окончание проведения собрания
+        private static CSSDescription meetingEndTime = new CSSDescription(
+            "input[id='tabView:settingsForm:meetingEndTime_input']");
+
+        private static CSSDescription archivingTimeManualCb = new CSSDescription(
+          "div[id='tabView:settingsForm:archivingTimeManual']>div>span.ui-chkbox-icon");//Перенос собрания в архив
+        private static CSSDescription archivingTimeDate = new CSSDescription(
+            "input[id='tabView:settingsForm:archivingTimeDate_input']");//date
+        private static CSSDescription archivingTimeTime = new CSSDescription(
+            "input[id='tabView:settingsForm:archivingTimeTime_input']");//time
+
+        //Форум
+        private static XPathDescription forumServiceOn = new XPathDescription(
+            ".//div[@id='meeting-status']/div[7] //div[span[text()='Включить сервис']]/div/div/input");//вкл сервис
+        private static CSSDescription forumServiceOnInDate = new CSSDescription(
+            "div#meeting-status>div:nth-child(7)>div>div:nth-child(2)>div>span.clndr>input");//c date
+        private static CSSDescription forumServiceOnInTime = new CSSDescription(
+            "div#meeting-status>div:nth-child(7)>div>div:nth-child(2)>div>span.tm>input");//c time
+        private static CSSDescription forumServiceOnOutDate = new CSSDescription(
+            "div#meeting-status>div:nth-child(7)>div>div:nth-child(3)>div>span.clndr>input");//c date
+        private static CSSDescription forumServiceOnOutTime = new CSSDescription(
+            "div#meeting-status>div:nth-child(7)>div>div:nth-child(3)>div>span.tm>input");//c time
+        //end Форум
+
+        //ВОПРОС_ОТВЕТ
+        private static XPathDescription questionServiceOn = new XPathDescription(
+            ".//div[@id='meeting-status']/div[9] //div[span[text()='Включить сервис']]/div/div/input");//вкл сервис
+        private static CSSDescription questionServiceOnInDate = new CSSDescription(
+            "div#meeting-status>div:nth-child(9)>div>div:nth-child(2)>div>span.clndr>input");//c date
+        private static CSSDescription questionServiceOnInTime = new CSSDescription(
+            "div#meeting-status>div:nth-child(9)>div>div:nth-child(2)>div>span.tm>input");//c time
+        private static CSSDescription questionServiceOnOutDate = new CSSDescription(
+            "div#meeting-status>div:nth-child(9)>div>div:nth-child(3)>div>span.clndr>input");//c date
+        private static CSSDescription questionServiceOnOutTime = new CSSDescription(
+            "div#meeting-status>div:nth-child(9)>div>div:nth-child(3)>div>span.tm>input");//c time
+        //end ВОПРОС_ОТВЕТ
+
+        private static XPathDescription registratorIsAdminUsersOfMeeting = new XPathDescription(
+            ".//div[span[text()='Разрешить регистратору администрировать форум участников собрания']]/div/div/input");
+        private static XPathDescription addModeVoting = new XPathDescription(
+            ".//div[span[text()='Включить вспомогательный режим голосования']]/div/div/input");
+        private static XPathDescription allowLoadMaterials = new XPathDescription(
+            ".//div[span[text()='Разрешить загружать материалы через E-proxy voting']]/div/div/input");
+
+        //состав счетной комиссии
+        private static XPathDescription editListUsers = new XPathDescription(".//button[span[text()='редактировать состав']]");
+        private static CSSDescription editListUsersInDate = new CSSDescription(
+            "div#meeting-status>div:nth-child(15)>div>div:nth-child(2)>div>span.clndr>input");
+
+        //form sostav s4etnoy komissiy
+        private static XPathDescription formCompositionCounting = new XPathDescription(
+            ".//div[span[text()='Состав Счетной Комиссии']]");
+        private static XPathDescription formCompositionCountingClose = new XPathDescription(
+            ".//div[span[text()='Состав Счетной Комиссии']]/a");
+        private static CSSDescription filterCompositionCounting = new CSSDescription(
+            "input[id='tabView:settingsForm:personForm:globalFilter_input']");
+        private static CSSDescription compositionCountingUsers = new CSSDescription(
+            "tbody[id='tabView:settingsForm:personForm:comissionTable_data'] tr");//кол-во участников сч комиссии
+        private static CSSDescription compositionCountingUserCb = new CSSDescription(
+           "tbody[id='tabView:settingsForm:personForm:comissionTable_data']>tr:nth-child(1) input");//чекбокс выбран ли 1 участник
+        private static CSSDescription compositionCountingUserName = new CSSDescription(
+           "tbody[id='tabView:settingsForm:personForm:comissionTable_data']>tr:nth-child(1)>td:not(.ui-selection-column)");//чекбокс NAME 1 участник
+
+        private static XPathDescription formCompositionCountingSave = new XPathDescription(
+            ".//div[@id='tabView:settingsForm:personForm:comissionTable'] //button[span[text()='Сохранить']]");
+        private static XPathDescription formCompositionCountingCancel = new XPathDescription(
+            ".//div[@id='tabView:settingsForm:personForm:comissionTable'] //button[span[text()='Отменить']]");
+        //end form sostav s4etnoy komissiy
+
+        private static XPathDescription editCompleteSettings = new XPathDescription(".//div[@id='meeting-status'] //div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - почему-то 2 шт - ui-state-active
+        //END НАСТРОЙКИ
 
 
 
