@@ -16,7 +16,7 @@ namespace EVotingProject.Pages
         private static XPathDescription menuObservers = new XPathDescription(".//div[text()='Для наблюдателей']");
 
         //выбор авториз
-        private static XPathDescription autorisESIA = new XPathDescription(".//buton[@type='button' and text()='Войти с помощью']");
+        private static CSSDescription autorisESIA = new CSSDescription(".panel-login>a");
         private static XPathDescription autorisLogin = new XPathDescription(".//a[@ui-sref='local']");//Войти с помощью логина и пароля
         private static XPathDescription autorisSert = new XPathDescription(".//a[@ui-sref='cert']");//Войти с помощью неквалифицированной ЭП
 

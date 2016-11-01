@@ -4,36 +4,19 @@ using NUnit.Framework;
 using HP.LFT.Report;
 using HP.LFT.UnitTesting;
 using NUnit.Framework.Interfaces;
+using HP.LFT.SDK.Web;
 
-/// <summary>
-/// Runs before all classes and tests in the current project.
-/// <remarks>This class must remain outside any namespace in order to provide setup and tear down for the entire assembly.
-/// To get more information follow this link: https://github.com/nunit/docs/wiki/SetUpFixture-Attribute
-/// </remarks>
-/// </summary>
-[SetUpFixture]
-public class SetupFixture : UnitTestSuiteBase
-{
-    [OneTimeSetUp]
-    public void AssemblySetUp()
-    {
-        TestSuiteSetup(TestContext.CurrentContext.WorkDirectory);
-    }
-
-    [OneTimeTearDown]
-    public void AssemblyTearDown()
-    {
-        TestSuiteTearDown();
-
-        Reporter.GenerateReport();
-    }
-}
 
 namespace EVotingProject
 {
+
+
     [TestFixture]
     public abstract class UnitTestClassBase : UnitTestBase
     {
+
+        public  IBrowser browser;
+
         [OneTimeSetUp]
         public void GlobalSetup()
         {
@@ -77,5 +60,29 @@ namespace EVotingProject
                     return Status.Passed;
             }
         }
+    }
+}
+
+/// <summary>
+/// Runs before all classes and tests in the current project.
+/// <remarks>This class must remain outside any namespace in order to provide setup and tear down for the entire assembly.
+/// To get more information follow this link: https://github.com/nunit/docs/wiki/SetUpFixture-Attribute
+/// </remarks>
+/// </summary>
+[SetUpFixture]
+public class SetupFixture : UnitTestSuiteBase
+{
+    [OneTimeSetUp]
+    public void AssemblySetUp()
+    {
+        TestSuiteSetup(TestContext.CurrentContext.WorkDirectory);
+    }
+
+    [OneTimeTearDown]
+    public void AssemblyTearDown()
+    {
+        TestSuiteTearDown();
+
+        Reporter.GenerateReport();
     }
 }

@@ -11,14 +11,14 @@ namespace EVotingProject.Pages
 {
 
 
-    class YandexPage:Helpers.PageHelper
+    class YandexPage : Helpers.PageHelper
     {
         //private static IBrowser browser;
 
         private static CSSDescription searhTextInp = new CSSDescription("input#text");
         private static XPathDescription searhBt = new XPathDescription(".//button[span[text()='Найти']]");
         private static CSSDescription contentList = new CSSDescription("ul.serp-list>li");
-
+        private static CSSDescription contDiv = new CSSDescription("div.content__left");
 
 
 
@@ -33,7 +33,9 @@ namespace EVotingProject.Pages
         {
             var searh = browser.Describe<IButton>(searhBt);
             searh.Click();
-            browser.Sync();
+            // browser.Sync();
+
+            //Console.WriteLine(DateTime.Now+ ":clickSearh");
         }
 
         public static bool isSearhElementsExist()
@@ -43,14 +45,12 @@ namespace EVotingProject.Pages
 
         public static int getCountContent()
         {
+            var contentDiv = browser.Describe<IWebElement>(contDiv);
+            contentDiv.WaitUntil(c => c.Exists() && c.IsVisible);
 
-           // var suggestions = browser.Describe<IWebElement>(contentList);
-           // suggestions.WaitUntil(suggestionsBox => suggestionsBox.Exists() && suggestionsBox.IsVisible);
-           
-
-            var content = browser.FindChildren<IWebElement>(contentList);
-            System.Console.WriteLine("contentList is exists = " + browser.Describe<IWebElement>(contentList).Exists());
-            System.Console.WriteLine("content lenght=" + content.Length);
+            //var content = browser.FindChildren<IWebElement>(contentList);
+            var content = contentDiv.FindChildren<IWebElement>(contentList);
+            Console.WriteLine("content lenght=" + content.Length);
 
             return content.Length;
         }

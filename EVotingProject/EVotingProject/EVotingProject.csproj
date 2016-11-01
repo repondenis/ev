@@ -105,6 +105,7 @@
     <Compile Include="Pages\NewMeetingPage.cs" />
     <Compile Include="Pages\PortalPage.cs" />
     <Compile Include="Pages\ProfileOrgPage.cs" />
+    <Compile Include="Tests\release1\InputAdminsEVotingTest.cs" />
     <Compile Include="Tests\YandexTest.cs" />
     <Compile Include="Pages\YandexPage.cs" />
     <Compile Include="Helpers\UnitTestClassBase.cs" />
