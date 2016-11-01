@@ -91,8 +91,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LeanFtTest.cs" />
-    <Compile Include="UnitTestClassBase.cs" />
+    <Compile Include="Helpers\PageHelper.cs" />
+    <Compile Include="Models\MenuParam.cs" />
+    <Compile Include="Pages\EmployeeAddPage.cs" />
+    <Compile Include="Pages\EmployeePage.cs" />
+    <Compile Include="Pages\ForgotPasswordPage.cs" />
+    <Compile Include="Pages\LoginEsiaPage.cs" />
+    <Compile Include="Pages\LoginLocalPage.cs" />
+    <Compile Include="Pages\LoginPage.cs" />
+    <Compile Include="Pages\LoginSertPage.cs" />
+    <Compile Include="Pages\_MeetingControlPage.cs" />
+    <Compile Include="Pages\MeetingPage.cs" />
+    <Compile Include="Pages\NewMeetingPage.cs" />
+    <Compile Include="Pages\PortalPage.cs" />
+    <Compile Include="Pages\ProfileOrgPage.cs" />
+    <Compile Include="Tests\YandexTest.cs" />
+    <Compile Include="Pages\YandexPage.cs" />
+    <Compile Include="Helpers\UnitTestClassBase.cs" />
     <None Include="App.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
@@ -100,6 +115,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
