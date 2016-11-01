@@ -9,7 +9,7 @@ using EVotingProject.Models;
 
 namespace EVotingProject.Tests
 {
-    [TestFixture]
+    [TestFixture, Description("Ввод администраторов E-Voting")]
     public class InputOfAdministrarors : UnitTestClassBase
     {
         private string url = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/";
@@ -27,8 +27,7 @@ namespace EVotingProject.Tests
             browser.Navigate(this.url);
         }
 
-        [Test]
-        [Description("Тест 57030")]
+        [Test, Description("Проверка инициации добавления нового администратора E-Voting, 57030")]
         public void VerificationOfAddNewAdministrator()
         {
             Assert.True(LoginPage.isLoginPage());

@@ -10,7 +10,7 @@ using HP.LFT.SDK.Web;
 
 namespace EVotingProject.Pages
 {
-    class PortalPage:Helpers.PageHelper
+    class PortalPage : Helpers.PageHelper
     {
 
         //MENU
@@ -53,13 +53,15 @@ namespace EVotingProject.Pages
 
 
 
-        public static bool isPortalPage() {
+        public static bool isPortalPage()
+        {
             return browser.Describe<IWebElement>(textMeeting).Exists().ToString().Equals("собрания");
 
         }
 
-        public static void gotoMenuPortal() {
-           browser.Describe<ILink>(menuPortal).Click();
+        public static void gotoMenuPortal()
+        {
+            browser.Describe<ILink>(menuPortal).Click();
         }
 
         public static void gotoMenuMeetings()
@@ -72,6 +74,16 @@ namespace EVotingProject.Pages
             browser.Describe<ILink>(menuUsers).Click();
         }
 
+        public static void gotoMenuEmitents()
+        {
+            browser.Describe<ILink>(menuEmitents).Click();
+        }
+
+        public static void gotoMenuProfileOrg()
+        {
+            browser.Describe<ILink>(menuProfileOrg).Click();
+        }
+
         public static void clickUserName()
         {
             browser.Describe<ILink>(menuUserName).Click();
@@ -82,36 +94,44 @@ namespace EVotingProject.Pages
             browser.Describe<ILink>(userNameToggle).Click();
         }
 
-        public static bool isBlockUserName() {
+        public static bool isBlockUserName()
+        {
             return browser.Describe<IWebElement>(userNameBlock).Exists();
         }
 
-        public static void logout() {
+        public static void logout()
+        {
             browser.Describe<IButton>(userNameLogout).Click();
         }
 
-        public static string getUserName() {
+        public static string getUserName()
+        {
             return browser.Describe<IWebElement>(userNameBlock).GetVisibleText();
         }
 
-        public static void clickNewMeeting() {
+        public static void clickNewMeeting()
+        {
             browser.Describe<IButton>(newMeeting).Click();
         }
 
 
-        public static void setMeetingsSearhText(string value) {
+        public static void setMeetingsSearhText(string value)
+        {
             browser.Describe<IFileField>(meetingsSearhText).SetValue(value);
         }
 
-        public static void setMeetingsStartInput(string value) {
+        public static void setMeetingsStartInput(string value)
+        {
             browser.Describe<IFileField>(meetingsStartInput).SetValue(value);
         }
 
-        public static void setMeetingsFixingDateInput(string value) {
+        public static void setMeetingsFixingDateInput(string value)
+        {
             browser.Describe<IFileField>(meetingsFixingDateInput).SetValue(value);
         }
 
-        public static void clickMeetingStatusFilterLabel() {
+        public static void clickMeetingStatusFilterLabel()
+        {
             browser.Describe<ILink>(meetingStatusFilterLabel).Click();
         }
 
@@ -120,11 +140,12 @@ namespace EVotingProject.Pages
             browser.Describe<ILink>(meetingStatusFilterToggle).Click();
         }
 
-        public static void selectMeetingStatusFilterItems(string meetingStatusFilter) {
+        public static void selectMeetingStatusFilterItems(string meetingStatusFilter)
+        {
             browser.Describe<IListBox>(meetingStatusFilterItems).Select(meetingStatusFilter);
         }
 
 
-        
+
     }
 }

@@ -12,7 +12,7 @@ namespace EVotingProject
     public class LeanFtTest : UnitTestClassBase
     {
 
-        
+
         private string url = "http://yandex.ru";
 
         [OneTimeSetUp]// [TestFixtureSetUp]
@@ -26,6 +26,13 @@ namespace EVotingProject
         {
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.Navigate(this.url);
+        }
+
+        [TestCase(true, TestName = "Tест пройден, №503770", Description = "тест пройден")]
+        [TestCase(false, TestName = "Tест не пройден, №503723", Description = "тест не пройден")]
+        public void Test1(bool state)
+        {
+            Assert.True(state);
         }
 
         [Test]
