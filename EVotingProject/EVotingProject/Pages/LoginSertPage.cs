@@ -36,7 +36,7 @@ namespace EVotingProject.Pages
 
         public static string getFileNameLoad()
         {
-            return browser.Describe<IWebElement>(labelNameFile).GetVisibleText();
+            return browser.Describe<IWebElement>(labelNameFile).InnerText;
         }
 
         public static void setPassword(string psw)

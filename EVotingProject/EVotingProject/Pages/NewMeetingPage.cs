@@ -74,7 +74,7 @@ namespace EVotingProject.Pages
 
         public static bool isNewMeetingPage()
         {
-            return browser.Describe<IWebElement>(headertext).Exists() && browser.Describe<IWebElement>(headertext).GetVisibleText().Equals("создание собрания");
+            return browser.Describe<IWebElement>(headertext).Exists() && browser.Describe<IWebElement>(headertext).InnerText.Equals("создание собрания");
         }
 
 

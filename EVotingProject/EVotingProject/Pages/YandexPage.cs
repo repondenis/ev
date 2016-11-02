@@ -33,7 +33,7 @@ namespace EVotingProject.Pages
         {
             var searh = browser.Describe<IButton>(searhBt);
             searh.Click();
-            // browser.Sync();
+             browser.Sync();
 
             //Console.WriteLine(DateTime.Now+ ":clickSearh");
         }

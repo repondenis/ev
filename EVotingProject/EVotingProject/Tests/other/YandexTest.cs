@@ -30,6 +30,7 @@ namespace EVotingProject
 
         [TestCase(true, TestName = "Tест пройден, №503770", Description = "тест пройден")]
         [TestCase(false, TestName = "Tест не пройден, №503723", Description = "тест не пройден")]
+        [Ignore("тестовый яндекс тест")]
         public void Test1(bool state)
         {
             Assert.True(state);

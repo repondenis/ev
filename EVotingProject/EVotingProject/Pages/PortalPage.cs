@@ -21,11 +21,10 @@ namespace EVotingProject.Pages
         private static XPathDescription menuProfileOrg = new XPathDescription(".//a[span[text()='Профиль организации']]");
 
 
-        //
+        //форма пользователя-логаут
         private static CSSDescription menuUserName = new CSSDescription("a.user-name");
         private static CSSDescription userNameToggle = new CSSDescription("a.link-toggle");
-
-        private static CSSDescription userNameBlock = new CSSDescription("div.user-name");//text name user
+        private static CSSDescription userNameBlock = new CSSDescription("div.block__info-user");//text name user
         private static CSSDescription userNameLogout = new CSSDescription("a.link-cancel-e-voting");// button exit
 
 
@@ -55,7 +54,10 @@ namespace EVotingProject.Pages
 
         public static bool isPortalPage()
         {
-            return browser.Describe<IWebElement>(textMeeting).Exists().ToString().Equals("собрания");
+
+            browser.Sync();
+            //Console.WriteLine("textMeeting=" + browser.Describe<IWebElement>(textMeeting).InnerText);
+            return browser.Describe<IWebElement>(textMeeting).Exists() && browser.Describe<IWebElement>(textMeeting).InnerText.Equals("собрания");
 
         }
 
@@ -91,7 +93,12 @@ namespace EVotingProject.Pages
 
         public static void clickToggleUserName()
         {
-            browser.Describe<ILink>(userNameToggle).Click();
+            browser.Describe<IWebElement>(userNameToggle).Click();
+        }
+
+        public static bool isToggleUserName()
+        {
+            return browser.Describe<IWebElement>(userNameToggle).Exists();
         }
 
         public static bool isBlockUserName()
@@ -101,12 +108,19 @@ namespace EVotingProject.Pages
 
         public static void logout()
         {
-            browser.Describe<IButton>(userNameLogout).Click();
+            if (isToggleUserName())
+            {
+                clickToggleUserName();
+
+                if (isBlockUserName())
+                    browser.Describe<ILink>(userNameLogout).Click();
+            }
         }
+
 
         public static string getUserName()
         {
-            return browser.Describe<IWebElement>(userNameBlock).GetVisibleText();
+            return browser.Describe<IWebElement>(userNameBlock).InnerText;
         }
 
         public static void clickNewMeeting()

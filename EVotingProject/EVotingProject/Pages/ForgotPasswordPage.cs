@@ -13,7 +13,7 @@ namespace EVotingProject.Pages
 
         public static bool isForgotPasswordPage()
         {
-            return browser.Describe<IWebElement>(description).Exists() && browser.Describe<IWebElement>(description).GetVisibleText().Equals("Восстановление пароля");
+            return browser.Describe<IWebElement>(description).Exists() && browser.Describe<IWebElement>(description).InnerText.Equals("Восстановление пароля");
         }
     }
 }

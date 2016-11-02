@@ -7,7 +7,7 @@ using HP.LFT.SDK.Web;
 
 namespace EVotingProject.Pages
 {
-    class EmployeePage : Helpers.PageHelper
+    class EmployeePage : PortalPage
     {
         //private static CSSDescription divEmployee = new CSSDescription("div#employee-block");
         private static CSSDescription divEmployeeTitle = new CSSDescription(
@@ -26,10 +26,15 @@ namespace EVotingProject.Pages
         private static CSSDescription activeToggle = new CSSDescription(
             "div#employee-block>div>div:nth-child(2)>div:nth-child(6) button");
 
+        private static CSSDescription employeesDateTabl = new CSSDescription("table.table-condensed");//("tbody[id='personForm:employeeTable_data']");
+
         private static CSSDescription employeesDate = new CSSDescription(
             "tbody[id='personForm:employeeTable_data'] tr");//count empl
         private static CSSDescription employeesDateName = new CSSDescription(
             "tbody[id='personForm:employeeTable_data'] tr:nth-child(1)>td:nth-child(1)");//первый пользователь - имя
+
+
+
         private static CSSDescription employeesDateOrg = new CSSDescription(
             "tbody[id='personForm:employeeTable_data'] tr:nth-child(1)>td:nth-child(2)");//первый пользователь - ОРГ
         private static CSSDescription employeesDateRole = new CSSDescription(
@@ -39,14 +44,26 @@ namespace EVotingProject.Pages
         private static CSSDescription employeesDateEdit = new CSSDescription(
             "tbody[id='personForm:employeeTable_data'] tr:nth-child(1)>td:nth-child(5)>a");//первый пользователь - редактировать
 
-
+        public static void addNewUser()
+        {
+            browser.Describe<IButton>(employeeAdd).Click();
+        }
 
 
         public static bool isEmployeePage()
         {
-            return browser.Describe<IWebElement>(divEmployeeTitle).Exists() && browser.Describe<IWebElement>(divEmployeeTitle).GetVisibleText().Equals("пользователи");
+            browser.Sync();
+            return browser.Describe<IWebElement>(divEmployeeTitle).Exists() && browser.Describe<IWebElement>(divEmployeeTitle).InnerText.Equals("пользователи");
         }
 
+        public static void getEmployeesTable()
+        {
+
+            var table = browser.Describe<ITable>(employeesDateTabl);
+            Console.WriteLine("FindRowWithCellText = " + browser.Describe<IWebElement>(employeesDateTabl).Exists());
+            Console.WriteLine("FindRowWithCellText = " + browser.Describe<ITable>(employeesDateTabl).Exists());
+
+        }
 
     }
 }

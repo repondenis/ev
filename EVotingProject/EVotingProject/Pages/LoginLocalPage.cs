@@ -10,8 +10,8 @@ namespace EVotingProject.Pages
     class LoginLocalPage : Helpers.PageHelper
     {
         //поля логин-пароль
-        private static CSSDescription login = new CSSDescription("input#inputLogin");
-        private static CSSDescription password = new CSSDescription("input#inputPassword");
+        private static CSSDescription login = new CSSDescription("input[name='inputLogin']");
+        private static CSSDescription password = new CSSDescription("input[name='inputPassword']");
 
         //buttons
         private static CSSDescription sumbit = new CSSDescription("button[type='submit']");//войти
@@ -19,6 +19,7 @@ namespace EVotingProject.Pages
 
         public static bool isLoginLocalPage()
         {
+            browser.Sync();
             return browser.Describe<IEditField>(login).Exists();
         }
 
@@ -36,7 +37,8 @@ namespace EVotingProject.Pages
             sumbitB.Click();
         }
 
-        public void forgotRass() {
+        public void forgotRass()
+        {
             ILink forgotPasswB = browser.Describe<ILink>(forgotPassw);
             forgotPasswB.Click();
         }

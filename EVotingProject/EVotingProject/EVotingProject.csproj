@@ -93,7 +93,7 @@
   <ItemGroup>
     <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Models\MenuParam.cs" />
-    <Compile Include="Pages\EmployeeAddPage.cs" />
+    <Compile Include="Pages\NewEmployeePage.cs" />
     <Compile Include="Pages\EmployeePage.cs" />
     <Compile Include="Pages\ForgotPasswordPage.cs" />
     <Compile Include="Pages\LoginEsiaPage.cs" />
@@ -106,7 +106,7 @@
     <Compile Include="Pages\PortalPage.cs" />
     <Compile Include="Pages\ProfileOrgPage.cs" />
     <Compile Include="Tests\release1\InputAdminsEVotingTest.cs" />
-    <Compile Include="Tests\YandexTest.cs" />
+    <Compile Include="Tests\other\YandexTest.cs" />
     <Compile Include="Pages\YandexPage.cs" />
     <Compile Include="Helpers\UnitTestClassBase.cs" />
     <None Include="App.config" />

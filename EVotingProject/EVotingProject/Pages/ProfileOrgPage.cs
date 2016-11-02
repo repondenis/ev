@@ -41,7 +41,7 @@ namespace EVotingProject.Pages
 
         public static bool isProfileOrgPage(string org)
         {
-            return browser.Describe<IWebElement>(orgProfileTitle).Exists() && browser.Describe<IWebElement>(orgProfileTitle).GetVisibleText().Equals(org);
+            return browser.Describe<IWebElement>(orgProfileTitle).Exists() && browser.Describe<IWebElement>(orgProfileTitle).InnerText.Equals(org);
         }
 
     }
