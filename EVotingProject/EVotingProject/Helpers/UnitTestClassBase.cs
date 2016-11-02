@@ -16,6 +16,8 @@ namespace EVotingProject
     {
 
         public  IBrowser browser;
+        public string url = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/";
+        public string url2 = "https://portal-dev-evoting.test.gosuslugi.ru/";
 
         [OneTimeSetUp]
         public void GlobalSetup()

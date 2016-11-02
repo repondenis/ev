@@ -123,5 +123,25 @@ namespace EVotingProject.Pages
             isBlockExist();
             browser.Describe<IButton>(blockB).Click();
         }
+
+        public static void gotoInfo()
+        {
+            browser.Describe<ILink>(menuInfo).Click();
+        }
+
+        public static void gotoRole()
+        {
+            browser.Describe<ILink>(menuRole).Click();
+        }
+
+        public static bool isInfoPanel()
+        {
+            return browser.Describe<IWebElement>(organization).Exists();
+        }
+
+        public static bool isRolePanel()
+        {
+            return browser.Describe<IWebElement>(availRoles).Exists();
+        }
     }
 }

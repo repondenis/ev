@@ -60,7 +60,7 @@ namespace EVotingProject.Pages
 
         public static void getEmployeesTable(string str)
         {
-
+            Console.WriteLine("searh of " + str);
             var table = browser.Describe<ITable>(employeesDateTabl);
             Console.WriteLine("FindRowWithCellText = " + browser.Describe<ITable>(employeesDateTabl).Rows[0].Cells[0].Text);
             Console.WriteLine("FindRowWithCellText = " + browser.Describe<ITable>(employeesDateTabl).FindRowWithCellText(str).Cells[0].Text);

@@ -13,8 +13,7 @@ namespace EVotingProject.Tests
     [TestFixture, Description("Ввод администраторов E-Voting")]
     public class InputOfAdministrarors : UnitTestClassBase
     {
-        private string url = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/";
-        private string url2 = "https://portal-dev-evoting.test.gosuslugi.ru/";
+
 
         [OneTimeSetUp]
         public void TestFixtureSetUp()
@@ -76,7 +75,7 @@ namespace EVotingProject.Tests
                 NewEmployeePage.setLogin("fio12369");
                 NewEmployeePage.setSnils("96345678910");
                 NewEmployeePage.save();
-                Assert.True(NewEmployeePage.isMessageGrowleOk(),"не должно вылететь ошибки");
+                Assert.True(NewEmployeePage.isMessageGrowleOk(), "не должно вылететь ошибки");
 
                 NewEmployeePage.unblock();
                 NewEmployeePage.save();
@@ -168,7 +167,7 @@ namespace EVotingProject.Tests
                 Console.WriteLine(DateTime.Now);
 
                 PageHelper.setBrowser(browser);
-                
+
                 //step1 - не указываем данные в обязат полях
                 Assert.True(EmployeePage.isEmployeePage());
                 EmployeePage.addNewUser();
@@ -268,9 +267,43 @@ namespace EVotingProject.Tests
                 NewEmployeePage.setLogin("fio12369");
                 NewEmployeePage.save();
                 Assert.False(NewEmployeePage.isMessageGrowleOk("такая запись уже существует"));
+
+
+                //6
                 NewEmployeePage.cancel();
 
 
+            }
+            catch (Exception e)
+            {
+                Reporter.ReportEvent(GetTestName(), "Failed during validation", Status.Failed, e);
+                throw;
+            }
+        }
+
+
+        [TestCase(TestName = "6.Проверка отмены добавления администратора, 57033")]
+        public void Test57033()
+        {
+            try
+            {
+                Console.WriteLine(DateTime.Now);
+
+                PageHelper.setBrowser(browser);
+
+                Assert.True(EmployeePage.isEmployeePage());
+                EmployeePage.addNewUser();
+                Assert.True(NewEmployeePage.isNewEmployeePage());
+                NewEmployeePage.setLastName("Имя2");
+                NewEmployeePage.setFirstName("Фамилия2");
+                NewEmployeePage.setOtherName("Отчество2");
+                NewEmployeePage.setLogin("fio666");
+                NewEmployeePage.setSnils("66645678910");
+                NewEmployeePage.cancel();
+                Assert.True(EmployeePage.isEmployeePage());
+
+                //проверяем НЕТ ли текущий пользователь в табл пользователей
+                EmployeePage.getEmployeesTable("Имя2 Фамилия2 Отчество2");
 
             }
             catch (Exception e)

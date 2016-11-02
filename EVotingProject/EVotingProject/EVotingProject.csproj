@@ -105,10 +105,11 @@
     <Compile Include="Pages\NewMeetingPage.cs" />
     <Compile Include="Pages\PortalPage.cs" />
     <Compile Include="Pages\ProfileOrgPage.cs" />
-    <Compile Include="Tests\release1\InputAdminsEVotingTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_administrators\InputAdminsEVotingTest.cs" />
     <Compile Include="Tests\other\YandexTest.cs" />
     <Compile Include="Pages\YandexPage.cs" />
     <Compile Include="Helpers\UnitTestClassBase.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\RepresentativesOfIssuerTest.cs" />
     <None Include="App.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
@@ -116,7 +117,11 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\Representatives_of_recorder\" />
+    <Folder Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_of_issuer\" />
+    <Folder Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_of_recorder\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
