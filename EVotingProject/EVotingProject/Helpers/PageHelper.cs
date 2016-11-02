@@ -33,12 +33,26 @@ namespace EVotingProject.Helpers
         }
 
 
-        public static bool isMessageGrowleError()
+        public static bool isMessageGrowleOk()
         {
-            if (browser.Describe<IWebElement>(messageGrowle).Exists())
+            var msg = browser.Describe<IWebElement>(messageGrowle);
+            if (msg.Exists())
             {
-                Console.WriteLine("MSG: "+browser.Describe<IWebElement>(messageGrowleText).InnerHTML);
-                return browser.Describe<IWebElement>(messageGrowleError).Exists();
+                Console.WriteLine("MSG: " + msg.Describe<IWebElement>(messageGrowleText).InnerHTML + ", " + DateTime.Now);
+                //return browser.Describe<IWebElement>(messageGrowleError).Exists();
+                return browser.Describe<IWebElement>(messageGrowleInfo).Exists();
+            }
+            return false;
+        }
+
+        public static bool isMessageGrowleOk(string str)
+        {
+            var msg = browser.Describe<IWebElement>(messageGrowle);
+            if (msg.Exists())
+            {
+                Console.WriteLine("MSG: " + msg.Describe<IWebElement>(messageGrowleText).InnerHTML + ", " + DateTime.Now);
+                //return browser.Describe<IWebElement>(messageGrowleError).Exists();
+                return msg.Describe<IWebElement>(messageGrowleInfo).Exists() && msg.Describe<IWebElement>(messageGrowleText).InnerHTML.Contains(str);
             }
             return false;
         }
