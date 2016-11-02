@@ -83,7 +83,10 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.unblock();
                 NewEmployeePage.save();
                 Assert.True(NewEmployeePage.isBlockExist());
-                NewEmployeePage.GotoRole
+
+                NewEmployeePage.gotoRole();
+                Assert.True(NewEmployeePage.isRolePanel());
+                NewEmployeePage.selectAvailRolesList();//выбрать роль
 
                 NewEmployeePage.gotoMenuUsers();
                 Assert.True(EmployeePage.isEmployeePage());

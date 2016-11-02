@@ -143,5 +143,15 @@ namespace EVotingProject.Pages
         {
             return browser.Describe<IWebElement>(availRoles).Exists();
         }
+
+        public static void clickAvailRolesToggle()
+        {
+            browser.Describe<IWebElement>(availRolesToggle).Click();
+        }
+
+        public static void selectAvailRolesList()
+        {
+            Console.WriteLine(browser.Describe<IWebElement>(availRolesList).InnerText);
+        }
     }
 }
