@@ -12,7 +12,7 @@ namespace EVotingProject.Tests.release1
 {
     [TestFixture]
     [Description("Проверка ввода представителя-администратора эмитента")]
-    public class RepresentativesOfIssuerTest : UnitTestClassBase
+    public class AddNewAdminOfIssuerTest : UnitTestClassBase
     {
         [OneTimeSetUp]
         public void TestFixtureSetUp()

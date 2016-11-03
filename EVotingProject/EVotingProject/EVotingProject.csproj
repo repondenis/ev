@@ -107,12 +107,15 @@
     <Compile Include="Pages\PortalPage.cs" />
     <Compile Include="Pages\ProfileOrgPage.cs" />
     <Compile Include="Tests\other\SearhOrgTest.cs" />
-    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_administrators\InputAdminsEVotingTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\1_Input_of_administrators\InputAdminsEVotingTest.cs" />
     <Compile Include="Tests\other\YandexTest.cs" />
     <Compile Include="Pages\YandexPage.cs" />
     <Compile Include="Helpers\UnitTestClassBase.cs" />
-    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\RepresentativesOfIssuerTest.cs" />
-    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\RepresentativesOfRegistratorTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\2_Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\AddNewAdminOfIssuerTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\2_Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\AddNewAdminOfRegistratorTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\2_Input_of_representatives_of_recorder_ and_issuer\Admin_of_issuer\AddNewMemberOfComissionOfIssuerTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\2_Input_of_representatives_of_recorder_ and_issuer\Admin_of_registrator\AddNewMemberOfComissionOfRegistrTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\3_Input_info_of_reg_and_iss\Transfer_of_authority.cs" />
     <None Include="App.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
@@ -120,10 +123,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_of_issuer\" />
-    <Folder Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_of_registrator\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
