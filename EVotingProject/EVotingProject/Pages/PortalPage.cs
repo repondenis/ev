@@ -17,8 +17,10 @@ namespace EVotingProject.Pages
         private static XPathDescription menuPortal = new XPathDescription(".//a[@href='/portal/' and span[img]]");
         private static XPathDescription menuMeetings = new XPathDescription(".//a[span[text()='Собрания']]");
         private static XPathDescription menuUsers = new XPathDescription(".//a[span[text()='Пользователи']]");
+        private static XPathDescription menuOrganizations = new XPathDescription(".//a[span[text()='Организации']]");
         private static XPathDescription menuEmitents = new XPathDescription(".//a[span[text()='Эмитенты']]");
         private static XPathDescription menuProfileOrg = new XPathDescription(".//a[span[text()='Профиль организации']]");
+        private static XPathDescription menuContracts = new XPathDescription(".//a[span[text()='Договоры']]");
 
 
         //форма пользователя-логаут
@@ -71,7 +73,7 @@ namespace EVotingProject.Pages
             browser.Describe<ILink>(menuMeetings).Click();
         }
 
-        public static void gotoMenuUsers()
+        public static void gotoMenuEmployees()
         {
             browser.Describe<ILink>(menuUsers).Click();
         }
@@ -79,6 +81,16 @@ namespace EVotingProject.Pages
         public static void gotoMenuEmitents()
         {
             browser.Describe<ILink>(menuEmitents).Click();
+        }
+
+        public static void gotoMenuOrganizations()
+        {
+            browser.Describe<ILink>(menuOrganizations).Click();
+        }
+
+        public static void gotoMenuContracts()
+        {
+            browser.Describe<ILink>(menuContracts).Click();
         }
 
         public static void gotoMenuProfileOrg()

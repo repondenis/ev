@@ -21,7 +21,7 @@ namespace EVotingProject.Tests
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(this.url2);
+            browser.Navigate(urlAdmin);
         }
 
         [SetUp]
@@ -46,10 +46,10 @@ namespace EVotingProject.Tests
                 Assert.True(LoginLocalPage.isLoginLocalPage());
                 LoginLocalPage.runLogin(login, pass);
                 Assert.True(PortalPage.isPortalPage());
-                PortalPage.gotoMenuUsers();
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                PortalPage.gotoMenuEmployees();
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
 
             }
             catch (Exception e)
@@ -68,7 +68,7 @@ namespace EVotingProject.Tests
 
                 PageHelper.setBrowser(browser);
 
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -80,8 +80,8 @@ namespace EVotingProject.Tests
                 NewEmployeePage.unblock();
                 NewEmployeePage.save();
                 Assert.True(NewEmployeePage.isBlockExist());
-                NewEmployeePage.gotoMenuUsers();
-                Assert.True(EmployeePage.isEmployeePage());
+                NewEmployeePage.gotoMenuEmployees();
+                Assert.True(EmployeePage.isTruePage());
 
                 //проверяем есть ли текущий пользователь в табл пользователей
                 EmployeePage.getEmployeesTable("Имя Фамилия Отчество");
@@ -103,17 +103,17 @@ namespace EVotingProject.Tests
 
                 PageHelper.setBrowser(browser);
 
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Орлов");
                 NewEmployeePage.setFirstName("Сергей");
                 NewEmployeePage.setOtherName("Сергеевич");
                 NewEmployeePage.setLogin("login123");
                 NewEmployeePage.save();
                 Assert.True(NewEmployeePage.isMessageGrowleOk("Сохраненеи успешно прошло"));
-                NewEmployeePage.gotoMenuUsers();
-                Assert.True(EmployeePage.isEmployeePage());
+                NewEmployeePage.gotoMenuEmployees();
+                Assert.True(EmployeePage.isTruePage());
 
                 //проверяем есть ли текущий пользователь в табл пользователей
                 EmployeePage.getEmployeesTable("Орлов Сергей Сергеевич");
@@ -136,17 +136,17 @@ namespace EVotingProject.Tests
 
                 PageHelper.setBrowser(browser);
 
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Орлов");
                 NewEmployeePage.setFirstName("Сергей");
                 NewEmployeePage.setOtherName("Сергеевич");
                 NewEmployeePage.setSnils("96365678910");
                 NewEmployeePage.save();
                 Assert.True(NewEmployeePage.isMessageGrowleOk("Сохраненеи успешно прошло"));
-                NewEmployeePage.gotoMenuUsers();
-                Assert.True(EmployeePage.isEmployeePage());
+                NewEmployeePage.gotoMenuEmployees();
+                Assert.True(EmployeePage.isTruePage());
 
                 //проверяем есть ли текущий пользователь в табл пользователей
                 EmployeePage.getEmployeesTable("Орлов Сергей Сергеевич");
@@ -169,17 +169,17 @@ namespace EVotingProject.Tests
                 PageHelper.setBrowser(browser);
 
                 //step1 - не указываем данные в обязат полях
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.save();
                 Assert.False(NewEmployeePage.isMessageGrowleOk(), "должна вылетель ошибка");
                 NewEmployeePage.cancel();
 
                 //step2 - заполн соотв поля не в соотв с Паттернами, login&snils is null
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Orlov6");
                 NewEmployeePage.setFirstName("Сер гей 123");
                 NewEmployeePage.setOtherName("123456");
@@ -188,9 +188,9 @@ namespace EVotingProject.Tests
                 NewEmployeePage.cancel();
 
                 //step3 - заполн соотв поля не в соотв с Паттернами, login&snils is not null
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Orlov6");
                 NewEmployeePage.setFirstName("Сер гей 123");
                 NewEmployeePage.setOtherName("123456");
@@ -201,9 +201,9 @@ namespace EVotingProject.Tests
                 NewEmployeePage.cancel();
 
                 //step3 - заполн соотв поля в соотв с Паттернами, login<6 symbols
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -227,13 +227,14 @@ namespace EVotingProject.Tests
             try
             {
                 Console.WriteLine(DateTime.Now);
-
                 PageHelper.setBrowser(browser);
 
-                //1
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                //step-1
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.getEmployeesTable("Имя" + " " + "Фамилия" + " " + "Отчество");//проверяем есть ли текущий пользователь в табл пользователей
+
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -241,13 +242,17 @@ namespace EVotingProject.Tests
                 NewEmployeePage.setSnils("96345678910");
                 NewEmployeePage.save();
                 Assert.False(NewEmployeePage.isMessageGrowleOk("такая запись уже существует"));
-                //2
+               
+                //step-2
                 NewEmployeePage.cancel();
+                Assert.True(EmployeePage.isTruePage());
 
-                //3 - вводим дубл данные, логин - пропускаем 
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                //step-3 - вводим дубл данные, логин - пропускаем 
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.getEmployeesTable("Имя" + " " + "Фамилия" + " " + "Отчество");//проверяем есть ли текущий пользователь в табл пользователей
+
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -255,12 +260,14 @@ namespace EVotingProject.Tests
                 NewEmployeePage.save();
                 Assert.False(NewEmployeePage.isMessageGrowleOk("такая запись уже существует"));
                 NewEmployeePage.cancel();
-                //4 - ???
+                //step-4 - ???
 
-                //5 - вводим дубл данные, снилс - пропускаем 
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                //step-5 - вводим дубл данные, снилс - пропускаем 
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.getEmployeesTable("Имя" + " " + "Фамилия" + " " + "Отчество");//проверяем есть ли текущий пользователь в табл пользователей
+
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -269,9 +276,9 @@ namespace EVotingProject.Tests
                 Assert.False(NewEmployeePage.isMessageGrowleOk("такая запись уже существует"));
 
 
-                //6
+                //step-6
                 NewEmployeePage.cancel();
-
+                Assert.True(EmployeePage.isTruePage());
 
             }
             catch (Exception e)
@@ -291,16 +298,16 @@ namespace EVotingProject.Tests
 
                 PageHelper.setBrowser(browser);
 
-                Assert.True(EmployeePage.isEmployeePage());
-                EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isNewEmployeePage());
+                Assert.True(EmployeePage.isTruePage());
+                EmployeePage.addNewAdminEVoting();
+                Assert.True(NewEmployeePage.isTruePage());
                 NewEmployeePage.setLastName("Имя2");
                 NewEmployeePage.setFirstName("Фамилия2");
                 NewEmployeePage.setOtherName("Отчество2");
                 NewEmployeePage.setLogin("fio666");
                 NewEmployeePage.setSnils("66645678910");
                 NewEmployeePage.cancel();
-                Assert.True(EmployeePage.isEmployeePage());
+                Assert.True(EmployeePage.isTruePage());
 
                 //проверяем НЕТ ли текущий пользователь в табл пользователей
                 EmployeePage.getEmployeesTable("Имя2 Фамилия2 Отчество2");

@@ -11,8 +11,8 @@ using HP.LFT.Report;
 namespace EVotingProject.Tests.release1
 {
     [TestFixture]
-    [Description("Проверка ввода представителя-администратора эмитента")]
-    public class RepresentativesOfIssuerTest : UnitTestClassBase
+    [Description("Проверка ввода представителя-администратора регистратора")]
+    public class RepresentativesOfRegistratorTest : UnitTestClassBase
     {
         [OneTimeSetUp]
         public void TestFixtureSetUp()
@@ -30,8 +30,8 @@ namespace EVotingProject.Tests.release1
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin",
-                     TestName = "1.Проверка инициации добавления нового администратора эмитента E-Voting, 57036")]
-        public void Test57036(string menuPar, string loginPar, string login, string pass)
+            TestName = "1.Проверка инициации добавления нового администратора регистратора E-Voting, 57045")]
+        public void Test57045(string menuPar, string loginPar, string login, string pass)
         {
             try
             {
@@ -58,8 +58,8 @@ namespace EVotingProject.Tests.release1
         }
 
         [TestCase("Имя", "Фамилия", "Отчество", "fio12369", "96345678910", "не должно вылететь ошибки",
-                     TestName = "2.Проверка ввода данных администратора эмитента, 57038")]
-        public void Test57038(string lastName, string firstName, string otherName, string login, string snils, string message)
+            TestName = "2.Проверка ввода данных администратора регистратора, 57047")]
+        public void Test57047(string lastName, string firstName, string otherName, string login, string snils, string message)
         {
 
             try
@@ -102,9 +102,9 @@ namespace EVotingProject.Tests.release1
             }
         }
 
-        [TestCase("Иванов", "Иван", "Иванович", "adm_iss", "26242628212", "не должно вылететь ошибки", availRoles.adminOfIssuer,
-                    TestName = "3.Проверка заполнения полей логина, снилс, 57041")]
-        public void Test57041(string lastName, string firstName, string otherName, string login, string snils, string message, string role)
+        [TestCase("Петров", "Петр", "Петрович", "adm_reg", "16141618111", "не должно вылететь ошибки", availRoles.adminOfRegistrators,
+         TestName = "3.Проверка заполнения полей логина, снилс, 57049")]
+        public void Test57049(string lastName, string firstName, string otherName, string login, string snils, string message, string role)
         {
 
             try
@@ -138,8 +138,6 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.gotoRole();
                 Assert.True(NewEmployeePage.isRolePanel());
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
-                NewEmployeePage.save();
-                Assert.True(NewEmployeePage.isMessageGrowleOk(message), message);
 
                 NewEmployeePage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage());
@@ -168,8 +166,8 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.gotoRole();
                 Assert.True(NewEmployeePage.isRolePanel());
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
-                NewEmployeePage.save();
-                Assert.True(NewEmployeePage.isMessageGrowleOk(message), message);
+
+
 
                 NewEmployeePage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage());
@@ -186,8 +184,8 @@ namespace EVotingProject.Tests.release1
 
 
         [TestCase("сбербанк России ОАО", "Рога и копыта", "не должно вылететь ошибки",
-                    TestName = "4.Проверка ввода организации администратора, 57037")]
-        public void Test57037(string orgNameTrue, string orgNameFalse, string message)
+      TestName = "4.Проверка ввода организации администратора, 57046")]
+        public void Test57046(string orgNameTrue, string orgNameFalse, string message)
         {
 
             try
@@ -239,9 +237,10 @@ namespace EVotingProject.Tests.release1
         }
 
 
+
         [TestCase("Name$", "Family&", "Pather+Name", "ЛогиН", "0001", "используются недопустимые символы",
-                    TestName = "5.Проверка ввода невалидных данных администратора эмитента, 57043")]
-        public void Test57043(string lastName, string firstName, string otherName, string login, string snils, string message)
+       TestName = "5.Проверка ввода невалидных данных администратора регистратора, 57051")]
+        public void Test57051(string lastName, string firstName, string otherName, string login, string snils, string message)
         {
 
             try
@@ -324,8 +323,8 @@ namespace EVotingProject.Tests.release1
 
 
         [TestCase("Имя", "Фамилия", "Отчество", "fio12369", "96345678910", "такая запись уже существует",
-                    TestName = "6.Проверка ввода дублирующих данных администратора эмитента, 57044")]
-        public void Test57044(string lastName, string firstName, string otherName, string login, string snils, string message)
+                    TestName = "6.Проверка ввода дублирующих данных администратора регистратора, 57052")]
+        public void Test57052(string lastName, string firstName, string otherName, string login, string snils, string message)
         {
 
             try
@@ -402,9 +401,9 @@ namespace EVotingProject.Tests.release1
         }
 
 
-        [TestCase("Имя", "Фамилия", "Отчество", "fio12369", "96345678910", "all ok", availRoles.adminOfIssuer,
-           TestName = "7.Проверка настройки полномочий, 57040")]
-        public void Test57040(string lastName, string firstName, string otherName, string login, string snils, string message, string role)
+        [TestCase("Имя", "Фамилия", "Отчество", "fio12369", "96345678910", "all ok", availRoles.adminOfRegistrators,
+           TestName = "7.Проверка настройки полномочий, 57048")]
+        public void Test57048(string lastName, string firstName, string otherName, string login, string snils, string message, string role)
         {
 
             try
@@ -448,9 +447,9 @@ namespace EVotingProject.Tests.release1
             }
         }
 
-        [TestCase("Имя", "Фамилия", "Отчество", "fio12369", "96345678910", "all ok", availRoles.adminOfIssuer,
-     TestName = "8.Проверка отмены добавления администратора, 57042")]
-        public void Test57042(string lastName, string firstName, string otherName, string login, string snils, string message, string role)
+        [TestCase("Имя", "Фамилия", "Отчество", "fio12369", "96345678910", "all ok", availRoles.adminOfRegistrators,
+     TestName = "8.Проверка отмены добавления администратора, 57050")]
+        public void Test57050(string lastName, string firstName, string otherName, string login, string snils, string message, string role)
         {
 
             try
@@ -472,14 +471,14 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.setOtherName(otherName);
                 NewEmployeePage.setLogin(login);
                 NewEmployeePage.setSnils(snils);
-
+                /*
                 NewEmployeePage.gotoRole();
                 Assert.True(NewEmployeePage.isRolePanel());
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
                 NewEmployeePage.isAvailRoleList(role);//появилась ли роль
                 NewEmployeePage.clickAvailRoleListToogle();//нажимаем на ПОЛНОМОЧИЯ
                 NewEmployeePage.isRoleCheckBoxExist(role);//появились полномиочия?
-
+                */
                 //NewEmployeePage.gotoInfo();
                 NewEmployeePage.cancel();
 

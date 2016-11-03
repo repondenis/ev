@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
 using EVotingProject.Helpers;
+using EVotingProject.Models;
 
 namespace EVotingProject.Pages
 {
@@ -21,6 +22,9 @@ namespace EVotingProject.Pages
         private static CSSDescription firstName = new CSSDescription("input[id='form:tabView:firstName']");
         private static CSSDescription phone = new CSSDescription("input[id='form:tabView:phone']");
 
+        private static CSSDescription organizationPanel = new CSSDescription("div[id='form:tabView:organization_panel']>ul");
+
+
         private static CSSDescription otherName = new CSSDescription("div#employee-data-custom>div:nth-child(4) input");
         private static CSSDescription login = new CSSDescription("div#employee-data-custom>div:nth-child(6) input");
         private static CSSDescription snils = new CSSDescription("div#employee-data-custom>div:nth-child(7) input");
@@ -29,10 +33,21 @@ namespace EVotingProject.Pages
 
 
         //РОЛИ
-        private static CSSDescription availRoles = new CSSDescription("label[id='form:tabView:availRoles_label']");
+        private static CSSDescription availRolesLabel = new CSSDescription("label[id='form:tabView:availRoles_label']");
         private static CSSDescription availRolesToggle = new CSSDescription("div[id='form:tabView:availRoles']>div>span.ui-icon-triangle-1-s");
-        private static CSSDescription availRolesList = new CSSDescription("ul[id='form:tabView:availRoles_items']");//LIST
+        private static CSSDescription availRolesSelect = new CSSDescription("ul[id='form:tabView:availRoles_items']");//LIST
 
+        private static CSSDescription availRoleList = new CSSDescription(
+            "span[id='form:tabView:roleList']>div>div:nth-child(1)>div:nth-child(1)");//роли, которые активируются при выборе нужн роли в списке - текст из Models.availRoles
+                                                                                      // ".//span[@id='form:tabView:roleList']/div/div/div[1]"
+        private static CSSDescription availRoleListToogle = new CSSDescription(
+            "span[id='form:tabView:roleList']>div>div:nth-child(1)>label");//кнопка 'полномочия' выбора чек-боксов ролей
+        private static CSSDescription availRoleIssuer = new CSSDescription(
+            "div[data-widget='actions_ISSUER']");//роли Администратор эмитента 
+        private static CSSDescription availRoleRegistrators = new CSSDescription(
+             "div[data-widget='actions_REGISTRATOR']");//роли администратора регистратора
+        private static CSSDescription availRoleComission = new CSSDescription(
+            "div[data-widget='actions_COMMISSION']");//роли Участник счетной комиссии 
 
 
         //END РОЛИ
@@ -48,10 +63,35 @@ namespace EVotingProject.Pages
 
 
 
-        public static bool isNewEmployeePage()
+        public static bool isTruePage()
         {
             browser.Sync();
             return browser.Describe<IWebElement>(divEmployeeAddInfoTitle).Exists() && browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Equals("Добавление пользователя");
+        }
+
+        public static bool isOrganizationPanelAppear()
+        {
+            return browser.Describe<IWebElement>(organizationPanel).Exists();
+        }
+
+        public static void selectItemOfOrganizationPanel(string v)
+        {
+            try
+            {
+                var orgSelect = browser.Describe<IWebElement>(organizationPanel).Describe<IListBox>(new CSSDescription("li"));
+                orgSelect.Select(v);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace + "\r\n" + e.Message);
+            }
+        }
+
+        public static void setOrganization(string v)
+        {
+            var orgInput = browser.Describe<IEditField>(organization);
+            orgInput.SetValue(v);
+            orgInput.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
         }
 
         public static void setFirstName(string v)
@@ -141,7 +181,7 @@ namespace EVotingProject.Pages
 
         public static bool isRolePanel()
         {
-            return browser.Describe<IWebElement>(availRoles).Exists();
+            return browser.Describe<IWebElement>(availRolesLabel).Exists();
         }
 
         public static void clickAvailRolesToggle()
@@ -149,9 +189,57 @@ namespace EVotingProject.Pages
             browser.Describe<IWebElement>(availRolesToggle).Click();
         }
 
-        public static void selectAvailRolesList()
+
+        public static void selectAvailRolesList(string str)
         {
-            Console.WriteLine(browser.Describe<IWebElement>(availRolesList).InnerText);
+            Console.WriteLine(browser.Describe<IWebElement>(availRolesSelect).InnerText);
+        }
+
+        /**
+         * поиск подсказок по полям
+         */
+        public static bool? getFieldsError(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public static bool isAvailRoleList(string str)
+        {
+            return browser.Describe<IWebElement>(availRoleList).Exists() && browser.Describe<IWebElement>(availRoleList).InnerText.Contains(str);
+        }
+
+        /**
+         * нажимаем на ПОЛНОМОЧИЯ
+         */
+        public static void clickAvailRoleListToogle()
+        {
+            browser.Describe<IWebElement>(availRoleListToogle).Click();
+        }
+
+        /**
+         * появилась ли форма чек-боксов нужной роли? 
+         */
+        public static bool isRoleCheckBoxExist(string adminOfRegistrators)
+        {
+            CSSDescription descr = null; ;
+
+            // availRoles.adminOfRegistrators;
+            switch (adminOfRegistrators)
+            {
+
+                case availRoles.adminOfRegistrators:
+                    descr = availRoleRegistrators;
+                    break;
+                case availRoles.adminOfIssuer:
+                    descr = availRoleIssuer;
+                    break;
+                case availRoles.memberOfCounter:
+                    descr = availRoleComission;
+                    break;
+            }
+
+            return browser.Describe<IWebElement>(descr).Exists();
         }
     }
 }

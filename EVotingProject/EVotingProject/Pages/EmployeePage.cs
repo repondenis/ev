@@ -15,6 +15,9 @@ namespace EVotingProject.Pages
         private static XPathDescription employeeAdd = new XPathDescription(
             ".//button[span[text()='Добавить пользователя']]");
 
+        private static XPathDescription adminAdd = new XPathDescription(
+    ".//button[span[text()='Добавить администратора e-voting']]");
+
         private static CSSDescription fioSnils = new CSSDescription(
             "div#employee-block>div>div:nth-child(2)>div:nth-child(2) input");
         private static CSSDescription role = new CSSDescription(
@@ -27,7 +30,7 @@ namespace EVotingProject.Pages
             "div#employee-block>div>div:nth-child(2)>div:nth-child(6) button");
 
         private static CSSDescription employeesDateTabl = new CSSDescription("table.table-condensed");//("tbody[id='personForm:employeeTable_data']");
-        private static CSSDescription employeesDateTabl2 = new CSSDescription("thead[id='personForm:employeeTable_head']");//("tbody[id='personForm:employeeTable_data']");
+        //private static CSSDescription employeesDateTabl2 = new CSSDescription("thead[id='personForm:employeeTable_head']");//("tbody[id='personForm:employeeTable_data']");
 
 
         private static CSSDescription employeesDate = new CSSDescription(
@@ -51,8 +54,12 @@ namespace EVotingProject.Pages
             browser.Describe<IButton>(employeeAdd).Click();
         }
 
+        public static void addNewAdminEVoting()
+        {
+            browser.Describe<IButton>(adminAdd).Click();
+        }
 
-        public static bool isEmployeePage()
+        public static bool isTruePage()
         {
             browser.Sync();
             return browser.Describe<IWebElement>(divEmployeeTitle).Exists() && browser.Describe<IWebElement>(divEmployeeTitle).InnerText.Equals("пользователи");

@@ -100,16 +100,19 @@
     <Compile Include="Pages\LoginLocalPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\LoginSertPage.cs" />
+    <Compile Include="Pages\OrganizationPage.cs" />
     <Compile Include="Pages\_MeetingControlPage.cs" />
     <Compile Include="Pages\MeetingPage.cs" />
     <Compile Include="Pages\NewMeetingPage.cs" />
     <Compile Include="Pages\PortalPage.cs" />
     <Compile Include="Pages\ProfileOrgPage.cs" />
+    <Compile Include="Tests\other\SearhOrgTest.cs" />
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_administrators\InputAdminsEVotingTest.cs" />
     <Compile Include="Tests\other\YandexTest.cs" />
     <Compile Include="Pages\YandexPage.cs" />
     <Compile Include="Helpers\UnitTestClassBase.cs" />
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\RepresentativesOfIssuerTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\RepresentativesOfRegistratorTest.cs" />
     <None Include="App.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
@@ -118,9 +121,8 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\Representatives_of_recorder\" />
     <Folder Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_of_issuer\" />
-    <Folder Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_of_recorder\" />
+    <Folder Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\Input_of_representatives_of_recorder_ and_issuer\Admin_of_registrator\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -84,7 +84,9 @@
     }
 
     class availRoles {
-        public const string admin = "Администратор регистратора";
+        public const string adminOfRegistrators = "Администратор регистратора";
+        public const string adminOfIssuer = "Администратор эмитента";
+        public const string createrMeeting = "Организатор собрания";
         public const string memberOfCounter = "Участник счетной комиссии";
     }
 
