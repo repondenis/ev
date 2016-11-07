@@ -93,6 +93,8 @@
   <ItemGroup>
     <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Models\MenuParam.cs" />
+    <Compile Include="Pages\ContractPage.cs" />
+    <Compile Include="Pages\NewContractPage.cs" />
     <Compile Include="Pages\NewEmployeePage.cs" />
     <Compile Include="Pages\EmployeePage.cs" />
     <Compile Include="Pages\ForgotPasswordPage.cs" />
@@ -115,7 +117,9 @@
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\2_Input_of_representatives_of_recorder_ and_issuer\Admin_e-voting\AddNewAdminOfRegistratorTest.cs" />
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\2_Input_of_representatives_of_recorder_ and_issuer\Admin_of_issuer\AddNewMemberOfComissionOfIssuerTest.cs" />
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\2_Input_of_representatives_of_recorder_ and_issuer\Admin_of_registrator\AddNewMemberOfComissionOfRegistrTest.cs" />
-    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\3_Input_info_of_reg_and_iss\Transfer_of_authority.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\3_Input_info_of_reg_and_iss\TransferOfAuthorityTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\4_access_to_sevrvice_evoting\AddContractTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\5_management_accesses_of_recorder_issuer\Admin_e-voting\ManageAccessOfAdminEVotingTest.cs" />
     <None Include="App.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />

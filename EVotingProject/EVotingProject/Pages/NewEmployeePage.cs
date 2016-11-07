@@ -17,7 +17,7 @@ namespace EVotingProject.Pages
         private static CSSDescription menuRole = new CSSDescription("div[id='form:tabView']>ul>li:nth-child(2)>a");//ROLE
 
         //ДАННЫЕ
-        private static CSSDescription organization = new CSSDescription("input[id='form:tabView:organization_input']");
+        private static CSSDescription organizationInput = new CSSDescription("input[id='form:tabView:organization_input']");
         private static CSSDescription lastName = new CSSDescription("input[id='form:tabView:lastName']");
         private static CSSDescription firstName = new CSSDescription("input[id='form:tabView:firstName']");
         private static CSSDescription phone = new CSSDescription("input[id='form:tabView:phone']");
@@ -39,7 +39,28 @@ namespace EVotingProject.Pages
 
         private static CSSDescription availRoleList = new CSSDescription(
             "span[id='form:tabView:roleList']>div>div:nth-child(1)>div:nth-child(1)");//роли, которые активируются при выборе нужн роли в списке - текст из Models.availRoles
-                                                                                      // ".//span[@id='form:tabView:roleList']/div/div/div[1]"
+
+        internal static string getFirstName()
+        {
+            return browser.Describe<IEditField>(firstName).Value;
+        }
+
+        internal static string getLastName()
+        {
+            return browser.Describe<IEditField>(lastName).Value;
+        }
+
+        internal static string getOtherName()
+        {
+            return browser.Describe<IEditField>(otherName).Value;
+        }
+
+        internal static string getLogin()
+        {
+            return browser.Describe<IEditField>(login).Value;
+        }
+
+        // ".//span[@id='form:tabView:roleList']/div/div/div[1]"
         private static CSSDescription availRoleListToogle = new CSSDescription(
             "span[id='form:tabView:roleList']>div>div:nth-child(1)>label");//кнопка 'полномочия' выбора чек-боксов ролей
         private static CSSDescription availRoleIssuer = new CSSDescription(
@@ -66,7 +87,8 @@ namespace EVotingProject.Pages
         public static bool isTruePage()
         {
             browser.Sync();
-            return browser.Describe<IWebElement>(divEmployeeAddInfoTitle).Exists() && browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Equals("Добавление пользователя");
+            return browser.Describe<IWebElement>(divEmployeeAddInfoTitle).Exists() &&
+                (browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Equals("Добавление пользователя") | browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Contains("Редактирование пользователя"));
         }
 
         public static bool isOrganizationPanelAppear()
@@ -89,7 +111,7 @@ namespace EVotingProject.Pages
 
         public static void setOrganization(string v)
         {
-            var orgInput = browser.Describe<IEditField>(organization);
+            var orgInput = browser.Describe<IEditField>(organizationInput);
             orgInput.SetValue(v);
             orgInput.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
         }
@@ -176,7 +198,7 @@ namespace EVotingProject.Pages
 
         public static bool isInfoPanel()
         {
-            return browser.Describe<IWebElement>(organization).Exists();
+            return browser.Describe<IWebElement>(organizationInput).Exists();
         }
 
         public static bool isRolePanel()

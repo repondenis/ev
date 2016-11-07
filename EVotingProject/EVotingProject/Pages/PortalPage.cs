@@ -37,6 +37,8 @@ namespace EVotingProject.Pages
         private static CSSDescription meetingsSearhText = new CSSDescription("input#form:meetingsList:searchText");//Нименование эмитента или огрн ввод тескт поле
         private static CSSDescription meetingsStartInput = new CSSDescription("input#form:meetingsList:meetingStart_input");// дата собр, текст поле
         private static CSSDescription meetingsFixingDateInput = new CSSDescription("input#form:meetingsList:entitlementFixingDate_input");// дата фиксац списка участн, текст поле
+        
+        //статус
         private static CSSDescription meetingStatusFilterLabel = new CSSDescription("label#form:meetingsList:meetingStatusFilter_label");//статус собрания - текст, нажимается-выпадает
         private static XPathDescription meetingStatusFilterToggle = new XPathDescription(".//div[@id='form:meetingsList:meetingStatusFilter']/div/span");
         private static CSSDescription meetingStatusFilterItems = new CSSDescription("ul#form:meetingsList:meetingStatusFilter_items");//input

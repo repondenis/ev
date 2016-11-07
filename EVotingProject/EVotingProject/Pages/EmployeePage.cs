@@ -18,7 +18,7 @@ namespace EVotingProject.Pages
         private static XPathDescription adminAdd = new XPathDescription(
     ".//button[span[text()='Добавить администратора e-voting']]");
 
-        private static CSSDescription fioSnils = new CSSDescription(
+        private static CSSDescription fioSnilsFilter = new CSSDescription(
             "div#employee-block>div>div:nth-child(2)>div:nth-child(2) input");
         private static CSSDescription role = new CSSDescription(
             "div#employee-block>div>div:nth-child(2)>div:nth-child(4) input");//("div#employee-block>div>div:nth-child(2) span>input[placeholder='Все роли']");
@@ -69,9 +69,32 @@ namespace EVotingProject.Pages
         {
             Console.WriteLine("searh of " + str);
             var table = browser.Describe<ITable>(employeesDateTabl);
-            Console.WriteLine("FindRowWithCellText = " + browser.Describe<ITable>(employeesDateTabl).Rows[0].Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + browser.Describe<ITable>(employeesDateTabl).FindRowWithCellText(str).Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + browser.Describe<ITable>(employeesDateTabl).FindRowWithCellText(str).Cells.Count);
+            Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
+            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
+            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
+
+            //table.FindRowWithCellText(str).Cells[0].FindChildren<ILink>().Click();
+
+        }
+
+        /**
+         * нажимаем на РЕДАКТИРОВАНИЕ на нужном контакте
+         */
+        public static void editEmployeesOfTable(string str)
+        {
+            var table = browser.Describe<ITable>(employeesDateTabl);
+            Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
+            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
+            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
+
+            table.FindRowWithCellText(str).Cells[0].FindChildren<ILink>().Click();
+        }
+
+        public static void setFioSnilsFilter(string v)
+        {
+            var filter = browser.Describe<IEditField>(fioSnilsFilter);
+            filter.SetValue(v);
+            filter.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
 
         }
 
