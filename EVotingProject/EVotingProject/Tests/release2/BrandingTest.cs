@@ -19,7 +19,7 @@ namespace EVotingProject.Tests.release2
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(this.url);
+
         }
 
         [SetUp]
@@ -28,30 +28,30 @@ namespace EVotingProject.Tests.release2
             // Before each test
         }
 
-        [TestCase(MenuParam.registrators, LoginParam.login, "admin_reestrrn_reg", "admin_reestrrn_reg", "Орлов Сергей Сергеевич", "Успешно сохранен!",
-              TestName = "1.Проверка инициации изменения полномочий, 57022")]
-        public void Test57022(string menuPar, string loginPar, string login, string pass, string userName, string message)
+        [TestCase(MenuParam.registrators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", "Успешно сохранен!",
+              TestName = "1.Проверка инициации настройки брендирования, 57022")]
+        public void Test57022(string menuPar, string loginPar, string login, string pass, string orgName, string message)
         {
+
             Console.WriteLine(DateTime.Now);
+            browser.Navigate(this.url);
             PageHelper.setBrowser(browser);
 
             //1
             Assert.True(LoginPage.isTruePage());
 
-            //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
             Assert.True(LoginLocalPage.isLoginLocalPage());
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage());
 
-            //3
-            PortalPage.gotoMenuEmployees();
-            Assert.True(EmployeePage.isTruePage());
-            EmployeePage.setFioSnilsFilter(userName);//заполняем фильтр
-            EmployeePage.editEmployeesOfTable(userName);//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
-
+            PortalPage.gotoMenuOrganizations();
+            Assert.True(OrganizationPage.isTruePage());
+            OrganizationPage.setOrganizationSearhInput(orgName);//фильтр
+            OrganizationPage.getOrganizationTable(orgName);//получаем табл
+            OrganizationPage.editOrganizationOfTable(orgName);//нажим РЕдактировать нужного 
+            Assert.True(NewOrganizationPage.isTruePage(orgName));
         }
 
         [TearDown]

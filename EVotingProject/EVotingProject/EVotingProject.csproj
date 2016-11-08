@@ -107,7 +107,7 @@
     <Compile Include="Pages\MeetingPage.cs" />
     <Compile Include="Pages\NewMeetingPage.cs" />
     <Compile Include="Pages\PortalPage.cs" />
-    <Compile Include="Pages\ProfileOrgPage.cs" />
+    <Compile Include="Pages\NewOrganizationPage.cs" />
     <Compile Include="Tests\other\SearhOrgTest.cs" />
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\1_Input_of_administrators\InputAdminsEVotingTest.cs" />
     <Compile Include="Tests\other\YandexTest.cs" />

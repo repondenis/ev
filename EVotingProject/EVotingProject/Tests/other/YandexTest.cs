@@ -13,7 +13,7 @@ namespace EVotingProject
     {
 
 
-        private string url = "http://yandex.ru";
+        private new string url = "http://yandex.ru";
 
         [OneTimeSetUp]// [TestFixtureSetUp]
         public void TestFixtureSetUp()

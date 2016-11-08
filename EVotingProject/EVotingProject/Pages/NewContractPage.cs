@@ -22,8 +22,9 @@ namespace EVotingProject.Pages
         private static XPathDescription cancelB = new XPathDescription(".//button[span[text()='Отменить']]");
         private static XPathDescription closeB = new XPathDescription(".//button[span[text()='закрыть']]");
 
-        public static bool isTruePage()
+        public static new bool isTruePage()
         {
+            browser.Sync();
             return browser.Describe<IWebElement>(pageTitle).Exists() &&
                 (browser.Describe<IWebElement>(pageTitle).InnerText.Equals("новый договор") | browser.Describe<IWebElement>(pageTitle).InnerText.Contains("договор №"));//
         }

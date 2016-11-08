@@ -13,9 +13,11 @@ namespace EVotingProject.Pages
         private static CSSDescription organizationSearhInput = new CSSDescription("div#organization-block>div>div>input");
         private static CSSDescription organizationDateTabl = new CSSDescription("table[role='grid']");
 
-        public static bool isTruePage()
+        public static new bool isTruePage()
         {
-            return browser.Describe<IWebElement>(organizationTitle).Exists() && browser.Describe<IWebElement>(organizationTitle).InnerText.Equals("эмитенты");
+            browser.Sync();
+            return browser.Describe<IWebElement>(organizationTitle).Exists() &&
+                browser.Describe<IWebElement>(organizationTitle).InnerText.Equals("эмитенты");
         }
 
         public static void setOrganizationSearhInput(string str)
@@ -36,5 +38,16 @@ namespace EVotingProject.Pages
 
         }
 
+        public static void editOrganizationOfTable(string orgName)
+        {
+            Console.WriteLine("searh of " + orgName);
+            var table = browser.Describe<ITable>(organizationDateTabl);
+
+            Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
+            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(orgName).Cells[0].Text);
+            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(orgName).Cells.Count);
+
+            table.FindRowWithCellText(orgName).Cells[0].FindChildren<ILink>().Click();
+        }
     }
 }

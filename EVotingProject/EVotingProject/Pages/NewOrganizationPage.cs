@@ -7,7 +7,7 @@ using HP.LFT.SDK.Web;
 
 namespace EVotingProject.Pages
 {
-    class ProfileOrgPage : Helpers.PageHelper
+    class NewOrganizationPage : Helpers.PageHelper
     {
         private static CSSDescription orgProfileTitle = new CSSDescription("div#org-profile>label.main-header-page");//"Сбербанк России ОАО"
 
@@ -39,8 +39,9 @@ namespace EVotingProject.Pages
 
         private static XPathDescription save = new XPathDescription(".//button[span[text()='Сохранить']]");
 
-        public static bool isProfileOrgPage(string org)
+        public static bool isTruePage(string org)
         {
+            browser.Sync();
             return browser.Describe<IWebElement>(orgProfileTitle).Exists() && browser.Describe<IWebElement>(orgProfileTitle).InnerText.Equals(org);
         }
 

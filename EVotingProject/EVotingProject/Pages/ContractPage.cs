@@ -21,8 +21,9 @@ namespace EVotingProject.Pages
 
 
 
-        public static bool isTruePage()
+        public static new bool isTruePage()
         {
+            browser.Sync();
             return browser.Describe<IWebElement>(pageTitle).Exists() && browser.Describe<IWebElement>(pageTitle).InnerText.Equals("Договоры");
         }
 

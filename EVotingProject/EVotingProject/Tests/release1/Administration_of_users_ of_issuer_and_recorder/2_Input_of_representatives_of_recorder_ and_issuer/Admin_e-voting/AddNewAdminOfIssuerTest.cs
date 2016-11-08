@@ -135,7 +135,7 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.save();
                 Assert.True(NewEmployeePage.isBlockExist());
 
-                NewEmployeePage.gotoRole();
+                NewEmployeePage.gotoRolePanel();
                 Assert.True(NewEmployeePage.isRolePanel());
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
                 NewEmployeePage.save();
@@ -165,7 +165,7 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.save();
                 Assert.True(NewEmployeePage.isBlockExist());
 
-                NewEmployeePage.gotoRole();
+                NewEmployeePage.gotoRolePanel();
                 Assert.True(NewEmployeePage.isRolePanel());
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
                 NewEmployeePage.save();
@@ -427,7 +427,7 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.setLogin(login);
                 NewEmployeePage.setSnils(snils);
 
-                NewEmployeePage.gotoRole();
+                NewEmployeePage.gotoRolePanel();
                 Assert.True(NewEmployeePage.isRolePanel());
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
                 NewEmployeePage.isAvailRoleList(role);//появилась ли роль
@@ -473,7 +473,7 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.setLogin(login);
                 NewEmployeePage.setSnils(snils);
 
-                NewEmployeePage.gotoRole();
+                NewEmployeePage.gotoRolePanel();
                 Assert.True(NewEmployeePage.isRolePanel());
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
                 NewEmployeePage.isAvailRoleList(role);//появилась ли роль

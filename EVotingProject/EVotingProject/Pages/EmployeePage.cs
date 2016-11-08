@@ -59,7 +59,7 @@ namespace EVotingProject.Pages
             browser.Describe<IButton>(adminAdd).Click();
         }
 
-        public static bool isTruePage()
+        public static new bool isTruePage()
         {
             browser.Sync();
             return browser.Describe<IWebElement>(divEmployeeTitle).Exists() && browser.Describe<IWebElement>(divEmployeeTitle).InnerText.Equals("пользователи");
