@@ -40,6 +40,45 @@ namespace EVotingProject.Pages
         private static CSSDescription availRoleList = new CSSDescription(
             "span[id='form:tabView:roleList']>div>div:nth-child(1)>div:nth-child(1)");//роли, которые активируются при выборе нужн роли в списке - текст из Models.availRoles
 
+
+
+        // ".//span[@id='form:tabView:roleList']/div/div/div[1]"
+        private static CSSDescription availRoleListToogle = new CSSDescription(
+            "span[id='form:tabView:roleList']>div>div:nth-child(1)>label");//кнопка 'полномочия' выбора чек-боксов ролей
+        private static CSSDescription availRoleIssuer = new CSSDescription(
+            "div[data-widget='actions_ISSUER']");//роли Администратор эмитента 
+        private static CSSDescription availRoleRegistrators = new CSSDescription(
+             "div[data-widget='actions_REGISTRATOR']");//роли администратора регистратора
+        private static CSSDescription availRoleComission = new CSSDescription(
+            "div[data-widget='actions_COMMISSION']");//роли Участник счетной комиссии 
+
+        private static CSSDescription availRoleTableRegistrators = new CSSDescription(
+        "div[data-widget='actions_REGISTRATOR']>div>table");
+        private static CSSDescription availRoleTableIssuer = new CSSDescription(
+           "div[data-widget='actions_ISSUER']>div>table");//роли Администратор эмитента 
+        private static CSSDescription availRoleTableComission = new CSSDescription(
+            "div[data-widget='actions_COMMISSION']>div>table");//роли Участник счетной комиссии 
+        //END РОЛИ
+
+
+        private static XPathDescription saveB = new XPathDescription(".//button[span[text()='Сохранить']]");
+        private static XPathDescription cancelB = new XPathDescription(".//button[span[text()='Отменить']]");
+
+        private static XPathDescription unblockB = new XPathDescription(".//button[span[text()='Разблокировать']]");
+        private static XPathDescription blockB = new XPathDescription(".//button[span[text()='Заблокировать']]");
+
+
+
+
+
+        public static new bool isTruePage()
+        {
+            browser.Sync();
+            return browser.Describe<IWebElement>(divEmployeeAddInfoTitle).Exists() &&
+                (browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Equals("Добавление пользователя") | browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Contains("Редактирование пользователя"));
+        }
+
+
         internal static string getFirstName()
         {
             return browser.Describe<IEditField>(firstName).Value;
@@ -59,38 +98,6 @@ namespace EVotingProject.Pages
         {
             return browser.Describe<IEditField>(login).Value;
         }
-
-        // ".//span[@id='form:tabView:roleList']/div/div/div[1]"
-        private static CSSDescription availRoleListToogle = new CSSDescription(
-            "span[id='form:tabView:roleList']>div>div:nth-child(1)>label");//кнопка 'полномочия' выбора чек-боксов ролей
-        private static CSSDescription availRoleIssuer = new CSSDescription(
-            "div[data-widget='actions_ISSUER']");//роли Администратор эмитента 
-        private static CSSDescription availRoleRegistrators = new CSSDescription(
-             "div[data-widget='actions_REGISTRATOR']");//роли администратора регистратора
-        private static CSSDescription availRoleComission = new CSSDescription(
-            "div[data-widget='actions_COMMISSION']");//роли Участник счетной комиссии 
-
-
-        //END РОЛИ
-
-
-        private static XPathDescription saveB = new XPathDescription(".//button[span[text()='Сохранить']]");
-        private static XPathDescription cancelB = new XPathDescription(".//button[span[text()='Отменить']]");
-
-        private static XPathDescription unblockB = new XPathDescription(".//button[span[text()='Разблокировать']]");
-        private static XPathDescription blockB = new XPathDescription(".//button[span[text()='Заблокировать']]");
-
-
-
-
-
-        public static bool isTruePage()
-        {
-            browser.Sync();
-            return browser.Describe<IWebElement>(divEmployeeAddInfoTitle).Exists() &&
-                (browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Equals("Добавление пользователя") | browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Contains("Редактирование пользователя"));
-        }
-
         public static bool isOrganizationPanelAppear()
         {
             return browser.Describe<IWebElement>(organizationPanel).Exists();
@@ -186,12 +193,12 @@ namespace EVotingProject.Pages
             browser.Describe<IButton>(blockB).Click();
         }
 
-        public static void gotoInfo()
+        public static void gotoInfoPanel()
         {
             browser.Describe<ILink>(menuInfo).Click();
         }
 
-        public static void gotoRole()
+        public static void gotoRolePanel()
         {
             browser.Describe<ILink>(menuRole).Click();
         }
@@ -262,6 +269,30 @@ namespace EVotingProject.Pages
             }
 
             return browser.Describe<IWebElement>(descr).Exists();
+        }
+
+        public static void selectRolePermission(string adminOfRegistrators, int indexRole, bool state)
+        {
+            CSSDescription descr = null;
+            switch (adminOfRegistrators)
+            {
+
+                case availRoles.adminOfRegistrators:
+                    descr = availRoleTableRegistrators;
+                    break;
+                case availRoles.adminOfIssuer:
+                    descr = availRoleTableIssuer;
+                    break;
+                case availRoles.memberOfCounter:
+                    descr = availRoleTableComission;
+                    break;
+            }
+
+            var roles = browser.FindChildren<ICheckBox>(descr);
+            if (roles.Length >= indexRole)
+            {
+                roles[0].Set(state);
+            }
         }
     }
 }

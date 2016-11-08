@@ -38,12 +38,12 @@ namespace EVotingProject.Tests.release1
                 Console.WriteLine(DateTime.Now);
 
                 PageHelper.setBrowser(browser);
-                Assert.True(LoginPage.isLoginPage());
+                Assert.True(LoginPage.isTruePage());
                 LoginPage.caseMenuParam(menuPar);
                 LoginPage.caseLoginParam(loginPar);
                 Assert.True(LoginLocalPage.isLoginLocalPage());
                 LoginLocalPage.runLogin(login, pass);
-                Assert.True(PortalPage.isPortalPage());
+                Assert.True(PortalPage.isTruePage());
                 PortalPage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage());
                 EmployeePage.addNewUser();

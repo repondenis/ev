@@ -7,11 +7,11 @@ using EVotingProject.Pages;
 using EVotingProject.Helpers;
 using EVotingProject.Models;
 
-namespace EVotingProject
+namespace EVotingProject.Tests.release2
 {
     [TestFixture]
-    [Description("Делегирование полномочий эмитента регистратору - ???")]
-    public class Transfer_of_authority : UnitTestClassBase
+    [Description("Брэндирование")]
+    public class BrandingTest : UnitTestClassBase
     {
         [OneTimeSetUp]
         public void TestFixtureSetUp()
@@ -25,31 +25,32 @@ namespace EVotingProject
         [SetUp]
         public void SetUp()
         {
-
-
+            // Before each test
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin",
-              TestName = "1.Проверка инициации делегирования полномочий, 57071")]
-        [Ignore("непонятно,Как реализовать тест-кейс")]
-        public void Test57071(string menuPar, string loginPar, string login, string pass)
+        [TestCase(MenuParam.registrators, LoginParam.login, "admin_reestrrn_reg", "admin_reestrrn_reg", "Орлов Сергей Сергеевич", "Успешно сохранен!",
+              TestName = "1.Проверка инициации изменения полномочий, 57022")]
+        public void Test57022(string menuPar, string loginPar, string login, string pass, string userName, string message)
         {
             Console.WriteLine(DateTime.Now);
             PageHelper.setBrowser(browser);
+
+            //1
             Assert.True(LoginPage.isTruePage());
 
-            //Step-1
+            //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
             Assert.True(LoginLocalPage.isLoginLocalPage());
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage());
 
-            PortalPage.clickUserName();
-
-            // ????????????????????? как и куда нажимать?
-
-
+            //3
+            PortalPage.gotoMenuEmployees();
+            Assert.True(EmployeePage.isTruePage());
+            EmployeePage.setFioSnilsFilter(userName);//заполняем фильтр
+            EmployeePage.editEmployeesOfTable(userName);//нажим РЕдактировать нужного польз
+            Assert.True(NewEmployeePage.isTruePage());
 
         }
 

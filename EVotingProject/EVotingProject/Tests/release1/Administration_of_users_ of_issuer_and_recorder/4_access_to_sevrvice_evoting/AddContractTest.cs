@@ -37,14 +37,14 @@ namespace EVotingProject
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(LoginPage.isLoginPage());
+            Assert.True(LoginPage.isTruePage());
 
             //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
             Assert.True(LoginLocalPage.isLoginLocalPage());
             LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isPortalPage());
+            Assert.True(PortalPage.isTruePage());
 
             //3
             PortalPage.gotoMenuContracts();

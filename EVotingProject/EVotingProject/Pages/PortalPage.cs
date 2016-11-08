@@ -37,7 +37,7 @@ namespace EVotingProject.Pages
         private static CSSDescription meetingsSearhText = new CSSDescription("input#form:meetingsList:searchText");//Нименование эмитента или огрн ввод тескт поле
         private static CSSDescription meetingsStartInput = new CSSDescription("input#form:meetingsList:meetingStart_input");// дата собр, текст поле
         private static CSSDescription meetingsFixingDateInput = new CSSDescription("input#form:meetingsList:entitlementFixingDate_input");// дата фиксац списка участн, текст поле
-        
+
         //статус
         private static CSSDescription meetingStatusFilterLabel = new CSSDescription("label#form:meetingsList:meetingStatusFilter_label");//статус собрания - текст, нажимается-выпадает
         private static XPathDescription meetingStatusFilterToggle = new XPathDescription(".//div[@id='form:meetingsList:meetingStatusFilter']/div/span");
@@ -56,7 +56,7 @@ namespace EVotingProject.Pages
 
 
 
-        public static bool isPortalPage()
+        public static bool isTruePage()
         {
 
             browser.Sync();
@@ -100,6 +100,11 @@ namespace EVotingProject.Pages
             browser.Describe<ILink>(menuProfileOrg).Click();
         }
 
+        public static bool isUserNameExist()
+        {
+            return browser.Describe<ILink>(menuUserName).Exists();
+        }
+
         public static void clickUserName()
         {
             browser.Describe<ILink>(menuUserName).Click();
@@ -110,7 +115,7 @@ namespace EVotingProject.Pages
             browser.Describe<IWebElement>(userNameToggle).Click();
         }
 
-        public static bool isToggleUserName()
+        public static bool isToggleUserNameExist()
         {
             return browser.Describe<IWebElement>(userNameToggle).Exists();
         }
@@ -122,7 +127,7 @@ namespace EVotingProject.Pages
 
         public static void logout()
         {
-            if (isToggleUserName())
+            if (isToggleUserNameExist() && isUserNameExist())
             {
                 clickToggleUserName();
 

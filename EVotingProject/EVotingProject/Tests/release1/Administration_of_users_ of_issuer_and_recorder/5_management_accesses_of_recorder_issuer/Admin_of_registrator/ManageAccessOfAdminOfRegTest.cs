@@ -10,8 +10,8 @@ using EVotingProject.Models;
 namespace EVotingProject
 {
     [TestFixture]
-    [Description("Управление полномочиями рег и эмит - админ e-voting")]
-    public class ManageAccessOfAdminEVotingTest : UnitTestClassBase
+    [Description("Управление полномочиями рег и эмит - админ регистратора")]
+    public class ManageAccessOfAdminOfRegTest : UnitTestClassBase
     {
         [OneTimeSetUp]
         public void TestFixtureSetUp()
@@ -19,7 +19,7 @@ namespace EVotingProject
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(this.urlAdmin);
+            browser.Navigate(this.url);
 
 
         }
@@ -31,9 +31,9 @@ namespace EVotingProject
 
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Татьянова Татьяна Татьяновна", "Успешно сохранен!",
-              TestName = "1.Проверка инициации изменения полномочий, 56995")]
-        public void Test56995(string menuPar, string loginPar, string login, string pass, string userName, string message)
+        [TestCase(MenuParam.registrators, LoginParam.login, "admin_reestrrn_reg", "admin_reestrrn_reg", "Орлов Сергей Сергеевич", "Успешно сохранен!",
+              TestName = "1.Проверка инициации изменения полномочий, 57022")]
+        public void Test57022(string menuPar, string loginPar, string login, string pass, string userName, string message)
         {
             Console.WriteLine(DateTime.Now);
             PageHelper.setBrowser(browser);
@@ -57,9 +57,9 @@ namespace EVotingProject
 
         }
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01", "Успешно сохранен!",
-TestName = "2.Проверка редактирования данных и полномочий, 56997")]
-        public void Test56997(string userName, string suff, string message)
+        [TestCase("Орлов Сергей Сергеевич", "01", "Успешно сохранен!",
+TestName = "2.Проверка редактирования данных и полномочий, 57023")]
+        public void Test57023(string userName, string suff, string message)
         {
 
 
@@ -89,9 +89,43 @@ TestName = "2.Проверка редактирования данных и по
 
         }
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01", "Используются недопустимые символы", "Заполнены не все обязательные поля",
-              TestName = "3.Проверка редактирования данных и полномочий, 56999")]
-        public void Test56999(string userName, string suff, string message1, string message2)
+        [TestCase("Орлов Сергей Сергеевич", "01", "Используются недопустимые символы", "Заполнены не все обязательные поля",
+              TestName = "3.Проверка редактирования полномочий, 57024")]
+        public void Test57024(string userName, string suff, string message1, string message2)
+        {
+
+            Console.WriteLine(DateTime.Now);
+            PageHelper.setBrowser(browser);
+
+            //1 2
+            Assert.True(NewEmployeePage.isTruePage());
+            NewEmployeePage.gotoRolePanel();
+            Assert.True(NewEmployeePage.isRolePanel());
+            NewEmployeePage.clickAvailRoleListToogle();//нажимаем полномочия
+            NewEmployeePage.isRoleCheckBoxExist(availRoles.adminOfRegistrators);
+            NewEmployeePage.selectRolePermission(availRoles.adminOfRegistrators, 1, true);//чекнуть 1 роль
+
+        }
+
+
+        [TestCase(
+                TestName = "4.Проверка редактирования перечня эмитентов представителя рег, 57025")]
+        [Ignore("57025 - непонятен ТЕстКейс")]
+        public void Test57025()
+        {
+
+
+            Console.WriteLine(DateTime.Now);
+            PageHelper.setBrowser(browser);
+
+            // ????????????
+
+        }
+
+
+        [TestCase("Орлов Сергей Сергеевич", "01",
+     TestName = "5.Проверка отмены редактирования данных и полномочий, 57026")]
+        public void Test57026(string userName, string suff)
         {
 
 
@@ -99,26 +133,40 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            PortalPage.gotoMenuEmployees();
+            Assert.True(NewEmployeePage.isTruePage());
+            NewEmployeePage.setFirstName(NewEmployeePage.getFirstName() + suff);
+            NewEmployeePage.setLastName(NewEmployeePage.getLastName() + suff);
+            NewEmployeePage.setOtherName(NewEmployeePage.getOtherName() + suff);
+            NewEmployeePage.setLogin(NewEmployeePage.getLogin() + suff);
+
+            NewEmployeePage.cancel();
+
             Assert.True(EmployeePage.isTruePage());
-            EmployeePage.setFioSnilsFilter(userName.Replace(" ", suff + ""));//заполняем фильтр
-            EmployeePage.editEmployeesOfTable(userName.Replace(" ", suff + ""));//нажим РЕдактировать нужного польз
+            EmployeePage.getEmployeesTable(userName);//проверяем есть ли старый не измененный пользователь
+
+        }
+
+
+        [TestCase("Орлов Сергей Сергеевич", "01", "Используются недопустимые символы",
+        TestName = "6.Проверка редактирования данных и полномочий представителя рег, 57027")]
+        public void Test57027(string userName, string suff, string message1)
+        {
+            Console.WriteLine(DateTime.Now);
+            PageHelper.setBrowser(browser);
+
+            //1
+            Assert.True(EmployeePage.isTruePage());
+            EmployeePage.setFioSnilsFilter(userName.Replace(" ", suff + " "));//заполняем фильтр
+            EmployeePage.editEmployeesOfTable(userName.Replace(" ", suff + " "));//нажим РЕдактировать нужного польз
             Assert.True(NewEmployeePage.isTruePage());
             //
-            NewEmployeePage.setFirstName("AbC_12$");
-            NewEmployeePage.setLastName("AbC_12$");
+            NewEmployeePage.setPhone("AbC_12$");
+            NewEmployeePage.setMail("AbC_12$");
             NewEmployeePage.save();
             Assert.False(NewEmployeePage.isMessageGrowleOk(message1), message1);
-            //
-            NewEmployeePage.setFirstName("");
-            NewEmployeePage.setLastName("");
-            NewEmployeePage.save();
-            Assert.False(NewEmployeePage.isMessageGrowleOk(message1), message2);
 
             NewEmployeePage.cancel();
             Assert.True(EmployeePage.isTruePage());
-
-            EmployeePage.getEmployeesTable(userName.Replace(" ", suff + ""));//проверяем есть ли новый ищмененный пользователь
 
         }
 
@@ -127,7 +175,10 @@ TestName = "2.Проверка редактирования данных и по
 
 
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01", "Блокировка администратора НРД невозможна",
+
+
+
+        [TestCase("Орлов Сергей Сергеевич", "01", "Блокировка администратора НРД невозможна",
             TestName = "4.Проверка незаблокированных администраторов, 57000")]
         public void Test57000(string userName, string suff, string message)
         {
@@ -159,7 +210,7 @@ TestName = "2.Проверка редактирования данных и по
         }
 
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01",
+        [TestCase("Орлов Сергей Сергеевич", "01",
             TestName = "5.Проверка отмены редактирования данных и полномочий, 56998")]
         public void Test56998(string userName, string suff)
         {
@@ -183,7 +234,7 @@ TestName = "2.Проверка редактирования данных и по
         }
         // //////////////////////////// РЕГИСТРАТОР
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Татьянова Татьяна Татьяновна", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Орлов Сергей Сергеевич", "Успешно сохранен!",
        TestName = "6.Проверка инициации изменения полномочий представителя рег, 57010")]
         public void Test57010(string menuPar, string loginPar, string login, string pass, string userName, string message)
         {
@@ -213,7 +264,7 @@ TestName = "2.Проверка редактирования данных и по
 
         }
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01", "Успешно сохранен!",
+        [TestCase("Орлов Сергей Сергеевич", "01", "Успешно сохранен!",
             TestName = "7.Проверка редактирования данных и полномочий представителя рег, 57012")]
         public void Test57012(string userName, string suff, string message)
         {
@@ -255,7 +306,7 @@ TestName = "2.Проверка редактирования данных и по
 
         }
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01", "Используются недопустимые символы", "Заполнены не все обязательные поля",
+        [TestCase("Орлов Сергей Сергеевич", "01", "Используются недопустимые символы", "Заполнены не все обязательные поля",
                 TestName = "8.Проверка редактирования данных и полномочий представителя рег, 57016")]
         public void Test57016(string userName, string suff, string message1, string message2)
         {
@@ -286,7 +337,7 @@ TestName = "2.Проверка редактирования данных и по
         }
 
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01", "сбербанк России ОАО", "Рога и копыта", "Используются недопустимые символы", "Заполнены не все обязательные поля",
+        [TestCase("Орлов Сергей Сергеевич", "01", "сбербанк России ОАО", "Рога и копыта", "Используются недопустимые символы", "Заполнены не все обязательные поля",
        TestName = "9.Проверка редактирования организации представителя рег, 57011")]
         public void Test57011(string userName, string suff, string orgNameTrue, string orgNameFalse, string message1, string message2)
         {
@@ -313,25 +364,24 @@ TestName = "2.Проверка редактирования данных и по
         }
 
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01", "сбербанк России ОАО",
+        [TestCase(
                 TestName = "10.Проверка редактирования перечня эмитентов представителя рег, 57014")]
         [Ignore("57014 - непонятен ТЕстКейс")]
-        public void Test57014(string userName, string suff, string orgNameTrue)
+        public void Test57014()
         {
 
 
             Console.WriteLine(DateTime.Now);
             PageHelper.setBrowser(browser);
 
-            //1
             // ????????????
 
         }
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01", "сбербанк России ОАО",
+        [TestCase("Орлов Сергей Сергеевич", "01",
             TestName = "11.Проверка редактирования полномочий выбранной роли представителя рег, 57013")]
         [Ignore("57014 - непонятен ТЕстКейс")]
-        public void Test57013(string userName, string suff, string orgNameTrue)
+        public void Test57013(string userName, string suff)
         {
             Console.WriteLine(DateTime.Now);
             PageHelper.setBrowser(browser);
@@ -347,7 +397,7 @@ TestName = "2.Проверка редактирования данных и по
         }
 
 
-        [TestCase("Татьянова Татьяна Татьяновна", "01",
+        [TestCase("Орлов Сергей Сергеевич", "01",
             TestName = "12.Проверка отмены редактирования данных и полномочий, 57015")]
         public void Test57015(string userName, string suff)
         {

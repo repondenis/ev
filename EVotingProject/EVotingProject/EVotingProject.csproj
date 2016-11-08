@@ -120,6 +120,9 @@
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\3_Input_info_of_reg_and_iss\TransferOfAuthorityTest.cs" />
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\4_access_to_sevrvice_evoting\AddContractTest.cs" />
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\5_management_accesses_of_recorder_issuer\Admin_e-voting\ManageAccessOfAdminEVotingTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\5_management_accesses_of_recorder_issuer\Admin_of_issuer\ManageAccessOfAdminOfIssuerTest.cs" />
+    <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\5_management_accesses_of_recorder_issuer\Admin_of_registrator\ManageAccessOfAdminOfRegTest.cs" />
+    <Compile Include="Tests\release2\BrandingTest.cs" />
     <None Include="App.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
