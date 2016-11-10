@@ -17,7 +17,7 @@ namespace EVotingProject.Pages
         {
             browser.Sync();
             return browser.Describe<IWebElement>(organizationTitle).Exists() &&
-                browser.Describe<IWebElement>(organizationTitle).InnerText.Equals("эмитенты");
+                browser.Describe<IWebElement>(organizationTitle).InnerText.Equals("организации");
         }
 
         public static void setOrganizationSearhInput(string str)
@@ -25,29 +25,41 @@ namespace EVotingProject.Pages
             var searhInput = browser.Describe<IEditField>(organizationSearhInput);
             searhInput.SetValue(str);
             searhInput.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
+
         }
 
         public static void getOrganizationTable(string str)
         {
-            Console.WriteLine("searh of " + str);
+
             var table = browser.Describe<ITable>(organizationDateTabl);
+            Console.WriteLine("table.Exists=" + table.Exists() + " " + table.Rows.Count + " " + table.Rows[0].Cells.Count);
+            Console.WriteLine("FindRowWithCellText = " + table.Rows[1].Cells[1].Text);
 
-            Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
+            // Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).ToString());
+            //            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[1].Text.ToString());
 
+            //            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
+            var itable = table.FindRowWithCellText(@str);
+            if (itable != null)
+            {
+                Console.WriteLine(itable);
+                Console.WriteLine("FindRowWithCellText = " + itable.Cells.Count);
+            }
         }
 
         public static void editOrganizationOfTable(string orgName)
         {
-            Console.WriteLine("searh of " + orgName);
             var table = browser.Describe<ITable>(organizationDateTabl);
+            if (table != null && table.Rows.Count > 0)
+            {
+                //Console.WriteLine(table.);
+                for (int i = 0; i < table.Rows.Count; i++)
+                    if (table.Rows[i].Cells[0].Text.Equals(orgName))
+                        table.Rows[i].Cells[0].FindChildren<ILink>().Click();
+            }
 
-            Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(orgName).Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(orgName).Cells.Count);
-
-            table.FindRowWithCellText(orgName).Cells[0].FindChildren<ILink>().Click();
+            //table.FindRowWithCellText(orgName).Cells[0].FindChildren<ILink>().Click();
+            //table.FindRowWithCellTextInColumn(orgName, 0).Cells[0].FindChildren<ILink>().Click();
         }
     }
 }

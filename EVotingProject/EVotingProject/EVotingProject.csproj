@@ -94,6 +94,7 @@
     <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Models\MenuParam.cs" />
     <Compile Include="Pages\ContractPage.cs" />
+    <Compile Include="Pages\EmitentPage.cs" />
     <Compile Include="Pages\NewContractPage.cs" />
     <Compile Include="Pages\NewEmployeePage.cs" />
     <Compile Include="Pages\EmployeePage.cs" />
@@ -122,7 +123,10 @@
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\5_management_accesses_of_recorder_issuer\Admin_e-voting\ManageAccessOfAdminEVotingTest.cs" />
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\5_management_accesses_of_recorder_issuer\Admin_of_issuer\ManageAccessOfAdminOfIssuerTest.cs" />
     <Compile Include="Tests\release1\Administration_of_users_ of_issuer_and_recorder\5_management_accesses_of_recorder_issuer\Admin_of_registrator\ManageAccessOfAdminOfRegTest.cs" />
-    <Compile Include="Tests\release2\BrandingTest.cs" />
+    <Compile Include="Tests\release2\1_Branding\BrandingAdminIssuerTest.cs" />
+    <Compile Include="Tests\release2\1_Branding\BrandingAdminRegTest.cs" />
+    <Compile Include="Tests\release2\1_Branding\BrandingAdminEVotingTest.cs" />
+    <Compile Include="Tests\release2\2_load_messages_MI_from_fs\LoadMIAdminEVotingTest.cs" />
     <None Include="App.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />

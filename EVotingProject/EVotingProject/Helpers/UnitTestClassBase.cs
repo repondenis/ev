@@ -16,9 +16,10 @@ namespace EVotingProject
     {
 
         public  IBrowser browser;
-        public string url = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/";
-        public string urlAdmin = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/?admin";//ивотинг для администратора
-        public string url2 = "https://portal-dev-evoting.test.gosuslugi.ru/";
+        public string urlDemo = "https://demo-evoting.test.gosuslugi.ru/";//idp/sso#/
+        public string urlDemoAdmin = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/?admin";//ивотинг для администратора
+        public string urlDev = "https://portal-dev-evoting.test.gosuslugi.ru/";
+        public string urlDevAdmin = "https://portal-dev-evoting.test.gosuslugi.ru/idp/sso#/local?admin";//ивотинг для администратора
 
         [OneTimeSetUp]
         public void GlobalSetup()

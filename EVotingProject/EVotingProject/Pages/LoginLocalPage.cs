@@ -17,7 +17,7 @@ namespace EVotingProject.Pages
         private static CSSDescription sumbit = new CSSDescription("button[type='submit']");//войти
         private static CSSDescription forgotPassw = new CSSDescription("div.forgot-password a");
 
-        public static bool isLoginLocalPage()
+        public static bool isTruePage()
         {
             browser.Sync();
             return browser.Describe<IEditField>(login).Exists();

@@ -19,7 +19,7 @@ namespace EVotingProject
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(this.urlAdmin);
+            browser.Navigate(this.urlDemoAdmin);
         }
 
         [SetUp]
@@ -42,7 +42,7 @@ namespace EVotingProject
             //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isLoginLocalPage());
+            Assert.True(LoginLocalPage.isTruePage());
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage());
 

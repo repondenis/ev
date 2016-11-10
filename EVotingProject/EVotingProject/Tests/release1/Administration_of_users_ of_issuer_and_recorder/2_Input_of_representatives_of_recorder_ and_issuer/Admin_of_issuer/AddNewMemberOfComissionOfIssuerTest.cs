@@ -20,7 +20,7 @@ namespace EVotingProject.Tests.release1
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(this.urlAdmin);
+            browser.Navigate(this.urlDemoAdmin);
         }
 
         [SetUp]
@@ -41,7 +41,7 @@ namespace EVotingProject.Tests.release1
                 Assert.True(LoginPage.isTruePage());
                 LoginPage.caseMenuParam(menuPar);
                 LoginPage.caseLoginParam(loginPar);
-                Assert.True(LoginLocalPage.isLoginLocalPage());
+                Assert.True(LoginLocalPage.isTruePage());
                 LoginLocalPage.runLogin(login, pass);
                 Assert.True(PortalPage.isTruePage());
                 PortalPage.gotoMenuEmployees();

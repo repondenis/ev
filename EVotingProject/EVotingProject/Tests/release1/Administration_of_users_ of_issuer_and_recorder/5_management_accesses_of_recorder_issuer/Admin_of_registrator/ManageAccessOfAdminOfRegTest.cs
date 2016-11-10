@@ -19,7 +19,7 @@ namespace EVotingProject
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(this.url);
+            browser.Navigate(this.urlDemo);
 
 
         }
@@ -44,7 +44,7 @@ namespace EVotingProject
             //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isLoginLocalPage());
+            Assert.True(LoginLocalPage.isTruePage());
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage());
 
@@ -251,7 +251,7 @@ TestName = "2.Проверка редактирования данных и по
             //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isLoginLocalPage());
+            Assert.True(LoginLocalPage.isTruePage());
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage());
 
@@ -437,7 +437,7 @@ TestName = "2.Проверка редактирования данных и по
             //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isLoginLocalPage());
+            Assert.True(LoginLocalPage.isTruePage());
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage());
 
