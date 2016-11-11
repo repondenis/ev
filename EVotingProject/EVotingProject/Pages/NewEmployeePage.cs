@@ -179,9 +179,10 @@ namespace EVotingProject.Pages
             browser.Describe<IButton>(unblockB).Click();
         }
 
-        /**
-         * есть ли кнопка блокировки польз?
-         */
+        /// <summary>
+        /// есть ли кнопка блокировки польз?
+        /// </summary>
+        /// <returns></returns>
         public static bool isBlockExist()
         {
             return browser.Describe<IButton>(blockB).Exists();

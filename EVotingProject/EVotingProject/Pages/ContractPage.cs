@@ -49,9 +49,10 @@ namespace EVotingProject.Pages
             table.FindRowWithCellText(str).Cells[0].FindChildren<ILink>().Click();
         }
 
-        /**
-         * не работает поле фильтра 07-11-2016 
-         */
+        /// <summary>
+        /// не работает поле фильтра 07-11-2016 
+        /// </summary>
+        /// <param name="v"></param>
         public static void setFilter(string v)
         {
             browser.Describe<IEditField>(contractFilter).SetValue(v);

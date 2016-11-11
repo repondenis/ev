@@ -23,6 +23,11 @@ namespace EVotingProject.Pages
             return browser.Describe<IEditField>(login).Exists();
         }
 
+        /// <summary>
+        /// авторизация
+        /// </summary>
+        /// <param name="lgn"></param>
+        /// <param name="pswrd"></param>
         public static void runLogin(string lgn, string pswrd)
         {
 

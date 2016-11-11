@@ -77,9 +77,10 @@ namespace EVotingProject.Pages
 
         }
 
-        /**
-         * нажимаем на РЕДАКТИРОВАНИЕ на нужном контакте
-         */
+        /// <summary>
+        /// нажимаем на РЕДАКТИРОВАНИЕ на нужном контакте
+        /// </summary>
+        /// <param name="str"></param>
         public static void editEmployeesOfTable(string str)
         {
             var table = browser.Describe<ITable>(employeesDateTabl);

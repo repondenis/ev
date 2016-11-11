@@ -72,7 +72,7 @@ namespace EVotingProject.Pages
         private static XPathDescription submit = new XPathDescription(".//button[span[text()='продолжить']]");
         private static XPathDescription cancel = new XPathDescription(".//button[span[text()='Отменить']]");
 
-        public static bool isNewMeetingPage()
+        public static bool isTruePage()
         {
             return browser.Describe<IWebElement>(headertext).Exists() && browser.Describe<IWebElement>(headertext).InnerText.Equals("создание собрания");
         }

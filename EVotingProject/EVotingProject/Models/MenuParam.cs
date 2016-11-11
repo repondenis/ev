@@ -15,9 +15,9 @@
         public const string sertif = "сертификат";
     }
 
-    /** 
-     * статус собрания
-     */
+    /// <summary>
+    /// статус собрания
+    /// </summary>
     class MeetingStatusFilter
     {
         public const string itemSelect = "Выберите";

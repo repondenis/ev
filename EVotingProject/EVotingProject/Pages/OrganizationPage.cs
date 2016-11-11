@@ -24,7 +24,7 @@ namespace EVotingProject.Pages
         {
             var searhInput = browser.Describe<IEditField>(organizationSearhInput);
             searhInput.SetValue(str);
-            searhInput.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
+            searhInput.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));//no work IE &!&!
 
         }
 

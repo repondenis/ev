@@ -9,6 +9,13 @@ namespace EVotingProject.Pages
 {
     class MeetingPage : Helpers.PageHelper
     {
+
+        //private static CSSDescription organizationTitle = new CSSDescription("div#wrap-meeting-list>div>div>label");//эмитенты
+        //private static CSSDescription organizationSearhInput = new CSSDescription("div#wrap-meeting-list>div>div>input");
+        // private static CSSDescription organizationDateTabl = new CSSDescription("table[role='grid']");
+
+
+
         private static CSSDescription block = new CSSDescription("div#meeting-block");//главн див
         private static CSSDescription state = new CSSDescription("div.meeting-menu div span.result-header-page");//статус - Доступно заочное голосование на собрании
         private static CSSDescription name = new CSSDescription("div.meeting-menu div span.header-meeting-item");//Годовое собрание акционеров
@@ -364,7 +371,9 @@ namespace EVotingProject.Pages
         //END НАСТРОЙКИ
 
 
-
+        public static bool isTruePage() {
+            return browser.Describe<IWebElement>(name).Exists() && browser.Describe<IWebElement>(name).InnerText.Equals("Годовое собрание акционеров");
+        }
 
 
     }

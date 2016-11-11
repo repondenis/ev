@@ -33,21 +33,28 @@ namespace EVotingProject.Pages
         //
         private static XPathDescription newMeeting = new XPathDescription(".//button[@type='submit' and span[text()='Новое собрание']]");//;button
 
+
+        //private static CSSDescription organizationTitle = new CSSDescription("div#wrap-meeting-list>div>div>label");//эмитенты
+        private static XPathDescription organizationTitle = new XPathDescription(".//div[@id='wrap-meeting-list']/div/div/label");
+
         //
-        private static CSSDescription meetingsSearhText = new CSSDescription("input#form:meetingsList:searchText");//Нименование эмитента или огрн ввод тескт поле
+        private static CSSDescription meetingsSearhText = new CSSDescription("input[id='form:meetingsList:searchText']");//Нименование эмитента или огрн ввод тескт поле
         private static CSSDescription meetingsStartInput = new CSSDescription("input#form:meetingsList:meetingStart_input");// дата собр, текст поле
+
+
+
         private static CSSDescription meetingsFixingDateInput = new CSSDescription("input#form:meetingsList:entitlementFixingDate_input");// дата фиксац списка участн, текст поле
 
         //статус
         private static CSSDescription meetingStatusFilterLabel = new CSSDescription("label#form:meetingsList:meetingStatusFilter_label");//статус собрания - текст, нажимается-выпадает
         private static XPathDescription meetingStatusFilterToggle = new XPathDescription(".//div[@id='form:meetingsList:meetingStatusFilter']/div/span");
-        private static CSSDescription meetingStatusFilterItems = new CSSDescription("ul#form:meetingsList:meetingStatusFilter_items");//input
+        private static CSSDescription meetingStatusFilterItems = new CSSDescription("ul[id='form:meetingsList:meetingStatusFilter_items']");//input
 
-        private static XPathDescription textMeeting = new XPathDescription(".//div[@id='wrap-meeting-list']/div/div/label");
+
 
 
         //список собраний - редактировать выбранное
-        private static CSSDescription meetingsList = new CSSDescription("ul#form:meetingsList_list li");//список созданных собраний:
+        private static CSSDescription meetingsList = new CSSDescription("div[id='form:meetingsList_content']>ul>li");//список созданных собраний:
         private static CSSDescription meetingState = new CSSDescription("span.status-meeting-item"); //статус внутри meetingsList
         private static CSSDescription meetingOrgName = new CSSDescription("span.header-meeting-item"); // наименование орг -//-
         private static XPathDescription meetingDate = new XPathDescription(".//div[div[contains(text(),'Дата собрания')]]/div/span");//дата собрания -//-
@@ -61,7 +68,7 @@ namespace EVotingProject.Pages
 
             browser.Sync();
             //Console.WriteLine("textMeeting=" + browser.Describe<IWebElement>(textMeeting).InnerText);
-            return browser.Describe<IWebElement>(textMeeting).Exists() && browser.Describe<IWebElement>(textMeeting).InnerText.Equals("собрания");
+            return browser.Describe<IWebElement>(organizationTitle).Exists() && browser.Describe<IWebElement>(organizationTitle).InnerText.Equals("собрания");
 
         }
 
@@ -70,6 +77,9 @@ namespace EVotingProject.Pages
             browser.Describe<ILink>(menuPortal).Click();
         }
 
+        /// <summary>
+        /// собрания
+        /// </summary>
         public static void gotoMenuMeetings()
         {
             browser.Describe<ILink>(menuMeetings).Click();
@@ -150,17 +160,17 @@ namespace EVotingProject.Pages
 
         public static void setMeetingsSearhText(string value)
         {
-            browser.Describe<IFileField>(meetingsSearhText).SetValue(value);
+            browser.Describe<IEditField>(meetingsSearhText).SetValue(value);
         }
 
         public static void setMeetingsStartInput(string value)
         {
-            browser.Describe<IFileField>(meetingsStartInput).SetValue(value);
+            browser.Describe<IEditField>(meetingsStartInput).SetValue(value);
         }
 
         public static void setMeetingsFixingDateInput(string value)
         {
-            browser.Describe<IFileField>(meetingsFixingDateInput).SetValue(value);
+            browser.Describe<IEditField>(meetingsFixingDateInput).SetValue(value);
         }
 
         public static void clickMeetingStatusFilterLabel()
@@ -178,7 +188,26 @@ namespace EVotingProject.Pages
             browser.Describe<IListBox>(meetingStatusFilterItems).Select(meetingStatusFilter);
         }
 
+        public static void editMeetingOfTable(string orgName)
+        {
 
+            var liMeetings = browser.FindChildren<IWebElement>(meetingsList);
+            if (liMeetings != null && liMeetings.Length > 0)
+            {
+                for (int i = 0; i < liMeetings.Length; i++)
+                    if (liMeetings[i].FindChildren<IWebElement>(
+                        new WebElementDescription
+                        {
+                            TagName = @"span",
+                            ClassName = @"header-meeting-item",
+                            InnerText = "Открытое акционерное общество \"Нефтяная компания \"Роснефть\""
+                        }).Length > 0)
+                    {
+                        liMeetings[i].FindChildren<ILink>(new XPathDescription(".//a[text()='Редактирование']"))[0].Click();
+                    }
+            }
+
+        }
 
     }
 }

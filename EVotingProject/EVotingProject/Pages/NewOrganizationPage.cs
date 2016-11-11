@@ -184,44 +184,36 @@ namespace EVotingProject.Pages
 
             // CSSDescription loadLogoHeader2 = new CSSDescription("#uploaderListLogo input[type=file]");
 
-
-            var bt = browser.Describe<HP.LFT.SDK.Web.IButton>(new CSSDescription("#uploaderHeaderLogo input[type=file]"));
-            bt.FireEvent(EventInfoFactory.CreateEventInfo("onclick"));
-            Console.WriteLine(bt.Exists() + " " + bt.IsVisible + " " + bt.DisplayName);
-            bt.Click();
-
             /*
-            var loadLogoHeaderBt = browser.Describe<ILink>(new XPathDescription(
-                                    ".//a[span[contains(text(),'ЗАГРУЗИТЬ ЛОГОТИП ШАПКИ')]]"));
-            loadLogoHeaderBt.WaitUntil(logo => logo.Exists() && logo.IsVisible);
+                        var bt = browser.Describe<HP.LFT.SDK.Web.IButton>(new CSSDescription("#uploaderHeaderLogo input[type=file]"));
+                        bt.FireEvent(EventInfoFactory.CreateEventInfo("onclick"));
+                        Console.WriteLine(bt.Exists() + " " + bt.IsVisible + " " + bt.DisplayName);
+                        bt.Click();
+            */
+            
+            //browser.EmbedScript("document.getElementById('uploaderHeaderLogo').getElementsByTagName('input').click();");
+            var loadLogoHeaderBt = browser.Describe<HP.LFT.SDK.Web.IFileField>(new CSSDescription("#uploaderListLogo input[type=file]"));
+ //           loadLogoHeaderBt.WaitUntil(logo => logo.Exists() && logo.IsVisible);
 
-
-            Console.WriteLine(loadLogoHeaderBt.Location.X + " " + loadLogoHeaderBt.Location.Y + " " + loadLogoHeaderBt.Size.Height + " " + loadLogoHeaderBt.Size.Width);
+            loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("click"));
+            //            Console.WriteLine(loadLogoHeaderBt.Location.X + " " + loadLogoHeaderBt.Location.Y + " " + loadLogoHeaderBt.Size.Height + " " + loadLogoHeaderBt.Size.Width);
             loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateMouseEventInfo(MouseEventTypes.OnMouseOver));
-            loadLogoHeaderBt.Highlight();
+           // loadLogoHeaderBt.Highlight();
             loadLogoHeaderBt.HoverTap();
             loadLogoHeaderBt.Click();
             // browser.Page.RunJavaScript("var el = document.elementFromPoint(" + loadLogoHeaderBt.Location.X + 10 + ", " + loadLogoHeaderBt.Location.Y + 10 + ");el.click();");
 
             Console.WriteLine(loadLogoHeaderBt.Exists() + " " + loadLogoHeaderBt.IsVisible + " " + loadLogoHeaderBt.DisplayName);
 
-            clickLoadLogo();
+
             loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("click()"));
-            clickLoadLogo();
             loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateMouseEventInfo(MouseEventTypes.OnClick));
-            clickLoadLogo();
             loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateMouseEventInfo(MouseEventTypes.OnMouseDown));
-            clickLoadLogo();
             loadLogoHeaderBt.LongPress();
-            clickLoadLogo();
             loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("click"));
-            clickLoadLogo();
             loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("onclick"));
-            clickLoadLogo();
             loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("onclick()"));
-            clickLoadLogo();
             loadLogoHeaderBt.Click();
-            clickLoadLogo();
             loadLogoHeaderBt.Click(MouseButton.Left);
 
 
