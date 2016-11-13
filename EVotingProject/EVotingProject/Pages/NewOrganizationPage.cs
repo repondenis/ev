@@ -106,9 +106,28 @@ namespace EVotingProject.Pages
             {
                 Console.WriteLine(browser.Version.Type);
 
+
+                CSSDescription divNone = new CSSDescription("div#uploaderListLogo");
+                var elDivNone = browser.Describe<IWebElement>(divNone);
+                Console.WriteLine("Descr = " + elDivNone.GetAttribute("style") + "; "
+                    + elDivNone.GetDescription() + "; ");
+                
+
+                string query = "var but = document.querySelector('div#uploaderListLogo');var align = but.getAttribute('style');alert(align); ";
+                //string query = "alert('123'); ";
+                 browser.Page.RunJavaScript(query);
                 // openFileDialog.select(filePathHeader);
 
-
+                var loadLogoHeaderBt = browser.Describe<IFileField>(new CSSDescription(
+                    "#uploaderListLogo input[type=file]"));
+                var loadLogoHeaderBt2 = browser.Describe<IWebElement>(new CSSDescription(
+                    "#uploaderListLogo input[type=file]"));
+                //loadLogoHeaderBt2.SetDescription(ISupportSendKeys)
+                loadLogoHeaderBt.WaitUntil(logo => logo.Exists() && logo.IsVisible);
+                loadLogoHeaderBt.Click();
+                loadLogoHeaderBt.Click(MouseButton.Left);
+                loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
+                // loadLogoHeaderBt.SetValue(filePathHeader);
 
             }
         }
@@ -189,16 +208,19 @@ namespace EVotingProject.Pages
                         bt.FireEvent(EventInfoFactory.CreateEventInfo("onclick"));
                         Console.WriteLine(bt.Exists() + " " + bt.IsVisible + " " + bt.DisplayName);
                         bt.Click();
-            */
-            
+            /
+
             //browser.EmbedScript("document.getElementById('uploaderHeaderLogo').getElementsByTagName('input').click();");
             var loadLogoHeaderBt = browser.Describe<HP.LFT.SDK.Web.IFileField>(new CSSDescription("#uploaderListLogo input[type=file]"));
- //           loadLogoHeaderBt.WaitUntil(logo => logo.Exists() && logo.IsVisible);
+            loadLogoHeaderBt.WaitUntil(logo => logo.Exists() && logo.IsVisible);
+            Console.WriteLine(loadLogoHeaderBt.Exists() + " " + loadLogoHeaderBt.IsVisible);
+            //loadLogoHeaderBt.SetValue();
+
 
             loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("click"));
             //            Console.WriteLine(loadLogoHeaderBt.Location.X + " " + loadLogoHeaderBt.Location.Y + " " + loadLogoHeaderBt.Size.Height + " " + loadLogoHeaderBt.Size.Width);
             loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateMouseEventInfo(MouseEventTypes.OnMouseOver));
-           // loadLogoHeaderBt.Highlight();
+            // loadLogoHeaderBt.Highlight();
             loadLogoHeaderBt.HoverTap();
             loadLogoHeaderBt.Click();
             // browser.Page.RunJavaScript("var el = document.elementFromPoint(" + loadLogoHeaderBt.Location.X + 10 + ", " + loadLogoHeaderBt.Location.Y + 10 + ");el.click();");

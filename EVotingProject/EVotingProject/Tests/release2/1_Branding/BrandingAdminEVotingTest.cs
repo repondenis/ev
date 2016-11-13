@@ -11,7 +11,7 @@ using System.Drawing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support;
-
+using HP.LFT.SDK.Insight;
 
 namespace EVotingProject
 {
@@ -54,21 +54,27 @@ namespace EVotingProject
             // Before each test
         }
 
+
+
+
+
         //либо искать ОРГ по ИНН = 1027700043502
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
               TestName = "56849.Проверка инициации настройки брендирования админ ЕВотинга")]
-        [TestCaseSource("ALM")] 
+        [TestCaseSource("ALM")]
         public void Test56849(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
         {
 
             Console.WriteLine(DateTime.Now);
 
-            browser.Navigate(urlDev);
+            browser.Navigate(urlDemo);
             Assert.True(LoginPage.isTruePage());
 
             // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            browser.Navigate(urlDevAdmin);
+
+            browser.Navigate(urlDemoAdmin);
+            browser.Sync();
             Assert.True(LoginLocalPage.isTruePage());
 
             LoginLocalPage.runLogin(login, pass);
