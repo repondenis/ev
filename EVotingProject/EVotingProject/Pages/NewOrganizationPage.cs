@@ -113,9 +113,10 @@ namespace EVotingProject.Pages
                     + elDivNone.GetDescription() + "; ");
                 
 
-                string query = "var but = document.querySelector('div#uploaderListLogo');var align = but.getAttribute('style');alert(align); ";
+//string query = "var but = document.querySelector('div#uploaderListLogo');var align = but.getAttribute('style');alert(align); ";
+//string query = @"alert(document.querySelectorAll('div#uploaderListLogo').getAttribute('style'));";
                 //string query = "alert('123'); ";
-                 browser.Page.RunJavaScript(query);
+ //               browser.Page.RunJavaScript(query);
                 // openFileDialog.select(filePathHeader);
 
                 var loadLogoHeaderBt = browser.Describe<IFileField>(new CSSDescription(

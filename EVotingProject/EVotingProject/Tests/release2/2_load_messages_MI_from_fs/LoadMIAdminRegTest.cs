@@ -12,8 +12,8 @@ using System.Drawing;
 namespace EVotingProject
 {
     [TestFixture]
-    [Description("Получение списка участников собрания админ ЕВотинга")]
-    public class LoadMIAdminEVotingTest : UnitTestClassBase
+    [Description("Получение списка участников собрания админ регистратора")]
+    public class LoadMIAdminRegTest : UnitTestClassBase
     {
         [OneTimeSetUp]
         public void TestFixtureSetUp()
@@ -37,9 +37,9 @@ namespace EVotingProject
         }
 
         //либо искать ОРГ по ИНН = 1027700043502
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
-              TestName = "56968.Проверка получения списка участников админ ЕВотинга")]
-        public void Test56968(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin_reestrrn_reg", "admin_reestrrn_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
+              TestName = "56974.Проверка получения списка участников админ регистратора")]
+        public void Test56974(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
         {
 
             Console.WriteLine(DateTime.Now);
@@ -47,10 +47,10 @@ namespace EVotingProject
             browser.Navigate(urlDemo);
             Assert.True(LoginPage.isTruePage());
 
-            // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
+            LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            browser.Navigate(urlDemoAdmin);
-            browser.Sync();
+           // browser.Navigate(urlDemoAdmin);
+           // browser.Sync();
             Assert.True(LoginLocalPage.isTruePage());
 
             LoginLocalPage.runLogin(login, pass);

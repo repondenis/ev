@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
 using HP.LFT.SDK.StdWin;
+using EVotingProject.Models;
 
 namespace EVotingProject.Pages
 {
@@ -32,6 +33,8 @@ namespace EVotingProject.Pages
         private static CSSDescription formMeetingsLoatedFilter = new CSSDescription("input#meetingNotificationMessagesForm:meetingNotificationTable:globalFilter");//поле фильтра
         private static CSSDescription formMeetingsLoatedCreate = new CSSDescription("button#meetingNotificationMessagesForm:applyButtton");//создать собрание
         private static XPathDescription formMeetingsLoatedCancel = new XPathDescription(".//button[span[text()='Отмена']]");
+
+
 
         //поля создания собрания
         // private static CSSDescription securityType_ = new CSSDescription("div[id='form:securityType'] label");
@@ -74,10 +77,34 @@ namespace EVotingProject.Pages
 
         public static bool isTruePage()
         {
-            return browser.Describe<IWebElement>(headertext).Exists() && browser.Describe<IWebElement>(headertext).InnerText.Equals("создание собрания");
+            return browser.Describe<IWebElement>(headertext).Exists()
+                && browser.Describe<IWebElement>(headertext).InnerText.Equals("создание собрания");
         }
 
+        public static void selectMethodCreateMeetingList(string method)
+        {
 
+            /*  // MeetingMethodCreate
+              switch (method)
+              {
+                  case MeetingMethodCreate.FILE:
+
+                      break;
+              }
+             */
+
+            var select = browser.Describe<HP.LFT.SDK.Web.IListBox>(methodCreateMeetingList);
+            select.Select(method);
+
+            //            browser.Describe<IWebElement>(new CSSDescription("div.ui-fileupload-buttonbar")).Click();
+            //            browser.Describe<IWebElement>(new CSSDescription("div.ui-fileupload-buttonbar>span")).Click();
+            //            browser.Describe<ILink>(new XPathDescription(".//a[text()='Загрузить файл']")).Click();
+            browser.Describe<IFileField>(new CSSDescription("input[type=file]")).SetValue("D:\\temp\\MN НРД (Роснефть) 1.xml");
+        }
+        public static void loadFromFile(string filePathHeader)
+        {
+            //throw new NotImplementedException();
+        }
 
 
     }

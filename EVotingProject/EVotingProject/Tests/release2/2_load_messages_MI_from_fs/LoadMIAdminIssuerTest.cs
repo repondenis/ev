@@ -12,8 +12,8 @@ using System.Drawing;
 namespace EVotingProject
 {
     [TestFixture]
-    [Description("Получение списка участников собрания админ ЕВотинга")]
-    public class LoadMIAdminEVotingTest : UnitTestClassBase
+    [Description("Получение списка участников собрания админ эмитента")]
+    public class LoadMIAdminIssuerTest : UnitTestClassBase
     {
         [OneTimeSetUp]
         public void TestFixtureSetUp()
@@ -37,9 +37,9 @@ namespace EVotingProject
         }
 
         //либо искать ОРГ по ИНН = 1027700043502
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
-              TestName = "56968.Проверка получения списка участников админ ЕВотинга")]
-        public void Test56968(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin_denisov_iss", "admin_denisov_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
+              TestName = "56972.Проверка логического контроля админ эмитента")]
+        public void Test56972(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
         {
 
             Console.WriteLine(DateTime.Now);

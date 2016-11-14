@@ -134,7 +134,13 @@
     <Compile Include="Tests\release2\1_Branding\BrandingAdminIssuerTest.cs" />
     <Compile Include="Tests\release2\1_Branding\BrandingAdminRegTest.cs" />
     <Compile Include="Tests\release2\1_Branding\BrandingAdminEVotingTest.cs" />
+    <Compile Include="Tests\release2\2_load_messages_MI_from_fs\LoadMIAdminIssuerTest.cs" />
+    <Compile Include="Tests\release2\2_load_messages_MI_from_fs\LoadMIAdminRegTest.cs" />
     <Compile Include="Tests\release2\2_load_messages_MI_from_fs\LoadMIAdminEVotingTest.cs" />
+    <Compile Include="Tests\release2\2_load_messages_MI_from_fs\VerificationOfLogicalTestAdminIssuerTest.cs" />
+    <Compile Include="Tests\release2\2_load_messages_MI_from_fs\VerificationOfLogicalTestAdminRegTest.cs" />
+    <Compile Include="Tests\release2\2_load_messages_MI_from_fs\VerificationOfLogicalTestAdminEVotingTest.cs" />
+    <Compile Include="Tests\release2\3_Initiation_meeting\Load_info_from_meeting\Create_from_MN\VerifInitiationFromFileMNTest.cs" />
     <None Include="App.config" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
@@ -150,6 +156,10 @@
     <Content Include="chromedriver-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests\release2\3_Initiation_meeting\Create_manual_meeting\" />
+    <Folder Include="Tests\release2\3_Initiation_meeting\Edit_meeting\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

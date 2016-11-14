@@ -42,8 +42,8 @@ namespace EVotingProject
 
                         chromeDriver.Navigate().GoToUrl(urlDemo);
             */
-            browser.ClearCache();
-            browser.DeleteCookies();
+           // browser.ClearCache();
+           // browser.DeleteCookies();
             PageHelper.setBrowser(browser);
 
         }

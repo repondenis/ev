@@ -188,23 +188,29 @@ namespace EVotingProject.Pages
             browser.Describe<IListBox>(meetingStatusFilterItems).Select(meetingStatusFilter);
         }
 
-        public static void editMeetingOfTable(string orgName)
+        /// <summary>
+        /// Открытое акционерное общество \"Нефтяная компания \"Роснефть\"
+        /// </summary>
+        /// <param name="orgName"></param>
+        public static void editMeetingOfTable(string orgNameT)
         {
 
             var liMeetings = browser.FindChildren<IWebElement>(meetingsList);
             if (liMeetings != null && liMeetings.Length > 0)
             {
                 for (int i = 0; i < liMeetings.Length; i++)
-                    if (liMeetings[i].FindChildren<IWebElement>(
-                        new WebElementDescription
-                        {
-                            TagName = @"span",
-                            ClassName = @"header-meeting-item",
-                            InnerText = "Открытое акционерное общество \"Нефтяная компания \"Роснефть\""
-                        }).Length > 0)
+                {
+                    var meetingChldr = liMeetings[i].Describe<IWebElement>(new CSSDescription("span.header-meeting-item"));
+                    Console.WriteLine(i + ":" + meetingChldr.InnerText);
+                    if (meetingChldr.Exists() && meetingChldr.InnerText.Equals(orgNameT))
                     {
                         liMeetings[i].FindChildren<ILink>(new XPathDescription(".//a[text()='Редактирование']"))[0].Click();
+                        break;
                     }
+
+                }
+
+
             }
 
         }

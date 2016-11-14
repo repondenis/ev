@@ -25,7 +25,46 @@ namespace EVotingProject
         public void SetUp()
         {
             browser = BrowserFactory.Launch(BrowserType.Chrome);
-            browser.Navigate(this.url);
+            //browser.Navigate(this.url);
+        }
+
+        [Test]
+        [Description("TestInputFile")]
+        public void TestInputFile()
+        {
+            var urlTrue = "http://www.softpost.org/selenium-test-page/";
+            var cssTrue = "input[type='file']";
+
+            string filePath = @"D:\temp\str2.jpg";
+
+            var url2 = "http://www.uniplast-kbe.ru/test/1.php";
+            var css1 = "input#upload_hidden";
+            var css2 = "input#upload_hidden_2";
+            var css3 = "input#upload_hidden_3";
+            var css4 = "input#upload_hidden_4";
+
+            browser.Navigate(url2);
+            browser.Sync();
+
+            browser.Describe<IFileField>(new CSSDescription(css1)).SetValue(filePath);//ok
+            browser.Describe<IFileField>(new CSSDescription(css2)).SetValue(filePath);//bad
+            browser.Describe<IFileField>(new CSSDescription(css3)).SetValue(filePath);//bad
+            browser.Describe<IFileField>(new CSSDescription(css4)).SetValue(filePath);//bad
+
+            /*
+            IFileField inpfil = browser.Describe<IFileField>(new CSSDescription(css1));
+
+            if (inpfil.Exists())
+            {
+                inpfil.SetValue(@"D:\temp\str2.jpg");
+                Console.WriteLine(inpfil.Value);
+            }
+            */
+
+
+
+
+
         }
 
         [TestCase(true, TestName = "Tест пройден, №503770", Description = "тест пройден")]
@@ -42,6 +81,7 @@ namespace EVotingProject
         {
             try
             {
+                browser.Navigate(this.url);
                 YandexPage.setBrowser(browser);
                 YandexPage.sendText("бензин");
                 Assert.True(YandexPage.isSearhElementsExist());

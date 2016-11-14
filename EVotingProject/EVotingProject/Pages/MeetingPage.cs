@@ -18,7 +18,8 @@ namespace EVotingProject.Pages
 
         private static CSSDescription block = new CSSDescription("div#meeting-block");//главн див
         private static CSSDescription state = new CSSDescription("div.meeting-menu div span.result-header-page");//статус - Доступно заочное голосование на собрании
-        private static CSSDescription name = new CSSDescription("div.meeting-menu div span.header-meeting-item");//Годовое собрание акционеров
+        private static CSSDescription nameMeet = new CSSDescription("div.meeting-menu>div:nth-child(2)>span.header-meeting-item");//Годовое собрание акционеров
+        private static CSSDescription nameOrg = new CSSDescription("div.meeting-menu>div:nth-child(3)>span.header-meeting-item");//org name
         private static CSSDescription emitent = new CSSDescription("div.meeting-menu div span.header-meeting-item");//Акционерный коммерческий Сберегательный бан
 
         private static CSSDescription dateMeet = new CSSDescription("form#controlPanelForm div span.result-label-data");//Дата собрания
@@ -51,12 +52,12 @@ namespace EVotingProject.Pages
 
 
         //MENU
-        private static XPathDescription menuFullInfo = new XPathDescription(".///a[text()='Общая информация']");
-        private static XPathDescription menuMater = new XPathDescription(".///a[text()='Материалы']");
-        private static XPathDescription menuBullet = new XPathDescription(".///a[text()='Бюллетень']");
-        private static XPathDescription menuList = new XPathDescription(".///a[text()='Список к собранию']");
-        private static XPathDescription menuViewers = new XPathDescription(".///a[text()='Наблюдатели']");
-        private static XPathDescription menuSettings = new XPathDescription(".///a[text()='Настройки']");
+        private static XPathDescription menuFullInfo = new XPathDescription(".//a[text()='Общая информация']");
+        private static XPathDescription menuMater = new XPathDescription(".//a[text()='Материалы']");
+        private static XPathDescription menuBullet = new XPathDescription(".//a[text()='Бюллетень']");
+        private static XPathDescription menuList = new XPathDescription(".//a[text()='Список к собранию']");
+        private static XPathDescription menuViewers = new XPathDescription(".//a[text()='Наблюдатели']");
+        private static XPathDescription menuSettings = new XPathDescription(".//a[text()='Настройки']");
 
 
         //Общая информация
@@ -188,7 +189,7 @@ namespace EVotingProject.Pages
         //form load list participants
         private static XPathDescription formLoadListParticipants = new XPathDescription(".//div[div[span[text()='Загрузка списка участников собрания']]]");
         private static XPathDescription formLoadListParticipantsClose = new XPathDescription(".//div[div[span[text()='Загрузка списка участников собрания']]]/div/a");//close
-        private static CSSDescription selectFileParticipants = new CSSDescription("div#dialog-upload-e-voting>div>div>span");// Выбрать файл
+        private static CSSDescription selectFileParticipants = new CSSDescription("div#dialog-upload-e-voting>div>div>span>input[type='file']");// Выбрать файл
         private static XPathDescription loadFileParticipants = new XPathDescription(".//button[span[text()='Загрузить файлы']]");//загрузить файлы
         private static XPathDescription loadFileParticipantsCancel = new XPathDescription(".//button[span[text()='Отменить']]");//cancel загрузить файлы
                                                                                                                                 //end 
@@ -371,8 +372,81 @@ namespace EVotingProject.Pages
         //END НАСТРОЙКИ
 
 
-        public static bool isTruePage() {
-            return browser.Describe<IWebElement>(name).Exists() && browser.Describe<IWebElement>(name).InnerText.Equals("Годовое собрание акционеров");
+        public static bool isTruePage()
+        {
+            browser.Sync();
+            return browser.Describe<IWebElement>(nameMeet).Exists()
+                && (browser.Describe<IWebElement>(nameMeet).InnerText.Equals("Годовое собрание акционеров"));
+        }
+
+        public static bool isTruePage(string orgName)
+        {
+            browser.Sync();
+            Console.WriteLine(browser.Describe<IWebElement>(nameOrg).Exists());
+            return browser.Describe<IWebElement>(nameOrg).Exists()
+                && browser.Describe<IWebElement>(nameOrg).InnerText.Equals(orgName);
+        }
+
+        public static void gotoMenuBullet()
+        {
+            browser.Describe<ILink>(menuBullet).Click();
+        }
+        public static void gotoMenuFullInfo()
+        {
+            browser.Describe<ILink>(menuFullInfo).Click();
+        }
+        public static void gotoMenuMater()
+        {
+            browser.Describe<ILink>(menuMater).Click();
+        }
+        public static void gotoMenuSettings()
+        {
+            browser.Describe<ILink>(menuSettings).Click();
+        }
+        public static void gotoMenuViewers()
+        {
+            browser.Describe<ILink>(menuViewers).Click();
+        }
+        public static void gotoMenuList()
+        {
+            browser.Describe<ILink>(menuList).Click();
+        }
+        public static bool isListOfMeetingExist()
+        {
+            return browser.Describe<IButton>(loadListParticipants).Exists()
+                && browser.Describe<IButton>(loadListParticipants).IsVisible;
+        }
+
+        public static void clickLoadListParticipants()
+        {
+            browser.Describe<IButton>(loadListParticipants).Click();
+        }
+        public static bool isFormLoadListParticipantsExist()
+        {
+            return browser.Describe<IWebElement>(loadListParticipants).Exists();
+        }
+        public static void clickSelectFileParticipants()
+        {
+            IFileField ff = browser.Describe<IFileField>(selectFileParticipants);
+
+            ff.SetValue(@"D:\temp\test.xml");
+
+            browser.Describe<IWebElement>(selectFileParticipants).Click();
+            browser.Describe<IFileField>(selectFileParticipants).Click();
+            browser.Describe<IFileField>(selectFileParticipants).FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
+            browser.Describe<IFileField>(selectFileParticipants).FireEvent(EventInfoFactory.CreateMouseEventInfo(MouseEventTypes.OnClick));
+            Console.WriteLine("IFileField = " + browser.Describe<IFileField>(selectFileParticipants).Value);
+
+            Console.WriteLine("IFileField = " + browser.Describe<IFileField>(selectFileParticipants).GetVisibleText());
+            browser.Describe<IFileField>(selectFileParticipants).Highlight();
+
+            browser.Describe<IWebElement>(
+                new CSSDescription("div#dialog-upload-e-voting>div>div>span>span:nth-child(1)")).Click();
+
+            browser.Describe<IWebElement>(
+                 new CSSDescription("div#dialog-upload-e-voting>div>div>span>span:nth-child(2)")).Click();
+
+           
         }
 
 
