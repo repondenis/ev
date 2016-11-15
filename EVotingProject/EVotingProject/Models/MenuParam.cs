@@ -72,24 +72,36 @@
     }
 
 
-    class СancelDialogCode {
+    class СancelDialogCode
+    {
         public const string noKvorum = "Отсутствие кворума";
         public const string errorEdit = "Отмена из-за ошибки обработки";
         public const string cancelEmitent = "Отмена в связи с отменой собрания эмитентом";
     }
 
-    class MaterialSelect {
+    class MaterialSelect
+    {
         public const string materialMeeting = "Материалы собрания";
         public const string bulleten = "Бюллетень";
     }
 
-    class availRoles {
+    class availRoles
+    {
         public const string adminOfRegistrators = "Администратор регистратора";
         public const string adminOfIssuer = "Администратор эмитента";
         public const string createrMeeting = "Организатор собрания";
         public const string memberOfCounter = "Участник счетной комиссии";
     }
 
+    /// <summary>
+    /// Код причины отмены
+    /// </summary>
+    class cancelReasonCode
+    {
+        public const string QORM = "Отсутствие кворума";
+        public const string PROC = "Отмена из-за ошибки обработки";
+        public const string WITH = "Отмена в связи с отменой собрания эмитентом";
+    }
 
 
 }

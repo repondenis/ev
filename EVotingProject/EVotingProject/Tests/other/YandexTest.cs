@@ -24,7 +24,7 @@ namespace EVotingProject
         [SetUp]
         public void SetUp()
         {
-            browser = BrowserFactory.Launch(BrowserType.Chrome);
+            browser = BrowserFactory.Launch(BrowserType.Firefox);
             //browser.Navigate(this.url);
         }
 
@@ -45,11 +45,40 @@ namespace EVotingProject
 
             browser.Navigate(url2);
             browser.Sync();
+            try
+            {
+                browser.Describe<IFileField>(new CSSDescription(css1)).SetValue(filePath);//ok
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
+            }
+            try
+            {
+                browser.Describe<IFileField>(new CSSDescription(css2)).SetValue(filePath);//ok
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
+            }
+            try
+            {
+                browser.Describe<IFileField>(new CSSDescription(css3)).SetValue(filePath);//ok
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
+            }
+            try
+            {
+                browser.Describe<IFileField>(new CSSDescription(css4)).SetValue(filePath);//ok
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
+            }
 
-            browser.Describe<IFileField>(new CSSDescription(css1)).SetValue(filePath);//ok
-            browser.Describe<IFileField>(new CSSDescription(css2)).SetValue(filePath);//bad
-            browser.Describe<IFileField>(new CSSDescription(css3)).SetValue(filePath);//bad
-            browser.Describe<IFileField>(new CSSDescription(css4)).SetValue(filePath);//bad
+
 
             /*
             IFileField inpfil = browser.Describe<IFileField>(new CSSDescription(css1));

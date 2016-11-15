@@ -12,7 +12,7 @@ using System.Drawing;
 namespace EVotingProject
 {
     [TestFixture]
-    [Description("проверка инициации передачи файла с сообщением о собрании из файла MN админ ЕВотинга")]
+    [Description("проверка создания собрания из файла MN админ ЕВотинга")]
     public class VerifInitiationFromFileMNTest : UnitTestClassBase
     {
         [OneTimeSetUp]
@@ -37,9 +37,10 @@ namespace EVotingProject
         }
 
         //либо искать ОРГ по ИНН = 1027700043502
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", "D:\\temp\\MN НРД (Роснефть) 1.xml", "Успешно сохранен!",
-              TestName = "56943.проверка инициации передачи файла с сообщением о собрании из файла MN админ ЕВотинга")]
-        public void Test56943(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string message)
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
+            "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\Screen Shot 09-15-16 at 07.00 PM.PNG", "Успешно сохранен!",
+              TestName = "56943.проверка инициации передачи файла сообщ о собрании MN админ ЕВотинга")]
+        public void Test56943(string menuPar, string loginPar, string login, string pass, string orgName, string filePathTrueXSD, string filePathBadXSD, string message)
         {
 
             Console.WriteLine(DateTime.Now);
@@ -50,7 +51,7 @@ namespace EVotingProject
             // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
             browser.Navigate(urlDemoAdmin);
-            browser.Sync();
+
             Assert.True(LoginLocalPage.isTruePage());
 
             LoginLocalPage.runLogin(login, pass);
@@ -59,21 +60,293 @@ namespace EVotingProject
             PortalPage.gotoMenuMeetings();
             Assert.True(PortalPage.isTruePage());
             PortalPage.clickNewMeeting();
-            Assert.True(NewMeetingPage.isTruePage());
-            //2
-            NewMeetingPage.selectMethodCreateMeetingList(MeetingMethodCreate.FILE);
-            NewMeetingPage.loadFromFile(filePathHeader);
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
 
-            //3
-            NewMeetingPage.loadFromFile(filePathHeader);
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
 
+            //1
+            NewMeetingPage.loadFromFile(filePathTrueXSD);
 
-
-
-         
+            //2 - файл не явл сообщ о проведении собрания XML
+            NewMeetingPage.loadFromFile(filePathBadXSD);
         }
 
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
+  "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть)56945.xml", "Успешно сохранен!",
+   TestName = "56945.проверка контроля формата сообщения из XSD из файла MN админ ЕВотинга")]
+        public void Test56945(string menuPar, string loginPar, string login, string pass, string orgName, string filePathTrueXSD, string filePathBadXSD, string message)
+        {
 
+            Console.WriteLine(DateTime.Now);
+
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+
+            //1
+            NewMeetingPage.loadFromFile(filePathTrueXSD);
+
+            //2 - нет откр, закр тега, нет символа /, незакрытый комментарий
+            NewMeetingPage.loadFromFile(filePathBadXSD);
+        }
+
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
+        "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "Успешно сохранен!",
+        TestName = "56946.проверка logich контроля формата сообщения из файла MN админ ЕВотинга")]
+        public void Test56946(string menuPar, string loginPar, string login, string pass, string orgName, string filePath1, string filePath2, string filePath3, string filePath4, string message)
+        {
+
+            Console.WriteLine(DateTime.Now);
+
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+
+            //1
+            NewMeetingPage.loadFromFile(filePath1);
+
+            //2 
+            NewMeetingPage.loadFromFile(filePath2);
+
+            //3 
+            NewMeetingPage.loadFromFile(filePath3);
+
+            //4
+            NewMeetingPage.loadFromFile(filePath4);
+        }
+
+        //либо искать ОРГ по ИНН = 1027700043502
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin",
+            "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml",
+           "D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
+              TestName = "56944.проверка типа KD (тип бумаги вид собрания эмитент) MN админ ЕВотинга")]
+        public void Test56944(string menuPar, string loginPar, string login, string pass,
+           string filePath1, string filePath2, string filePath3, string filePath4, string filePath5, string filePath6, string filePath7,
+           string filePathAnyIssuer, string filePathItIssuer, string message)
+        {
+
+
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+
+            //1-7
+            NewMeetingPage.loadFromFile(filePath1);
+            NewMeetingPage.loadFromFile(filePath2);
+            NewMeetingPage.loadFromFile(filePath3);
+            NewMeetingPage.loadFromFile(filePath4);
+            NewMeetingPage.loadFromFile(filePath5);
+            NewMeetingPage.loadFromFile(filePath6);
+            NewMeetingPage.loadFromFile(filePath7);
+            /*
+            foreach (string fp in filesPaths)
+            {
+                NewMeetingPage.loadFromFile(fp);
+
+            }
+            */
+
+            //8 проверить созд собрания под админом НРД выбрав любой эмитент
+            PortalPage.gotoMenuMeetings();
+            Assert.True(PortalPage.isTruePage());
+            PortalPage.clickNewMeeting();
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+            NewMeetingPage.loadFromFile(filePathAnyIssuer);
+            NewMeetingPage.cancel();
+        }
+
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin_denisov_iss", "admin_denisov_iss",
+            "D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
+        TestName = "56944Step9-10.проверка типа KD (тип бумаги вид собрания эмитент) MN админ эмитента")]
+        public void Test56944Step910(string menuPar, string loginPar, string login, string pass,
+         string filePathAnyIssuer, string filePathItIssuer, string message)
+        {
+            //9 созд собр адм эмитента - свой эмитент
+            PortalPage.logout();
+            browser.ClearCache();
+            browser.DeleteCookies();
+            browser.Navigate(urlDemo);
+            LoginPage.caseMenuParam(menuPar);
+            LoginPage.caseLoginParam(loginPar);
+            Assert.True(LoginLocalPage.isTruePage());
+
+            LoginLocalPage.runLogin(login, pass);
+            Assert.True(PortalPage.isTruePage());
+
+            PortalPage.gotoMenuMeetings();
+            Assert.True(PortalPage.isTruePage());
+            PortalPage.clickNewMeeting();
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+            NewMeetingPage.loadFromFile(filePathItIssuer);
+
+
+            //10 созд собр адм эмитента - чужой эмитент
+            NewMeetingPage.loadFromFile(filePathAnyIssuer);
+            NewMeetingPage.cancel();
+            NewMeetingPage.logout();
+        }
+
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin_reestrrn_reg", "admin_reestrrn_reg",
+     "D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
+ TestName = "56944Step11-12.проверка типа KD (тип бумаги вид собрания эмитент) MN админ регистратора")]
+        public void Test56944Step1112(string menuPar, string loginPar, string login, string pass,
+  string filePathAnyIssuer, string filePathItIssuer, string message)
+        {
+
+            //11 созд собр адм регистратора - свой эмитент
+            PortalPage.logout();
+            browser.ClearCache();
+            browser.DeleteCookies();
+            browser.Navigate(urlDemo);
+            LoginPage.caseMenuParam(menuPar);
+            LoginPage.caseLoginParam(loginPar);
+            Assert.True(LoginLocalPage.isTruePage());
+
+            LoginLocalPage.runLogin(login, pass);
+            Assert.True(PortalPage.isTruePage());
+
+            PortalPage.gotoMenuMeetings();
+            Assert.True(PortalPage.isTruePage());
+            PortalPage.clickNewMeeting();
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+            NewMeetingPage.loadFromFile(filePathItIssuer);
+
+
+            //12 созд собр адм регистратора - чужой эмитент
+            NewMeetingPage.loadFromFile(filePathAnyIssuer);
+            NewMeetingPage.cancel();
+
+
+            //13
+            // ???????????? вручную? - см 15
+            //14
+            // ???????????? вручную? - см 15
+
+
+            NewMeetingPage.logout();
+        }
+
+        [TestCase(MenuParam.organizators, LoginParam.login, "Rn_sk_1", "Rn_sk_1",
+"D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
+TestName = "56944Step15.проверка типа KD (тип бумаги вид собрания эмитент) MN участник сч комиссии")]
+        public void Test56944Step15(string menuPar, string loginPar, string login, string pass,
+string filePathAnyIssuer, string filePathItIssuer, string message)
+        {
+
+            //15 ВРУЧНУЮ???????????????????????
+            PortalPage.logout();
+            browser.ClearCache();
+            browser.DeleteCookies();
+            browser.Navigate(urlDemo);
+            LoginPage.caseMenuParam(menuPar);
+            LoginPage.caseLoginParam(loginPar);
+            Assert.True(LoginLocalPage.isTruePage());
+
+            LoginLocalPage.runLogin(login, pass);
+            Assert.True(PortalPage.isTruePage());
+
+            PortalPage.gotoMenuMeetings();
+            Assert.True(PortalPage.isTruePage());
+            PortalPage.clickNewMeeting();
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.MANUAL);
+            NewMeetingPage.selectSecurityType(securityType.akcii);
+            NewMeetingPage.selectmeetingType(meetingType.years);
+            NewMeetingPage.selectFormType(formType.sendList);
+            NewMeetingPage.setMeetingStartInput("26.05.2016 10:30");
+
+            NewMeetingPage.cancel();
+
+            NewMeetingPage.logout();
+        }
+
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin",
+        "D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "Успешно сохранен!",
+        TestName = "56964.проверка отображения стр собрания и подствержд созд собрания, адм evot) MN участник сч комиссии")]
+        public void Test56964(string menuPar, string loginPar, string login, string pass, string filePath, string message)
+        {
+            Console.WriteLine(DateTime.Now);
+
+            browser.Navigate(urlDemo);
+            Assert.True(LoginPage.isTruePage());
+
+            // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
+            LoginPage.caseLoginParam(loginPar);
+            browser.Navigate(urlDemoAdmin);
+
+            Assert.True(LoginLocalPage.isTruePage());
+
+            LoginLocalPage.runLogin(login, pass);
+            Assert.True(PortalPage.isTruePage());
+
+            PortalPage.gotoMenuMeetings();
+            Assert.True(PortalPage.isTruePage());
+            PortalPage.clickNewMeeting();
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+
+            //before
+            NewMeetingPage.loadFromFile(filePath);
+
+            //1-2
+            Assert.IsNotEmpty(NewMeetingPage.getSelectedSecurityType());
+            Assert.IsNotEmpty(NewMeetingPage.getSelectedMeetingType());
+            Assert.IsNotEmpty(NewMeetingPage.getSelectedFormType());
+            Assert.IsNotEmpty(NewMeetingPage.getMeetingStartInput());
+            Assert.IsNotEmpty(NewMeetingPage.getIssuerOrganization());
+            Assert.IsNotEmpty(NewMeetingPage.getIssuerOrganizationInn());
+            Assert.IsNotEmpty(NewMeetingPage.getIssuerOrganizationOgrn());
+
+            NewMeetingPage.clickContractInputToggle();
+            NewMeetingPage.selectContractInput(0);
+
+            //3
+            NewMeetingPage.submit();
+            Assert.False(NewMeetingPage.isErrorMsg(), "При сохранении произошла ошибка!");
+
+
+            Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
+            var state = MeetingPage.getState();
+            MeetingPage.clickEditState();
+            Assert.AreNotEqual(state, MeetingPage.getState(), "должен измениться статус собрания");
+
+            //4
+            //??
+
+            //5
+            state = MeetingPage.getState();
+            var issuerFullName = MeetingPage.getissuerFullName();
+            var meetingId = MeetingPage.getmeetingId();
+            var formType = MeetingPage.getformTypeLabel();
+            var meetingStart = MeetingPage.getmeetingStartInput();
+            var meetingCountry = MeetingPage.getmeetingCountryInput();
+            var meetingAddress = MeetingPage.getmeetingAddress();
+            var voteMktDdln = MeetingPage.getvoteMktDdlnInput();
+            var participantsRegisterStart = MeetingPage.getparticipantsRegisterStartInput();
+            var entitlementFixingDate = MeetingPage.getentitlementFixingDate_input();
+            var postCountry = MeetingPage.getpostCountry_input();
+            var postAddress = MeetingPage.getpostAddressInput();
+            var agenda = MeetingPage.getagenda();
+            browser.Refresh();
+            Assert.AreEqual(issuerFullName, MeetingPage.getissuerFullName());
+            Assert.AreEqual(meetingId, MeetingPage.getmeetingId());
+            Assert.AreEqual(formType, MeetingPage.getformTypeLabel());
+            Assert.AreEqual(meetingStart, MeetingPage.getmeetingStartInput());
+            Assert.AreEqual(meetingCountry, MeetingPage.getmeetingCountryInput());
+            Assert.AreEqual(meetingAddress, MeetingPage.getmeetingAddress());
+            Assert.AreEqual(voteMktDdln, MeetingPage.getvoteMktDdlnInput());
+            Assert.AreEqual(participantsRegisterStart, MeetingPage.getparticipantsRegisterStartInput());
+            Assert.AreEqual(entitlementFixingDate, MeetingPage.getentitlementFixingDate_input());
+            Assert.AreEqual(postCountry, MeetingPage.getpostCountry_input());
+            Assert.AreEqual(postAddress, MeetingPage.getpostAddressInput());
+            Assert.AreEqual(agenda, MeetingPage.getagenda());
+
+            MeetingPage.logout();
+        }
 
         [TearDown]
         public void TearDown()
