@@ -24,7 +24,7 @@ namespace EVotingProject
         [SetUp]
         public void SetUp()
         {
-            browser = BrowserFactory.Launch(BrowserType.Firefox);
+            browser = BrowserFactory.Launch(BrowserType.Chrome);
             //browser.Navigate(this.url);
         }
 
@@ -34,6 +34,8 @@ namespace EVotingProject
         {
             var urlTrue = "http://www.softpost.org/selenium-test-page/";
             var cssTrue = "input[type='file']";
+
+
 
             string filePath = @"D:\temp\str2.jpg";
 
@@ -45,12 +47,70 @@ namespace EVotingProject
 
             browser.Navigate(url2);
             browser.Sync();
+
+            string query1 = browser.Page.RunJavaScript(
+                "document.getElementById('upload_hidden').style.overflow;");
+
+            Console.WriteLine("className is " + query1);
+
+            //string query2 = browser.Page.RunJavaScript("document.getElementById('upload_hidden').style.overflow='visible';");
+
+
+            string query4 = browser.Page.RunJavaScript(
+                 "document.getElementById('upload_hidden').style.overflow='visible'; " +
+                 "document.getElementById('upload_hidden').style.display='inline-block'; " +
+                 "document.getElementById('upload_hidden').style.opacity=1; " +
+                 "document.getElementById('upload_hidden').style.top=0; " +
+                 "document.getElementById('upload_hidden').style.left=0; " +
+                 "document.getElementById('upload_hidden').style.width=100; " +
+                 "document.getElementById('upload_hidden').style.height=20; " +
+                 "document.getElementById('upload_hidden').style.filter=''; " +
+                 "document.getElementById('upload_hidden').style.position='relative'; " +
+                 "document.getElementById('upload_hidden_2').style.overflow='visible'; " +
+                 "document.getElementById('upload_hidden_2').style.display='inline-block'; " +
+                 "document.getElementById('upload_hidden_2').style.opacity=1; " +
+                 "document.getElementById('upload_hidden_2').style.top=0; " +
+                 "document.getElementById('upload_hidden_2').style.left=0; " +
+                 "document.getElementById('upload_hidden_2').style.width=100; " +
+                 "document.getElementById('upload_hidden_2').style.height=20; " +
+                 "document.getElementById('upload_hidden_2').style.filter=''; " +
+                 "document.getElementById('upload_hidden_2').onchange=''; " +
+                 "document.getElementById('upload_hidden_2').style.position='relative'; " +
+                 "document.getElementById('upload_hidden_3').style.overflow='visible'; " +
+                 "document.getElementById('upload_hidden_3').style.display='inline-block'; " +
+                 "document.getElementById('upload_hidden_3').style.opacity=1; " +
+                 "document.getElementById('upload_hidden_3').style.top=0; " +
+                 "document.getElementById('upload_hidden_3').style.left=0; " +
+                 "document.getElementById('upload_hidden_3').style.width=100; " +
+                 "document.getElementById('upload_hidden_3').style.height=20; " +
+                 "document.getElementById('upload_hidden_3').style.filter=''; " +
+                 "document.getElementById('upload_hidden_3').style.position='relative'; " +
+                 "document.getElementById('upload_hidden_4').style.overflow='visible'; " +
+                 "document.getElementById('upload_hidden_4').style.opacity=1; " +
+                 "document.getElementById('upload_hidden_4').style.top=0; " +
+                 "document.getElementById('upload_hidden_4').style.left=0; " +
+                 "document.getElementById('upload_hidden_4').style.width=100; " +
+                 "document.getElementById('upload_hidden_4').style.height=20; " +
+                 "document.getElementById('upload_hidden_4').style.filter=''; " +
+                 "document.getElementById('upload_hidden_4').style.position='relative'; " +
+                 "document.getElementById('upload_hidden_4').style.display='inline-block'; "
+                 );
+
+            Console.WriteLine("className_2 is " + query4);
+
+            //  browser.Page.RunJavaScript("document.getElementsByTagName('input').style.display='inline-block';");
+
+
+
+            //browser.Page.RunJavaScript("for (el of document.getElementsByTagName('input')){el.style.display='inline-block';}");
+
             try
             {
                 browser.Describe<IFileField>(new CSSDescription(css1)).SetValue(filePath);//ok
             }
             catch (Exception e)
             {
+
                 Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
             }
             try
