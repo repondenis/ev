@@ -81,7 +81,7 @@ namespace EVotingProject.Pages
         public static bool isTruePage()
         {
             browser.Sync();
-            return browser.Describe<ILink>(autorisESIA).Exists();//ищем только 1 кнопку авторищации в ЕСИА
+            return browser.Describe<ILink>(autorisESIA).Exists();//ищем только 1 кнопку автори3ации в ЕСИА
         }
     }
 }

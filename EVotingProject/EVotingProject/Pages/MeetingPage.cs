@@ -97,7 +97,7 @@ namespace EVotingProject.Pages
         private static CSSDescription additionalVotingReq = new CSSDescription("textarea[id='tabView:mainForm:additionalVotingReq']");//Дополнительные требования к голосованию
         private static XPathDescription editCompleteAll = new XPathDescription(".//div[@id='meeting-block'] //div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - почему-то 2 шт - ui-state-active
 
-        private static XPathDescription save = new XPathDescription(".//button[span[text()='Сохранить']]");//
+        private static XPathDescription saveb = new XPathDescription(".//button[span[text()='Сохранить']]");//
         // end Общая информация
 
         //МАТЕРИАЛЫ
@@ -385,7 +385,7 @@ namespace EVotingProject.Pages
         //END НАСТРОЙКИ
 
 
-        public static bool isTruePage()
+        public static new bool isTruePage()
         {
             browser.Sync();
             return browser.Describe<IWebElement>(nameMeet).Exists()
@@ -566,6 +566,10 @@ namespace EVotingProject.Pages
         public static string getagenda() { return browser.Describe<IEditField>(agenda).Value; }
         public static string getprocOfFamiliarWMaterials() { return browser.Describe<IEditField>(procOfFamiliarWMaterials).Value; }
 
+        public static void save()
+        {
 
+            browser.Describe<IButton>(saveb).Click();
+        }
     }
 }

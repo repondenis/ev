@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
 using HP.LFT.SDK.StdWin;
 using EVotingProject.Models;
+using EVotingProject.Helpers;
 
 namespace EVotingProject.Pages
 {
@@ -135,11 +136,20 @@ namespace EVotingProject.Pages
 
         public static void loadFromFile(string filePathHeader)
         {
+            if (System.IO.File.Exists(filePathHeader))
+            {
+                ReadXmlHelper.loadXml(filePathHeader);
 
-            //            browser.Describe<IWebElement>(new CSSDescription("div.ui-fileupload-buttonbar")).Click();
-            //            browser.Describe<IWebElement>(new CSSDescription("div.ui-fileupload-buttonbar>span")).Click();
-            //            browser.Describe<ILink>(new XPathDescription(".//a[text()='Загрузить файл']")).Click();
-            browser.Describe<IFileField>(new CSSDescription("input[type=file]")).SetValue(filePathHeader);
+                //Console.WriteLine(ReadXmlHelper.getBodyXml());
+
+
+                //            browser.Describe<IWebElement>(new CSSDescription("div.ui-fileupload-buttonbar")).Click();
+                //            browser.Describe<IWebElement>(new CSSDescription("div.ui-fileupload-buttonbar>span")).Click();
+                //            browser.Describe<ILink>(new XPathDescription(".//a[text()='Загрузить файл']")).Click();
+
+
+                // !!!!!!!!!!! browser.Describe<IFileField>(new CSSDescription("input[type=file]")).SetValue(filePathHeader);
+            }
         }
 
         public static void setMeetingStartInput(string v)
@@ -205,9 +215,21 @@ namespace EVotingProject.Pages
         /// Договор на проведение собрания - 
         /// кнопка выпад список
         /// </summary>
-        public static void clickContractInputToggle()
+        public static void _clickContractInputToggle()
         {
             browser.Describe<IWebElement>(contractInputToggle).Click();
+        }
+
+        public static void setContract(string v)
+        {
+            var contractInput = browser.Describe<HP.LFT.SDK.Web.IEditField>(contractsInput);
+            contractInput.SetValue(v);
+            contractInput.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
+        }
+
+        public static bool isContractPanelAppear()
+        {
+            return browser.Describe<IWebElement>(contractInputSelect).Exists();
         }
 
         /// <summary>
@@ -215,13 +237,34 @@ namespace EVotingProject.Pages
         /// сам список
         /// </summary>
         /// <param name="position"></param>
-        public static void selectContractInput(int position)
+        public static void selectItemOfContract(int position, string name)
         {
+            /*
             var select = browser.FindChildren<IWebElement>(contractInputSelect);
             if (select.Length > 0 && position <= select.Length)
-                if (select[position].Exists() && select[0].IsVisible)
-                    select[position].Click();
+                for (int i = 0; i < select.Length; i++)
+                    if (select[i].Exists() && select[i].IsVisible && select[i].InnerText.Contains(name))
+                    {
+                        Console.WriteLine(select[i].InnerText);
+                        select[i].Click();
+                    }
+                    */
 
+            selectItemLiOfListUL(name, contractInputSelect);
         }
+
+
+        public static void selectItemLiOfListUL(string nameItem, CSSDescription descr)
+        {
+            var select = browser.FindChildren<IWebElement>(descr);
+            if (select.Length > 0)
+                for (int i = 0; i < select.Length; i++)
+                    if (select[i].Exists() && select[i].IsVisible && select[i].InnerText.Contains(nameItem))
+                    {
+                        Console.WriteLine(select[i].InnerText);
+                        select[i].Click();
+                    }
+        }
+
     }
 }

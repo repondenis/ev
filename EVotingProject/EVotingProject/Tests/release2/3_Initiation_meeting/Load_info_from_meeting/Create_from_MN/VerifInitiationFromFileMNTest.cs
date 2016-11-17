@@ -12,18 +12,18 @@ using System.Drawing;
 namespace EVotingProject
 {
     [TestFixture]
-    [Description("проверка создания собрания из файла MN админ ЕВотинга")]
+    [Description("Проверка создания собрания из файла MN админ ЕВотинга")]
     public class VerifInitiationFromFileMNTest : UnitTestClassBase
     {
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
 
-            ReportConfiguration r = new ReportConfiguration();
-            r.IsOverrideExisting = true;
-            r.Title = "E-Voting reports";
-            Reporter.Init(r);
-
+            /*  ReportConfiguration r = new ReportConfiguration();
+              r.IsOverrideExisting = true;
+              r.Title = "E-Voting reports";
+              Reporter.Init(r);
+  */
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             //        browser.ClearCache();
             //        browser.DeleteCookies();
@@ -38,7 +38,7 @@ namespace EVotingProject
 
         //либо искать ОРГ по ИНН = 1027700043502
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
-            "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\Screen Shot 09-15-16 at 07.00 PM.PNG", "Успешно сохранен!",
+            @"D:\work\test\MN НРД (Роснефть) 1.xml", "D:\\temp\\Screen Shot 09-15-16 at 07.00 PM.PNG", "Успешно сохранен!",
               TestName = "56943.проверка инициации передачи файла сообщ о собрании MN админ ЕВотинга")]
         public void Test56943(string menuPar, string loginPar, string login, string pass, string orgName, string filePathTrueXSD, string filePathBadXSD, string message)
         {
@@ -270,6 +270,8 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         {
             Console.WriteLine(DateTime.Now);
 
+            var contractName = "00005";
+
             browser.Navigate(urlDemo);
             Assert.True(LoginPage.isTruePage());
 
@@ -301,8 +303,9 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             Assert.IsNotEmpty(NewMeetingPage.getIssuerOrganizationInn());
             Assert.IsNotEmpty(NewMeetingPage.getIssuerOrganizationOgrn());
 
-            NewMeetingPage.clickContractInputToggle();
-            NewMeetingPage.selectContractInput(0);
+            NewMeetingPage.setContract(contractName);
+            Assert.True(NewMeetingPage.isContractPanelAppear());
+            NewMeetingPage.selectItemOfContract(0, contractName);
 
             //3
             NewMeetingPage.submit();
@@ -312,6 +315,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
             var state = MeetingPage.getState();
             MeetingPage.clickEditState();
+            MeetingPage.clickEditStateCreate();
             Assert.AreNotEqual(state, MeetingPage.getState(), "должен измениться статус собрания");
 
             //4
@@ -347,6 +351,77 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
             MeetingPage.logout();
         }
+
+
+        // D:\work\test\MN Сбербанк 1.xml
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"",
+@"D:\work\test\MN НРД (Роснефть) 1.xml", "Успешно сохранен!",
+TestName = "56957.проверка отображения стр собрания и подтвержд созд собрания, адм evot) MN участник сч комиссии")]
+        public void Test56957(string menuPar, string loginPar, string login, string pass, string orgName, string filePath, string message)
+        {
+            Console.WriteLine(DateTime.Now);
+            var contractName = "00017";
+            addNewContract(orgName, contractName);
+
+            browser.Navigate(urlDemo);
+            Assert.True(LoginPage.isTruePage());
+
+            LoginPage.caseMenuParam(menuPar);
+            LoginPage.caseLoginParam(loginPar);
+
+            Assert.True(LoginLocalPage.isTruePage());
+
+            LoginLocalPage.runLogin(login, pass);
+            Assert.True(PortalPage.isTruePage());
+
+            PortalPage.gotoMenuMeetings();
+            Assert.True(PortalPage.isTruePage());
+            PortalPage.clickNewMeeting();
+            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+
+            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+
+            NewMeetingPage.loadFromFile(filePath);
+
+
+            NewMeetingPage.setContract(contractName);
+            Assert.True(NewMeetingPage.isContractPanelAppear());
+            NewMeetingPage.selectItemOfContract(0, contractName);
+
+            //NewMeetingPage.clickContractInputToggle();
+            //NewMeetingPage.selectContract(0, contractName);
+
+
+            NewMeetingPage.submit();
+            Assert.False(NewMeetingPage.isErrorMsg(), "При сохранении произошла ошибка!");
+
+
+            Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
+            var state = MeetingPage.getState();
+
+            //2
+            Assert.AreEqual(MeetingPage.getmeetingAddress(), ReadXmlHelper.getElement("AdrLine"));
+
+            //3
+            MeetingPage.setmeetingAddress("1111111111111111111111111111111111111111111111111111111111111111111111");//70symb
+            MeetingPage.save();
+
+            MeetingPage.setmeetingAddress("11111111111111111111111111111111111111111111111111111111111111111111111");//71symb
+            MeetingPage.save();
+
+
+
+
+            //    MeetingPage.logout();
+        }
+
+
+
+
+
+
+
+
 
         [TearDown]
         public void TearDown()

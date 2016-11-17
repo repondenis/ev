@@ -51,52 +51,55 @@ namespace EVotingProject.Pages
         private static XPathDescription saveB = new XPathDescription(
             ".//button[span[text()='Сохранить']]");
 
-
+        #region
+        /*
         public static bool? isOpenFileDialog()
-        {
-            string browserTitle = string.Empty;
+                {
+                    string browserTitle = string.Empty;
 
-            switch (browser.Version.Type)
-            {
-                case "Chrome":
-                    browserTitle = @"Открыть";
-                    break;
-                case "Mozilla Firefox":
-                    browserTitle = @"Выгрузка файла";
-                    break;
-                case "internet explorer":
-                    browserTitle = @"Выбор выкладываемого файла";
-                    break;
-            }
+                    switch (browser.Version.Type)
+                    {
+                        case "Chrome":
+                            browserTitle = @"Открыть";
+                            break;
+                        case "Mozilla Firefox":
+                            browserTitle = @"Выгрузка файла";
+                            break;
+                        case "internet explorer":
+                            browserTitle = @"Выбор выкладываемого файла";
+                            break;
+                    }
 
-            var openFileDialog = Desktop.Describe<IWindow>(new WindowDescription
-            {
-                IsOwnedWindow = false,
-                IsChildWindow = false,
-                Text = @"НРД - Google Chrome",
-                WindowClassRegExp = @"Chrome_WidgetWin_1",
-                NativeClass = @"Chrome_WidgetWin_1",
-                WindowTitleRegExp = @" Google Chrome"
-            }).Describe<IDialog>(new DialogDescription
-            {
-                IsOwnedWindow = true,
-                IsChildWindow = false,
-                Text = @"Открыть",
-                WindowTitleRegExp = @"Открыть"
-            });
+                    var openFileDialog = Desktop.Describe<IWindow>(new WindowDescription
+                    {
+                        IsOwnedWindow = false,
+                        IsChildWindow = false,
+                        Text = @"НРД - Google Chrome",
+                        WindowClassRegExp = @"Chrome_WidgetWin_1",
+                        NativeClass = @"Chrome_WidgetWin_1",
+                        WindowTitleRegExp = @" Google Chrome"
+                    }).Describe<IDialog>(new DialogDescription
+                    {
+                        IsOwnedWindow = true,
+                        IsChildWindow = false,
+                        Text = @"Открыть",
+                        WindowTitleRegExp = @"Открыть"
+                    });
 
-            Console.WriteLine(openFileDialog.Exists());
-            return openFileDialog.Exists();
-        }
+                    Console.WriteLine(openFileDialog.Exists());
+                    return openFileDialog.Exists();
+                }
 
-        public static void clickOkOfOpenFileDialog()
-        {
-            //openFileDialog.clickOk();
-        }
-        public static void clickCancelOfOpenFileDialog()
-        {
-            //openFileDialog.clickCancel();
-        }
+                public static void clickOkOfOpenFileDialog()
+                {
+                    //openFileDialog.clickOk();
+                }
+                public static void clickCancelOfOpenFileDialog()
+                {
+                    //openFileDialog.clickCancel();
+                }
+        */
+        #endregion
 
         public static void selectLogoFileOfDialog(string filePathHeader)
         {
@@ -105,30 +108,55 @@ namespace EVotingProject.Pages
             if (System.IO.File.Exists(filePathHeader))
             {
                 Console.WriteLine(browser.Version.Type);
+                string[] css = { "#uploaderListLogo", "#uploaderListLogo>div",
+                    "#uploaderListLogo span.ui-button-text", "#uploaderListLogo>div>div.ui-fileupload-buttonbar",
+                    "#uploaderListLogo>div>div.ui-fileupload-buttonbar>span","#uploaderListLogo>div>div.ui-fileupload-buttonbar>span>span.ui-icon",
+                    "#uploaderListLogo input[type=file]" };
+                foreach (string cssel in css)
+                {
+                    Console.WriteLine(cssel);
+                    browser.Page.RunJavaScript(
+                    "document.querySelector('" + cssel + "').style.overflow='visible'; " +
+                    "document.querySelector('" + cssel + "').style.display='inline-block'; " +
+                    "document.querySelector('" + cssel + "').style.opacity=1; " +
+                    "document.querySelector('" + cssel + "').style.top=0; " +
+                    "document.querySelector('" + cssel + "').style.left=0; " +
+                    "document.querySelector('" + cssel + "').style.width=100; " +
+                    "document.querySelector('" + cssel + "').style.height=20; " +
+                    "document.querySelector('" + cssel + "').style.filter=''; " +
+                    "document.querySelector('" + cssel + "').style.position='relative'; "
+                    );
+
+                 //   browser.Page.RunJavaScript("document.querySelector('" + cssel + "').click(); ");
+
+                }
 
 
-                CSSDescription divNone = new CSSDescription("div#uploaderListLogo");
-                var elDivNone = browser.Describe<IWebElement>(divNone);
-                Console.WriteLine("Descr = " + elDivNone.GetAttribute("style") + "; "
-                    + elDivNone.GetDescription() + "; ");
-                
 
-//string query = "var but = document.querySelector('div#uploaderListLogo');var align = but.getAttribute('style');alert(align); ";
-//string query = @"alert(document.querySelectorAll('div#uploaderListLogo').getAttribute('style'));";
+
+  
+                /*
+                                CSSDescription divNone = new CSSDescription("div#uploaderListLogo");
+                                var elDivNone = browser.Describe<IWebElement>(divNone);
+                                Console.WriteLine("Descr = " + elDivNone.GetAttribute("style") + "; "
+                                    + elDivNone.GetDescription() + "; ");
+                */
+
+                //string query = "var but = document.querySelector('div#uploaderListLogo');var align = but.getAttribute('style');alert(align); ";
+                //string query = @"alert(document.querySelectorAll('div#uploaderListLogo').getAttribute('style'));";
                 //string query = "alert('123'); ";
- //               browser.Page.RunJavaScript(query);
+                // browser.Page.RunJavaScript(query);
                 // openFileDialog.select(filePathHeader);
 
                 var loadLogoHeaderBt = browser.Describe<IFileField>(new CSSDescription(
                     "#uploaderListLogo input[type=file]"));
-                var loadLogoHeaderBt2 = browser.Describe<IWebElement>(new CSSDescription(
-                    "#uploaderListLogo input[type=file]"));
+                //var loadLogoHeaderBt2 = browser.Describe<IWebElement>(new CSSDescription("#uploaderListLogo input[type=file]"));
                 //loadLogoHeaderBt2.SetDescription(ISupportSendKeys)
                 loadLogoHeaderBt.WaitUntil(logo => logo.Exists() && logo.IsVisible);
                 loadLogoHeaderBt.Click();
-                loadLogoHeaderBt.Click(MouseButton.Left);
-                loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
-                // loadLogoHeaderBt.SetValue(filePathHeader);
+                // loadLogoHeaderBt.Click(MouseButton.Left);
+                // loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
+                loadLogoHeaderBt.SetValue(filePathHeader);
 
             }
         }
@@ -186,7 +214,7 @@ namespace EVotingProject.Pages
         public static void clickLoadLogoHeader()
         {
             // browser.getPage().runJavaScript("window.scrollTo(120,100);");
-            browser.Page.RunJavaScript("window.scrollTo(120,1000);");
+            // browser.Page.RunJavaScript("window.scrollTo(120,1000);");
 
             /*
                         CSSDescription scriptCss = new CSSDescription("#uploaderHeaderLogo>script");

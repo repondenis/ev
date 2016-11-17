@@ -42,8 +42,8 @@ namespace EVotingProject
 
                         chromeDriver.Navigate().GoToUrl(urlDemo);
             */
-           // browser.ClearCache();
-           // browser.DeleteCookies();
+            // browser.ClearCache();
+            // browser.DeleteCookies();
             PageHelper.setBrowser(browser);
 
         }
@@ -59,7 +59,7 @@ namespace EVotingProject
 
 
         //либо искать ОРГ по ИНН = 1027700043502
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", @"D:\work\test\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
               TestName = "56849.Проверка инициации настройки брендирования админ ЕВотинга")]
         [TestCaseSource("ALM")]
         public void Test56849(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
@@ -91,15 +91,13 @@ namespace EVotingProject
             NewOrganizationPage.gotoMenuProfileOrg();
 
             Assert.True(NewOrganizationPage.isTitlePanelExist("Информация"));
-            NewOrganizationPage.clickLoadLogo();
+            // NewOrganizationPage.clickLoadLogo();
 
-            NewOrganizationPage.clickLoadLogoHeader();
+            // NewOrganizationPage.clickLoadLogoHeader();
 
-            Console.WriteLine(DateTime.Now + "clickLoadLogoList after");
-            Assert.False(NewOrganizationPage.isOpenFileDialog());
+            //Assert.False(NewOrganizationPage.isOpenFileDialog());
             NewOrganizationPage.selectLogoFileOfDialog(filePathHeader);
-            NewOrganizationPage.clickOkOfOpenFileDialog();
-            Console.WriteLine(DateTime.Now + "clickLoadLogoList before");
+            //NewOrganizationPage.clickOkOfOpenFileDialog();
 
 
             //            Reporter.ReportEvent("Setting value in edit box", "", Status.Passed, browser.GetSnapshot());
@@ -127,9 +125,9 @@ namespace EVotingProject
 
             NewOrganizationPage.clickLoadLogoHeader();
 
-            Console.WriteLine(DateTime.Now + "clickLoadLogoList after");
+
             NewOrganizationPage.selectLogoFileOfDialog(filePathHeader);
-            Console.WriteLine(DateTime.Now + "clickLoadLogoList before");
+
 
             Assert.True(NewOrganizationPage.isSaveExist());
             NewOrganizationPage.save();
@@ -149,11 +147,11 @@ namespace EVotingProject
 
             NewOrganizationPage.clickLoadLogoHeader();
 
-            Console.WriteLine(DateTime.Now + "clickLoadLogoList after");
-            Assert.True(NewOrganizationPage.isOpenFileDialog());
+
+            // Assert.True(NewOrganizationPage.isOpenFileDialog());
             NewOrganizationPage.selectLogoFileOfDialog(filePathHeader);
-            NewOrganizationPage.clickCancelOfOpenFileDialog();
-            Console.WriteLine(DateTime.Now + "clickLoadLogoList before");
+            // NewOrganizationPage.clickCancelOfOpenFileDialog();
+
 
             Assert.True(NewOrganizationPage.isSaveExist());
             NewOrganizationPage.save();

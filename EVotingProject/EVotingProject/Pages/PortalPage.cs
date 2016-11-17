@@ -67,11 +67,17 @@ namespace EVotingProject.Pages
         {
 
             browser.Sync();
-            //Console.WriteLine("textMeeting=" + browser.Describe<IWebElement>(textMeeting).InnerText);
-            return browser.Describe<IWebElement>(organizationTitle).Exists() && browser.Describe<IWebElement>(organizationTitle).InnerText.Equals("собрания");
+            //Console.WriteLine("textMeeting=" + browser.Describe<IWebElement>(organizationTitle).InnerText);
+            return browser.Describe<IWebElement>(organizationTitle).Exists() &&
+                browser.Describe<IWebElement>(organizationTitle).InnerText.Equals("собрания");
 
         }
 
+
+        public static bool ismenuContractsExist()
+        {
+            return browser.Describe<ILink>(menuContracts).Exists();
+        }
         public static void gotoMenuPortal()
         {
             browser.Describe<ILink>(menuPortal).Click();

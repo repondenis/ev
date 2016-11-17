@@ -9,6 +9,7 @@ using HP.LFT.Report;
 namespace EVotingProject
 {
     [TestFixture]
+    [Description("Old Tests")]
     public class LeanFtTest : UnitTestClassBase
     {
 
@@ -32,6 +33,22 @@ namespace EVotingProject
         [Description("TestInputFile")]
         public void TestInputFile()
         {
+            var urlUni = "http://саратов.окна.рф/%D0%9A%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8/f2221-%D0%9A%D0%BE%D1%80%D0%BE%D0%BB%D0%B5%D0%B2%20%D0%94%D0%9D";
+            CSSDescription uniPin = new CSSDescription("input[name='pincode']");
+            CSSDescription uniSubm = new CSSDescription("input[type='submit']");
+            browser.Navigate(urlUni);
+            browser.Sync();
+            var input = browser.Describe<IEditField>(uniPin);
+            var submit = browser.Describe<IWebElement>(uniSubm);
+
+            // browser.Page.RunJavaScript("document.querySelector('div.popup').style.display='none';");
+            for (int i = 0370; i <= 9999; i++) {
+                input.SetValue(i.ToString().PadLeft(4,'0'));
+                submit.Click();
+            }
+
+
+
             var urlTrue = "http://www.softpost.org/selenium-test-page/";
             var cssTrue = "input[type='file']";
 
@@ -47,6 +64,8 @@ namespace EVotingProject
 
             browser.Navigate(url2);
             browser.Sync();
+
+            Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('#upload_hidden_4').style.position"));
 
             string query1 = browser.Page.RunJavaScript(
                 "document.getElementById('upload_hidden').style.overflow;");
@@ -98,47 +117,54 @@ namespace EVotingProject
 
             Console.WriteLine("className_2 is " + query4);
 
+            Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('#upload_hidden_4').style.position"));
             //  browser.Page.RunJavaScript("document.getElementsByTagName('input').style.display='inline-block';");
 
 
 
             //browser.Page.RunJavaScript("for (el of document.getElementsByTagName('input')){el.style.display='inline-block';}");
-
-            try
-            {
-                browser.Describe<IFileField>(new CSSDescription(css1)).SetValue(filePath);//ok
-            }
-            catch (Exception e)
-            {
-
-                Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
-            }
-            try
-            {
-                browser.Describe<IFileField>(new CSSDescription(css2)).SetValue(filePath);//ok
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
-            }
-            try
-            {
-                browser.Describe<IFileField>(new CSSDescription(css3)).SetValue(filePath);//ok
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
-            }
-            try
-            {
-                browser.Describe<IFileField>(new CSSDescription(css4)).SetValue(filePath);//ok
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
-            }
+            browser.Describe<IFileField>(new CSSDescription(css1)).Click();
+            browser.Describe<IFileField>(new CSSDescription(css2)).Click();
+            browser.Describe<IFileField>(new CSSDescription(css3)).Click();
+            browser.Describe<IFileField>(new CSSDescription(css4)).Click();
 
 
+
+            /*     try
+                 {
+                     browser.Describe<IFileField>(new CSSDescription(css1)).SetValue(filePath);//ok
+                 }
+                 catch (Exception e)
+                 {
+
+                     Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
+                 }
+                      try
+                      {
+                          browser.Describe<IFileField>(new CSSDescription(css2)).SetValue(filePath);//ok
+                      }
+                      catch (Exception e)
+                      {
+                          Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
+                      }
+                      try
+                      {
+                          browser.Describe<IFileField>(new CSSDescription(css3)).SetValue(filePath);//ok
+                      }
+                      catch (Exception e)
+                      {
+                          Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
+                      }
+                      try
+                      {
+                          browser.Describe<IFileField>(new CSSDescription(css4)).SetValue(filePath);//ok
+                      }
+                      catch (Exception e)
+                      {
+                          Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
+                      }
+
+           */
 
             /*
             IFileField inpfil = browser.Describe<IFileField>(new CSSDescription(css1));

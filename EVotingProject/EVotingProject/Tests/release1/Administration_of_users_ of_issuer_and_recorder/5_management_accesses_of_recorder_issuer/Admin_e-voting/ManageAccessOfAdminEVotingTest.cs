@@ -19,7 +19,7 @@ namespace EVotingProject
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(this.urlDemoAdmin);
+            browser.Navigate(urlDemoAdmin);
 
 
         }

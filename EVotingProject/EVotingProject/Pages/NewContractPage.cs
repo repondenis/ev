@@ -12,8 +12,10 @@ namespace EVotingProject.Pages
         private static CSSDescription pageTitle = new CSSDescription("form#materialForm label.main-header-page");
         private static CSSDescription organizationInput = new CSSDescription("input[id='materialForm:organization_input']");
         private static CSSDescription organizationPanel = new CSSDescription("div[id='materialForm:organization_panel']>ul");
+        private static CSSDescription organizationPanelList = new CSSDescription("div[id='materialForm:organization_panel'] li");
         private static CSSDescription contractNumber = new CSSDescription("form#materialForm>div:nth-child(5)>div:nth-child(2)>input");
-        private static CSSDescription contractDate = new CSSDescription("form#materialForm>div:nth-child(5)>div:nth-child(4)>span>input");
+        private static CSSDescription contractDate = new CSSDescription("form#materialForm span>input.hasDatepicker");
+        private static CSSDescription contractDateSelected = new CSSDescription("a.ui-state-highlight");
 
         private static CSSDescription serviceTableCb = new CSSDescription("div#cntr-services-edit>table");//чек-боксы с сервисами
         private static CSSDescription serviceCb = new CSSDescription("div#cntr-services-edit>table>tbody input[type='checkbox']");//чек-боксы с сервисами
@@ -34,17 +36,22 @@ namespace EVotingProject.Pages
             return browser.Describe<IWebElement>(organizationPanel).Exists();
         }
 
-        public static void selectItemOfOrganizationPanel(string v)
+        public static void selectItemOfOrganization(int position, string name)
         {
-            try
-            {
-                var orgSelect = browser.Describe<IWebElement>(organizationPanel).Describe<IListBox>(new CSSDescription("li"));
-                orgSelect.Select(v);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace + "\r\n" + e.Message);
-            }
+
+            var orgSelect = browser.Describe<IWebElement>(organizationPanel).Describe<IWebElement>(new CSSDescription("li"));
+
+
+            var select = browser.FindChildren<IWebElement>(organizationPanelList);
+            if (select.Length > 0 && position <= select.Length)
+                if (select[position].Exists() && select[position].IsVisible)
+                {
+                    Console.WriteLine(select[position].InnerText);
+                    select[position].Click();
+                }
+
+
+
         }
 
         public static void setOrganization(string v)
@@ -66,31 +73,26 @@ namespace EVotingProject.Pages
 
         public static void setContractDate(string v)
         {
-            browser.Describe<IEditField>(contractDate).SetValue(v);
+            var date = browser.Describe<IEditField>(contractDate);
+            date.SetValue(v);
+
         }
 
         public static void selectService(int num, bool state)
         {
-            //serviceTableCb
-            Console.WriteLine("searh of " + num);
             var table = browser.Describe<ITable>(serviceTableCb);
-            Console.WriteLine("Text = " + table.Rows[num].Cells[1].Text);
-            Console.WriteLine("IsChecked = " + table.Rows[num].Cells[0].FindChildren<ICheckBox>().IsChecked);
+            //Console.WriteLine("Text = " + table.Rows[num].Cells[1].Text);
             table.Rows[num].Cells[0].FindChildren<ICheckBox>(0).Set(state);
-            Console.WriteLine("IsChecked = " + table.Rows[num].Cells[0].FindChildren<ICheckBox>().IsChecked);// FindRowWithCellText(str).Cells[0].Text);
-
+            //Console.WriteLine("IsChecked = " + table.Rows[num].Cells[0].FindChildren<ICheckBox>().IsChecked);
         }
 
         public static void selectService2(int num, bool state)
         {
-            //serviceTableCb
-            Console.WriteLine("searh of " + num);
             var services = browser.FindChildren<ICheckBox>(serviceCb);
-            if (services.Length > 0)
+            if (services.Length > 0 && num <= services.Length)
             {
-                Console.WriteLine("IsChecked = " + services[1].IsChecked);//
-                services[1].Set(state);
-                Console.WriteLine("IsChecked = " + services[1].IsChecked);//
+                services[num].Set(state);
+                // Console.WriteLine("IsChecked = " + services[1].IsChecked);//
             }
         }
 

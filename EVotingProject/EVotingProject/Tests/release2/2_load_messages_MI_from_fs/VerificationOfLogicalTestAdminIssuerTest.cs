@@ -12,6 +12,7 @@ using System.Drawing;
 namespace EVotingProject
 {
     [TestFixture]
+    [Description("Получение списка участников собрания")]
     public class VerificationOfLogicalTestAdminIssuerTest : UnitTestClassBase
     {
         [OneTimeSetUp]
