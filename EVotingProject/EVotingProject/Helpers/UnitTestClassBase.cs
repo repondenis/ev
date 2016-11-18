@@ -60,12 +60,15 @@ namespace EVotingProject
 
                 NewContractPage.setContractNumber(contrName);
                 NewContractPage.setContractDate("26.05.1984");
-                NewContractPage.selectService(1, true);//чекаем 1 чек-бокс
+                //Console.WriteLine(DateTime.Now + " selectService");
+                //NewContractPage.selectService(1, true);//чекаем 1 чек-бокс
+                NewContractPage.selectService2(1, true);//чекаем 2 чек-бокс
                 NewContractPage.selectService2(2, true);//чекаем 2 чек-бокс
-
+                NewContractPage.selectService2(3, true);//чекаем 2 чек-бокс
                 NewContractPage.save();
             }
             PortalPage.logout();
+            Assert.True(LoginPage.isTruePage());
         }
 
 

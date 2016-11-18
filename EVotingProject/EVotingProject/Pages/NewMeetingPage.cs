@@ -148,7 +148,45 @@ namespace EVotingProject.Pages
                 //            browser.Describe<ILink>(new XPathDescription(".//a[text()='Загрузить файл']")).Click();
 
 
-                // !!!!!!!!!!! browser.Describe<IFileField>(new CSSDescription("input[type=file]")).SetValue(filePathHeader);
+                // ".removeAttribute('HREF')"
+                var cssDivParent = "div.ui-fileupload";
+
+                var cssel = "input[type=file]";
+
+                Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));
+                Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('" + cssel + "').removeAttribute('aria-labelledby'); "));
+                Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));
+
+                browser.Page.RunJavaScript(
+"document.querySelector('" + cssDivParent + "').style.overflow='visible'; " +
+"document.querySelector('" + cssDivParent + "').style.display='inline-block'; " +
+"document.querySelector('" + cssDivParent + "').style.opacity=1; " +
+"document.querySelector('" + cssDivParent + "').style.top=0; " +
+"document.querySelector('" + cssDivParent + "').style.left=0; " +
+"document.querySelector('" + cssDivParent + "').style.width=100; " +
+"document.querySelector('" + cssDivParent + "').style.height=20; " +
+"document.querySelector('" + cssDivParent + "').style.filter=''; " +
+//"document.querySelector('" + cssel + "').style.font-size=10; " +
+"document.querySelector('" + cssDivParent + "').style.position='relative'; "
+);
+
+                browser.Page.RunJavaScript(
+                "document.querySelector('" + cssel + "').style.overflow='visible'; " +
+                "document.querySelector('" + cssel + "').style.display='inline-block'; " +
+                "document.querySelector('" + cssel + "').style.opacity=1; " +
+                "document.querySelector('" + cssel + "').style.top=0; " +
+                "document.querySelector('" + cssel + "').style.left=0; " +
+                "document.querySelector('" + cssel + "').style.width=100; " +
+                "document.querySelector('" + cssel + "').style.height=20; " +
+                "document.querySelector('" + cssel + "').style.filter=''; " +
+                //"document.querySelector('" + cssel + "').style.font-size=10; " +
+                "document.querySelector('" + cssel + "').style.position='relative'; "
+                );
+
+                var input_file = browser.Describe<IFileField>(new CSSDescription(cssel));
+                //  Console.WriteLine("OuterHTML=" + input_file.OuterHTML);
+                Console.WriteLine("InnerHTML=" + input_file.InnerHTML);
+                input_file.SetValue(filePathHeader);
             }
         }
 

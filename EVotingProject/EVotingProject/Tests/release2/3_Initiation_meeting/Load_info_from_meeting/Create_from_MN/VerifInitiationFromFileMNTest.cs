@@ -19,14 +19,14 @@ namespace EVotingProject
         public void TestFixtureSetUp()
         {
 
-            /*  ReportConfiguration r = new ReportConfiguration();
-              r.IsOverrideExisting = true;
-              r.Title = "E-Voting reports";
-              Reporter.Init(r);
-  */
-            browser = BrowserFactory.Launch(BrowserType.Chrome);
-            //        browser.ClearCache();
-            //        browser.DeleteCookies();
+            ReportConfiguration r = new ReportConfiguration();
+            r.IsOverrideExisting = true;
+            r.Title = "E-Voting reports";
+            Reporter.Init(r);
+
+            browser = BrowserFactory.Launch(BrowserType.Firefox);
+            browser.ClearCache();
+            browser.DeleteCookies();
             PageHelper.setBrowser(browser);
         }
 
@@ -359,60 +359,68 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 TestName = "56957.проверка отображения стр собрания и подтвержд созд собрания, адм evot) MN участник сч комиссии")]
         public void Test56957(string menuPar, string loginPar, string login, string pass, string orgName, string filePath, string message)
         {
-            Console.WriteLine(DateTime.Now);
-            var contractName = "00017";
-            addNewContract(orgName, contractName);
+            try
+            {
+                Console.WriteLine(DateTime.Now);
+                var contractName = "00099";
+                addNewContract(orgName, contractName);
 
-            browser.Navigate(urlDemo);
-            Assert.True(LoginPage.isTruePage());
+                browser.Navigate(urlDemo);
+                Assert.True(LoginPage.isTruePage());
 
-            LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
+                LoginPage.caseMenuParam(menuPar);
+                LoginPage.caseLoginParam(loginPar);
 
-            Assert.True(LoginLocalPage.isTruePage());
+                Assert.True(LoginLocalPage.isTruePage());
 
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage());
+                LoginLocalPage.runLogin(login, pass);
+                Assert.True(PortalPage.isTruePage());
 
-            PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage());
-            PortalPage.clickNewMeeting();
-            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+                PortalPage.gotoMenuMeetings();
+                Assert.True(PortalPage.isTruePage());
+                PortalPage.clickNewMeeting();
+                Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
 
-            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+                NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
 
-            NewMeetingPage.loadFromFile(filePath);
-
-
-            NewMeetingPage.setContract(contractName);
-            Assert.True(NewMeetingPage.isContractPanelAppear());
-            NewMeetingPage.selectItemOfContract(0, contractName);
-
-            //NewMeetingPage.clickContractInputToggle();
-            //NewMeetingPage.selectContract(0, contractName);
+                NewMeetingPage.loadFromFile(filePath);
 
 
-            NewMeetingPage.submit();
-            Assert.False(NewMeetingPage.isErrorMsg(), "При сохранении произошла ошибка!");
+                NewMeetingPage.setContract(contractName);
+                Assert.True(NewMeetingPage.isContractPanelAppear());
+                NewMeetingPage.selectItemOfContract(0, contractName);
+
+                //NewMeetingPage.clickContractInputToggle();
+                //NewMeetingPage.selectContract(0, contractName);
 
 
-            Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
-            var state = MeetingPage.getState();
-
-            //2
-            Assert.AreEqual(MeetingPage.getmeetingAddress(), ReadXmlHelper.getElement("AdrLine"));
-
-            //3
-            MeetingPage.setmeetingAddress("1111111111111111111111111111111111111111111111111111111111111111111111");//70symb
-            MeetingPage.save();
-
-            MeetingPage.setmeetingAddress("11111111111111111111111111111111111111111111111111111111111111111111111");//71symb
-            MeetingPage.save();
+                NewMeetingPage.submit();
+                Assert.False(NewMeetingPage.isErrorMsg(), "При сохранении произошла ошибка!");
 
 
+                Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
+                var state = MeetingPage.getState();
+
+                //2
+                Assert.AreEqual(MeetingPage.getmeetingAddress(), ReadXmlHelper.getElement("AdrLine"));
+
+                //3
+                MeetingPage.setmeetingAddress("1111111111111111111111111111111111111111111111111111111111111111111111");//70symb
+                MeetingPage.save();
+
+                MeetingPage.setmeetingAddress("11111111111111111111111111111111111111111111111111111111111111111111111");//71symb
+                MeetingPage.save();
 
 
-            //    MeetingPage.logout();
+
+
+                //    MeetingPage.logout();
+            }
+            catch (AssertionException e)
+            {
+                Reporter.ReportEvent("TestYandex", "Failed during validation", Status.Failed, e);
+                throw;
+            }
         }
 
 

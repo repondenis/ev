@@ -124,17 +124,21 @@ namespace EVotingProject.Pages
                     "document.querySelector('" + cssel + "').style.width=100; " +
                     "document.querySelector('" + cssel + "').style.height=20; " +
                     "document.querySelector('" + cssel + "').style.filter=''; " +
+                    "document.querySelector('" + cssel + "').style.font-size='10px'; " +
                     "document.querySelector('" + cssel + "').style.position='relative'; "
                     );
 
-                 //   browser.Page.RunJavaScript("document.querySelector('" + cssel + "').click(); ");
+                    //browser.Page.RunJavaScript("document.querySelector('" + cssel + "').click(); ");
 
                 }
 
+                var loadLogoHeaderBt = browser.Describe<IFileField>(new CSSDescription(
+                    "#uploaderListLogo input[type=file]"));
+                loadLogoHeaderBt.WaitUntil(logo => logo.Exists() && logo.IsVisible);
+                loadLogoHeaderBt.SetValue(filePathHeader);
 
 
 
-  
                 /*
                                 CSSDescription divNone = new CSSDescription("div#uploaderListLogo");
                                 var elDivNone = browser.Describe<IWebElement>(divNone);
@@ -148,15 +152,13 @@ namespace EVotingProject.Pages
                 // browser.Page.RunJavaScript(query);
                 // openFileDialog.select(filePathHeader);
 
-                var loadLogoHeaderBt = browser.Describe<IFileField>(new CSSDescription(
-                    "#uploaderListLogo input[type=file]"));
+
+                //loadLogoHeaderBt.Click();
                 //var loadLogoHeaderBt2 = browser.Describe<IWebElement>(new CSSDescription("#uploaderListLogo input[type=file]"));
                 //loadLogoHeaderBt2.SetDescription(ISupportSendKeys)
-                loadLogoHeaderBt.WaitUntil(logo => logo.Exists() && logo.IsVisible);
-                loadLogoHeaderBt.Click();
                 // loadLogoHeaderBt.Click(MouseButton.Left);
                 // loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
-                loadLogoHeaderBt.SetValue(filePathHeader);
+
 
             }
         }
