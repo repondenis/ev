@@ -555,16 +555,16 @@ namespace EVotingProject.Pages
         public static string getissuerFullName() { return browser.Describe<IEditField>(issuerFullName).Value; }
         public static string getmeetingId() { return browser.Describe<IEditField>(meetingId).Value; }
         public static string getformTypeLabel() { return browser.Describe<IEditField>(formTypeLabel).Value; }
-        public static string getmeetingStartInput() { return browser.Describe<IEditField>(meetingStartInput).Value; }
-        public static string getmeetingCountryInput() { return browser.Describe<IEditField>(meetingCountryInput).Value; }
-        public static string getmeetingAddress() { return browser.Describe<IEditField>(meetingAddress).Value; }
-        public static string getvoteMktDdlnInput() { return browser.Describe<IEditField>(voteMktDdlnInput).Value; }
-        public static string getparticipantsRegisterStartInput() { return browser.Describe<IEditField>(participantsRegisterStartInput).Value; }
-        public static string getentitlementFixingDate_input() { return browser.Describe<IEditField>(entitlementFixingDate_input).Value; }
-        public static string getpostCountry_input() { return browser.Describe<IEditField>(postCountry_input).Value; }
-        public static string getpostAddressInput() { return browser.Describe<IEditField>(postAddressInput).Value; }
-        public static string getagenda() { return browser.Describe<IEditField>(agenda).Value; }
-        public static string getprocOfFamiliarWMaterials() { return browser.Describe<IEditField>(procOfFamiliarWMaterials).Value; }
+        public static string getmeetingStart() { return browser.Describe<IEditField>(meetingStartInput).Value; }
+        public static string getmeetingCountry() { return browser.Describe<IEditField>(meetingCountryInput).Value; }
+        public static string getMeetingAddress() { return browser.Describe<IEditField>(meetingAddress).Value; }
+        public static string getVoteMktDdln() { return browser.Describe<IEditField>(voteMktDdlnInput).Value; }
+        public static string getParticipantsRegisterStart() { return browser.Describe<IEditField>(participantsRegisterStartInput).Value; }
+        public static string getentitlementFixingDate() { return browser.Describe<IEditField>(entitlementFixingDate_input).Value; }
+        public static string getPostCountry() { return browser.Describe<IEditField>(postCountry_input).Value; }
+        public static string getPostAddress() { return browser.Describe<IEditField>(postAddressInput).Value; }
+        public static string getAgenda() { return browser.Describe<IEditField>(agenda).Value; }
+        public static string getProcOfFamiliarWMaterials() { return browser.Describe<IEditField>(procOfFamiliarWMaterials).Value; }
 
         public static void save()
         {

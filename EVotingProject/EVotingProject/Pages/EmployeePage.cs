@@ -84,9 +84,9 @@ namespace EVotingProject.Pages
         public static void editEmployeesOfTable(string str)
         {
             var table = browser.Describe<ITable>(employeesDateTabl);
-            Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
+           // Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
+           // Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
+           // Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
 
             table.FindRowWithCellText(str).Cells[0].FindChildren<ILink>().Click();
         }

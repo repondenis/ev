@@ -136,6 +136,10 @@ namespace EVotingProject.Pages
 
         public static void loadFromFile(string filePathHeader)
         {
+           // browser.Describe<ILink>(uploadFile).Click();
+
+
+
             if (System.IO.File.Exists(filePathHeader))
             {
                 ReadXmlHelper.loadXml(filePathHeader);
@@ -153,11 +157,11 @@ namespace EVotingProject.Pages
 
                 var cssel = "input[type=file]";
 
-                Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));
-                Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('" + cssel + "').removeAttribute('aria-labelledby'); "));
-                Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));
+             //   Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));
+             //   Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('" + cssel + "').removeAttribute('aria-labelledby'); "));
+             //   Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));
 
-                browser.Page.RunJavaScript(
+browser.Page.RunJavaScript(
 "document.querySelector('" + cssDivParent + "').style.overflow='visible'; " +
 "document.querySelector('" + cssDivParent + "').style.display='inline-block'; " +
 "document.querySelector('" + cssDivParent + "').style.opacity=1; " +
@@ -184,9 +188,14 @@ namespace EVotingProject.Pages
                 );
 
                 var input_file = browser.Describe<IFileField>(new CSSDescription(cssel));
-                //  Console.WriteLine("OuterHTML=" + input_file.OuterHTML);
-                Console.WriteLine("InnerHTML=" + input_file.InnerHTML);
                 input_file.SetValue(filePathHeader);
+                //  Console.WriteLine("OuterHTML=" + input_file.OuterHTML);
+                // Console.WriteLine("InnerHTML=" + input_file.InnerHTML);
+                // Console.WriteLine("IsVisible=" + input_file.IsVisible);
+
+
+
+
             }
         }
 
@@ -227,7 +236,7 @@ namespace EVotingProject.Pages
 
         public static string getSelectedMeetingType()
         {
-            return browser.Describe<HP.LFT.SDK.Web.IListBox>(meetingTypeSelect).SelectedItems[0].ToString(); ;
+            return browser.Describe<HP.LFT.SDK.Web.IListBox>(meetingTypeSelect).SelectedItems[0].ToString();
         }
 
         public static void setIssuerOrganization(string v)
@@ -237,16 +246,21 @@ namespace EVotingProject.Pages
 
         public static string getIssuerOrganization()
         {
-            return browser.Describe<HP.LFT.SDK.Web.IEditField>(issuerOrganizationInput).Value.ToString();
+            return browser.Describe<HP.LFT.SDK.Web.IEditField>(issuerOrganizationInput).Value;
         }
+        public static bool getIssuerOrganization(string orgName)
+        {
+            var issuerOrganization = browser.Describe<HP.LFT.SDK.Web.IEditField>(issuerOrganizationInput);
+            return issuerOrganization.Value.Equals(orgName); //WaitUntil(logo => logo.Exists() && logo.IsVisible);
 
+        }
         public static string getIssuerOrganizationInn()
         {
             return browser.Describe<HP.LFT.SDK.Web.IEditField>(issuerOrganizationInn).Value.ToString();
         }
         public static string getIssuerOrganizationOgrn()
         {
-            return browser.Describe<HP.LFT.SDK.Web.IEditField>(issuerOrganizationOgrn).Value.ToString();
+            return browser.Describe<HP.LFT.SDK.Web.IEditField>(issuerOrganizationOgrn).Value;
         }
 
         /// <summary>
@@ -303,6 +317,8 @@ namespace EVotingProject.Pages
                         select[i].Click();
                     }
         }
+
+
 
     }
 }

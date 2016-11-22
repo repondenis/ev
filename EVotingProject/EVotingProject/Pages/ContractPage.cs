@@ -27,11 +27,16 @@ namespace EVotingProject.Pages
             return browser.Describe<IWebElement>(pageTitle).Exists() && browser.Describe<IWebElement>(pageTitle).InnerText.Equals("Договоры");
         }
 
+        public static void clickTitle() {
+            browser.Describe<IWebElement>(pageTitle).Click();
+        }
+
         public static void clickNewContract()
         {
             browser.Describe<IButton>(newContractBt).Click();
         }
 
+        /*
         public static void getContractsTable(string str)
         {
             Console.WriteLine("searh of " + str);
@@ -41,12 +46,14 @@ namespace EVotingProject.Pages
             Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
 
         }
+        */
 
         public static void clickContractsOfTable(string str) {
-            Console.WriteLine("searh of " + str);
+           // Console.WriteLine("searh of " + str);
             var table = browser.Describe<ITable>(contractDateTabl);
-            Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
+           // Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
             table.FindRowWithCellText(str).Cells[0].FindChildren<ILink>().Click();
+            dfsfd
         }
 
         /// <summary>

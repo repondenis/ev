@@ -24,7 +24,7 @@ namespace EVotingProject
             r.Title = "E-Voting reports";
             Reporter.Init(r);
 
-            browser = BrowserFactory.Launch(BrowserType.Firefox);
+            browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
             PageHelper.setBrowser(browser);
@@ -326,43 +326,53 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             var issuerFullName = MeetingPage.getissuerFullName();
             var meetingId = MeetingPage.getmeetingId();
             var formType = MeetingPage.getformTypeLabel();
-            var meetingStart = MeetingPage.getmeetingStartInput();
-            var meetingCountry = MeetingPage.getmeetingCountryInput();
-            var meetingAddress = MeetingPage.getmeetingAddress();
-            var voteMktDdln = MeetingPage.getvoteMktDdlnInput();
-            var participantsRegisterStart = MeetingPage.getparticipantsRegisterStartInput();
-            var entitlementFixingDate = MeetingPage.getentitlementFixingDate_input();
-            var postCountry = MeetingPage.getpostCountry_input();
-            var postAddress = MeetingPage.getpostAddressInput();
-            var agenda = MeetingPage.getagenda();
+            var meetingStart = MeetingPage.getmeetingStart();
+            var meetingCountry = MeetingPage.getmeetingCountry();
+            var meetingAddress = MeetingPage.getMeetingAddress();
+            var voteMktDdln = MeetingPage.getVoteMktDdln();
+            var participantsRegisterStart = MeetingPage.getParticipantsRegisterStart();
+            var entitlementFixingDate = MeetingPage.getentitlementFixingDate();
+            var postCountry = MeetingPage.getPostCountry();
+            var postAddress = MeetingPage.getPostAddress();
+            var agenda = MeetingPage.getAgenda();
             browser.Refresh();
             Assert.AreEqual(issuerFullName, MeetingPage.getissuerFullName());
             Assert.AreEqual(meetingId, MeetingPage.getmeetingId());
             Assert.AreEqual(formType, MeetingPage.getformTypeLabel());
-            Assert.AreEqual(meetingStart, MeetingPage.getmeetingStartInput());
-            Assert.AreEqual(meetingCountry, MeetingPage.getmeetingCountryInput());
-            Assert.AreEqual(meetingAddress, MeetingPage.getmeetingAddress());
-            Assert.AreEqual(voteMktDdln, MeetingPage.getvoteMktDdlnInput());
-            Assert.AreEqual(participantsRegisterStart, MeetingPage.getparticipantsRegisterStartInput());
-            Assert.AreEqual(entitlementFixingDate, MeetingPage.getentitlementFixingDate_input());
-            Assert.AreEqual(postCountry, MeetingPage.getpostCountry_input());
-            Assert.AreEqual(postAddress, MeetingPage.getpostAddressInput());
-            Assert.AreEqual(agenda, MeetingPage.getagenda());
+            Assert.AreEqual(meetingStart, MeetingPage.getmeetingStart());
+            Assert.AreEqual(meetingCountry, MeetingPage.getmeetingCountry());
+            Assert.AreEqual(meetingAddress, MeetingPage.getMeetingAddress());
+            Assert.AreEqual(voteMktDdln, MeetingPage.getVoteMktDdln());
+            Assert.AreEqual(participantsRegisterStart, MeetingPage.getParticipantsRegisterStart());
+            Assert.AreEqual(entitlementFixingDate, MeetingPage.getentitlementFixingDate());
+            Assert.AreEqual(postCountry, MeetingPage.getPostCountry());
+            Assert.AreEqual(postAddress, MeetingPage.getPostAddress());
+            Assert.AreEqual(agenda, MeetingPage.getAgenda());
 
             MeetingPage.logout();
         }
 
 
-        // D:\work\test\MN Сбербанк 1.xml
+
+        /// <summary>
+        /// 56957
+        /// </summary>
+        /// <param name="menuPar"></param>
+        /// <param name="loginPar"></param>
+        /// <param name="login"></param>
+        /// <param name="pass"></param>
+        /// <param name="orgName"></param>
+        /// <param name="filePath"></param>
+        /// <param name="message"></param>
+        /// <param name="contractName"></param>
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"",
-@"D:\work\test\MN НРД (Роснефть) 1.xml", "Успешно сохранен!",
-TestName = "56957.проверка отображения стр собрания и подтвержд созд собрания, адм evot) MN участник сч комиссии")]
-        public void Test56957(string menuPar, string loginPar, string login, string pass, string orgName, string filePath, string message)
+        @"D:\work\test\MN НРД (Роснефть) 1.xml", "Успешно сохранен!", "00100",
+        TestName = "56957.проверка отображения стр собрания и подтвержд созд собрания, адм evot) MN участник сч комиссии")]
+        public void Test56957(string menuPar, string loginPar, string login, string pass, string orgName, string filePath, string message, string contractName)
         {
             try
             {
                 Console.WriteLine(DateTime.Now);
-                var contractName = "00099";
                 addNewContract(orgName, contractName);
 
                 browser.Navigate(urlDemo);
@@ -384,7 +394,7 @@ TestName = "56957.проверка отображения стр собрани�
                 NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
 
                 NewMeetingPage.loadFromFile(filePath);
-
+                Assert.True(NewMeetingPage.getIssuerOrganization(orgName),"должна поменяться организация");
 
                 NewMeetingPage.setContract(contractName);
                 Assert.True(NewMeetingPage.isContractPanelAppear());
@@ -402,7 +412,7 @@ TestName = "56957.проверка отображения стр собрани�
                 var state = MeetingPage.getState();
 
                 //2
-                Assert.AreEqual(MeetingPage.getmeetingAddress(), ReadXmlHelper.getElement("AdrLine"));
+                Assert.AreEqual(MeetingPage.getMeetingAddress(), ReadXmlHelper.getElement("AdrLine"));
 
                 //3
                 MeetingPage.setmeetingAddress("1111111111111111111111111111111111111111111111111111111111111111111111");//70symb
@@ -411,8 +421,13 @@ TestName = "56957.проверка отображения стр собрани�
                 MeetingPage.setmeetingAddress("11111111111111111111111111111111111111111111111111111111111111111111111");//71symb
                 MeetingPage.save();
 
+                //4
+                Assert.AreEqual(MeetingPage.getmeetingCountry(), ReadXmlHelper.getElement("Ctry"));
 
+                //5 обяззательность поля ReadXmlHelper.getElement("Ctry")
 
+                //6 ???
+                //7 ???
 
                 //    MeetingPage.logout();
             }

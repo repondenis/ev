@@ -124,13 +124,20 @@ namespace EVotingProject.Pages
                     "document.querySelector('" + cssel + "').style.width=100; " +
                     "document.querySelector('" + cssel + "').style.height=20; " +
                     "document.querySelector('" + cssel + "').style.filter=''; " +
-                    "document.querySelector('" + cssel + "').style.font-size='10px'; " +
+                   // "document.querySelector('" + cssel + "').style.font-size='10px'; " +
                     "document.querySelector('" + cssel + "').style.position='relative'; "
                     );
 
                     //browser.Page.RunJavaScript("document.querySelector('" + cssel + "').click(); ");
 
                 }
+
+
+
+         /*       Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + css[6] + "').getAttribute('aria-labelledby'); "));
+                browser.Page.RunJavaScript("document.querySelector('" + css[6] + "').removeAttribute('aria-labelledby'); ");
+                Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + css[6] + "').getAttribute('aria-labelledby'); "));
+        */
 
                 var loadLogoHeaderBt = browser.Describe<IFileField>(new CSSDescription(
                     "#uploaderListLogo input[type=file]"));

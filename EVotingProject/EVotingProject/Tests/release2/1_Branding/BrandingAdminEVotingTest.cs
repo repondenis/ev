@@ -61,7 +61,7 @@ namespace EVotingProject
         //либо искать ОРГ по ИНН = 1027700043502
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", @"D:\work\test\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
               TestName = "56849.Проверка инициации настройки брендирования админ ЕВотинга")]
-        [TestCaseSource("ALM")]
+       // [TestCaseSource("ALM")]
         public void Test56849(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
         {
 

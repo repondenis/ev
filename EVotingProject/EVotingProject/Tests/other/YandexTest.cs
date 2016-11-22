@@ -33,6 +33,7 @@ namespace EVotingProject
         [Description("TestInputFile")]
         public void TestInputFile()
         {
+            /*
             var urlUni = "http://саратов.окна.рф/%D0%9A%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8/f2221-%D0%9A%D0%BE%D1%80%D0%BE%D0%BB%D0%B5%D0%B2%20%D0%94%D0%9D";
             CSSDescription uniPin = new CSSDescription("input[name='pincode']");
             CSSDescription uniSubm = new CSSDescription("input[type='submit']");
@@ -46,7 +47,7 @@ namespace EVotingProject
                 input.SetValue(i.ToString().PadLeft(4,'0'));
                 submit.Click();
             }
-
+            */
 
 
             var urlTrue = "http://www.softpost.org/selenium-test-page/";
@@ -61,16 +62,16 @@ namespace EVotingProject
             var css2 = "input#upload_hidden_2";
             var css3 = "input#upload_hidden_3";
             var css4 = "input#upload_hidden_4";
+            var css5 = "input.upload_hidden_5";
 
             browser.Navigate(url2);
             browser.Sync();
 
-            Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('#upload_hidden_4').style.position"));
 
-            string query1 = browser.Page.RunJavaScript(
-                "document.getElementById('upload_hidden').style.overflow;");
+            // Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('#upload_hidden_4').style.position"));
 
-            Console.WriteLine("className is " + query1);
+
+            //    Console.WriteLine("className is " + browser.Page.RunJavaScript("document.getElementById('upload_hidden').style.overflow;"));
 
             //string query2 = browser.Page.RunJavaScript("document.getElementById('upload_hidden').style.overflow='visible';");
 
@@ -104,6 +105,27 @@ namespace EVotingProject
                  "document.getElementById('upload_hidden_3').style.height=20; " +
                  "document.getElementById('upload_hidden_3').style.filter=''; " +
                  "document.getElementById('upload_hidden_3').style.position='relative'; " +
+
+                                 /*             "document.querySelector('input.upload_hidden_5').style.overflow='visible'; " +
+                                            "document.querySelector('input.upload_hidden_5').style.display='inline-block'; " +
+                                            "document.querySelector('input.upload_hidden_5').style.opacity=1; " +
+                                            "document.querySelector('input.upload_hidden_5').style.top=0; " +
+                                            "document.querySelector('input.upload_hidden_5').style.left=0; " +
+                                            "document.querySelector('input.upload_hidden_5').style.width=100; " +
+                                            "document.querySelector('input.upload_hidden_5').style.height=20; " +
+                                            "document.querySelector('input.upload_hidden_5').style.filter=''; " +
+                                            "document.querySelector('input.upload_hidden_5').style.position='relative'; " +
+                 */
+                                 "document.getElementById('form:j_idt52').style.overflow='visible'; " +
+                                   "document.getElementById('form:j_idt52').style.display='inline-block'; " +
+                                   "document.getElementById('form:j_idt52').style.opacity=1; " +
+                                   "document.getElementById('form:j_idt52').style.top=0; " +
+                                   "document.getElementById('form:j_idt52').style.left=0; " +
+                                   "document.getElementById('form:j_idt52').style.width=100; " +
+                                   "document.getElementById('form:j_idt52').style.height=20; " +
+                                   "document.getElementById('form:j_idt52').style.filter=''; " +
+                                   "document.getElementById('form:j_idt52').style.position='relative'; " +
+
                  "document.getElementById('upload_hidden_4').style.overflow='visible'; " +
                  "document.getElementById('upload_hidden_4').style.opacity=1; " +
                  "document.getElementById('upload_hidden_4').style.top=0; " +
@@ -115,30 +137,31 @@ namespace EVotingProject
                  "document.getElementById('upload_hidden_4').style.display='inline-block'; "
                  );
 
-            Console.WriteLine("className_2 is " + query4);
+            // Console.WriteLine("className_2 is " + query4);
 
-            Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('#upload_hidden_4').style.position"));
+            //  Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('#upload_hidden_4').style.position"));
             //  browser.Page.RunJavaScript("document.getElementsByTagName('input').style.display='inline-block';");
 
 
 
             //browser.Page.RunJavaScript("for (el of document.getElementsByTagName('input')){el.style.display='inline-block';}");
-            browser.Describe<IFileField>(new CSSDescription(css1)).Click();
-            browser.Describe<IFileField>(new CSSDescription(css2)).Click();
-            browser.Describe<IFileField>(new CSSDescription(css3)).Click();
-            browser.Describe<IFileField>(new CSSDescription(css4)).Click();
+            //   browser.Describe<IFileField>(new CSSDescription(css1)).Click();
+            //  browser.Describe<IFileField>(new CSSDescription(css2)).Click();
+            //   browser.Describe<IFileField>(new CSSDescription(css3)).Click();
+            //   browser.Describe<IFileField>(new CSSDescription(css4)).Click();
+            //   browser.Describe<IFileField>(new CSSDescription(css5)).Click();
 
 
 
-            /*     try
-                 {
-                     browser.Describe<IFileField>(new CSSDescription(css1)).SetValue(filePath);//ok
-                 }
-                 catch (Exception e)
-                 {
+            /*          try
+                      {
+                          browser.Describe<IFileField>(new CSSDescription(css1)).SetValue(filePath);//ok
+                      }
+                      catch (Exception e)
+                      {
 
-                     Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
-                 }
+                          Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
+                      }
                       try
                       {
                           browser.Describe<IFileField>(new CSSDescription(css2)).SetValue(filePath);//ok
@@ -163,8 +186,18 @@ namespace EVotingProject
                       {
                           Console.WriteLine(e.Message + " " + e.Source + " " + e.StackTrace);
                       }
+          */
+            try
+            {
+                browser.Describe<IFileField>(new CSSDescription(css5)).SetValue(filePath);//ok
+                Reporter.ReportEvent("TestYandex", "Failed during validation", Status.Passed, browser.GetSnapshot());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("css5 - " + e.Message + " " + e.Source + " " + e.StackTrace);
+                Reporter.ReportEvent("TestYandex", "Failed during validation", Status.Failed, e);
+            }
 
-           */
 
             /*
             IFileField inpfil = browser.Describe<IFileField>(new CSSDescription(css1));

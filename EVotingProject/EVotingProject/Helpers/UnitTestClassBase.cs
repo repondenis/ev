@@ -51,6 +51,13 @@ namespace EVotingProject
             {
                 PortalPage.gotoMenuContracts();
                 Assert.True(ContractPage.isTruePage());
+
+                getTable
+
+                ContractPage.setFilter(contrName);
+                ContractPage.clickTitle();
+
+
                 ContractPage.clickNewContract();
                 Assert.True(NewContractPage.isTruePage());
 
