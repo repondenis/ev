@@ -8,9 +8,9 @@ using EVotingProject.Helpers;
 using EVotingProject.Models;
 using HP.LFT.Report;
 using System.Drawing;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support;
+//using OpenQA.Selenium;
+//using OpenQA.Selenium.Chrome;
+//using OpenQA.Selenium.Support;
 using HP.LFT.SDK.Insight;
 
 namespace EVotingProject

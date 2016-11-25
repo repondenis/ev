@@ -7,6 +7,7 @@ using HP.LFT.SDK.Web;
 using HP.LFT.SDK.StdWin;
 using EVotingProject.Models;
 using EVotingProject.Helpers;
+using HP.LFT.SDK;
 
 namespace EVotingProject.Pages
 {
@@ -66,7 +67,7 @@ namespace EVotingProject.Pages
         private static XPathDescription meetingStartToggle = new XPathDescription(".//div[div[label[text()='Дата и время проведения собрания']]]/div/div/div/span");
 
         //Организация
-        private static CSSDescription issuerOrganizationInput = new CSSDescription("input[id='form:issuerOrganization_input']");
+        private static CSSDescription issuerOrganizationInput = new CSSDescription("input[id='form:issuerOrganization']");
         private static CSSDescription issuerOrganizationInn = new CSSDescription("label[id='form:issuerInn']");
         private static CSSDescription issuerOrganizationOgrn = new CSSDescription("label[id='form:issuerOgrn']");
 
@@ -83,11 +84,12 @@ namespace EVotingProject.Pages
 
         //Договор на проведение собрания - сервисы договора
         private static CSSDescription contractsInput = new CSSDescription("input[id='form:contracts_input']");// Договор на проведение собрания
-        private static CSSDescription contractInputToggle = new CSSDescription("div.contracts-auto span[id='form:contracts'] button span.ui-button-icon-primary");
-        private static CSSDescription contractInputSelect = new CSSDescription("div[id='form:contracts_panel'] ul li");
+        private static CSSDescription contractsInputh = new CSSDescription("input[id='form:contracts_hinput']");
+        private static CSSDescription contractInputToggle = new CSSDescription("div.contracts-auto span[id='form:contracts'] button");//  span.ui-button-icon-primary
+        private static CSSDescription contractInputSelect = new CSSDescription("div[id='form:contracts_panel']");
+        private static CSSDescription contractInputList = new CSSDescription("div[id='form:contracts_panel'] ul li");
 
-
-        private static XPathDescription submitb = new XPathDescription(".//button[span[text()='продолжить']]");
+        private static XPathDescription submitb = new XPathDescription(".//button[span[text()='Продолжить']]");
         private static XPathDescription cancelb = new XPathDescription(".//button[span[text()='Отменить']]");
 
         public static new bool isTruePage()
@@ -136,10 +138,6 @@ namespace EVotingProject.Pages
 
         public static void loadFromFile(string filePathHeader)
         {
-           // browser.Describe<ILink>(uploadFile).Click();
-
-
-
             if (System.IO.File.Exists(filePathHeader))
             {
                 ReadXmlHelper.loadXml(filePathHeader);
@@ -154,47 +152,43 @@ namespace EVotingProject.Pages
 
                 // ".removeAttribute('HREF')"
                 var cssDivParent = "div.ui-fileupload";
+                var cssSpanParent = "div.ui-fileupload>div>span";
+                var cssSpanParentRemoteClass = "ui-fileupload-choose";
+                var cssInputFile = "input[type=file]";
 
-                var cssel = "input[type=file]";
-
-             //   Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));
-             //   Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('" + cssel + "').removeAttribute('aria-labelledby'); "));
-             //   Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));
-
-browser.Page.RunJavaScript(
-"document.querySelector('" + cssDivParent + "').style.overflow='visible'; " +
-"document.querySelector('" + cssDivParent + "').style.display='inline-block'; " +
-"document.querySelector('" + cssDivParent + "').style.opacity=1; " +
-"document.querySelector('" + cssDivParent + "').style.top=0; " +
-"document.querySelector('" + cssDivParent + "').style.left=0; " +
-"document.querySelector('" + cssDivParent + "').style.width=100; " +
-"document.querySelector('" + cssDivParent + "').style.height=20; " +
-"document.querySelector('" + cssDivParent + "').style.filter=''; " +
-//"document.querySelector('" + cssel + "').style.font-size=10; " +
-"document.querySelector('" + cssDivParent + "').style.position='relative'; "
-);
 
                 browser.Page.RunJavaScript(
-                "document.querySelector('" + cssel + "').style.overflow='visible'; " +
-                "document.querySelector('" + cssel + "').style.display='inline-block'; " +
-                "document.querySelector('" + cssel + "').style.opacity=1; " +
-                "document.querySelector('" + cssel + "').style.top=0; " +
-                "document.querySelector('" + cssel + "').style.left=0; " +
-                "document.querySelector('" + cssel + "').style.width=100; " +
-                "document.querySelector('" + cssel + "').style.height=20; " +
-                "document.querySelector('" + cssel + "').style.filter=''; " +
-                //"document.querySelector('" + cssel + "').style.font-size=10; " +
-                "document.querySelector('" + cssel + "').style.position='relative'; "
+                "document.querySelector('" + cssDivParent + "').style.overflow='visible'; " +
+                "document.querySelector('" + cssDivParent + "').style.display='inline-block'; " +
+                   "document.querySelector('" + cssDivParent + "').style.opacity=1; " +
+                   "document.querySelector('" + cssDivParent + "').style.top=0; " +
+                   "document.querySelector('" + cssDivParent + "').style.left=0; " +
+                  "document.querySelector('" + cssDivParent + "').style.width=100; " +
+                   "document.querySelector('" + cssDivParent + "').style.height=20; " +
+                   "document.querySelector('" + cssDivParent + "').style.filter=''; " +
+                 "document.querySelector('" + cssDivParent + "').style.position='relative'; "
                 );
 
-                var input_file = browser.Describe<IFileField>(new CSSDescription(cssel));
+
+
+                browser.Page.RunJavaScript(
+                "document.querySelector('" + cssInputFile + "').style.overflow='visible'; " +
+                "document.querySelector('" + cssInputFile + "').style.display='inline-block'; " +
+                 "document.querySelector('" + cssInputFile + "').style.opacity=1; " +
+                  "document.querySelector('" + cssInputFile + "').style.top=0; " +
+                 "document.querySelector('" + cssInputFile + "').style.left=0; " +
+                 "document.querySelector('" + cssInputFile + "').style.width=100; " +
+                 "document.querySelector('" + cssInputFile + "').style.height=20; " +
+                 "document.querySelector('" + cssInputFile + "').style.filter=''; " +
+                "document.querySelector('" + cssInputFile + "').style.position='relative'; "
+                );
+
+                browser.Page.RunJavaScript("document.querySelector('" + cssSpanParent + "').classList.remove('" + cssSpanParentRemoteClass + "')"); //"ui-fileupload-choose"
+
+                var input_file = browser.Describe<IFileField>(new CSSDescription(cssInputFile));
+                Console.WriteLine("2.1-" + DateTime.Now);
                 input_file.SetValue(filePathHeader);
-                //  Console.WriteLine("OuterHTML=" + input_file.OuterHTML);
-                // Console.WriteLine("InnerHTML=" + input_file.InnerHTML);
-                // Console.WriteLine("IsVisible=" + input_file.IsVisible);
-
-
-
+                Console.WriteLine("2.2-" + DateTime.Now);
 
             }
         }
@@ -212,6 +206,7 @@ browser.Page.RunJavaScript(
         public static void submit()
         {
             browser.Describe<HP.LFT.SDK.Web.IButton>(submitb).Click();
+            //browser.Sync();
         }
 
         public static string getSelectedMethodCreateMeeting()
@@ -267,21 +262,26 @@ browser.Page.RunJavaScript(
         /// Договор на проведение собрания - 
         /// кнопка выпад список
         /// </summary>
-        public static void _clickContractInputToggle()
+        public static void clickContractInputToggle()
         {
             browser.Describe<IWebElement>(contractInputToggle).Click();
         }
 
         public static void setContract(string v)
         {
-            var contractInput = browser.Describe<HP.LFT.SDK.Web.IEditField>(contractsInput);
+            //Console.WriteLine("!!! " + contractsInputh.ToString());
+            //browser.Page.RunJavaScript("document.querySelector('" + contractsInputh.ToString() + "').setAttribute('type', 'text')");
+            // browser.Page.RunJavaScript("document.querySelector('" + contractsInputh.ToString() + "').removeAttribute('type')");
+            var contractInput = browser.Describe<HP.LFT.SDK.Web.IEditField>(contractsInputh);
             contractInput.SetValue(v);
             contractInput.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
         }
 
         public static bool isContractPanelAppear()
         {
-            return browser.Describe<IWebElement>(contractInputSelect).Exists();
+            var contractList = browser.Describe<IWebElement>(contractInputSelect);
+            contractList.WaitUntil(list => list.Exists() && list.IsVisible);
+            return contractList.Exists();
         }
 
         /// <summary>
@@ -289,23 +289,19 @@ browser.Page.RunJavaScript(
         /// сам список
         /// </summary>
         /// <param name="position"></param>
-        public static void selectItemOfContract(int position, string name)
+        public static void selectItemOfContract(string name)
         {
-            /*
-            var select = browser.FindChildren<IWebElement>(contractInputSelect);
-            if (select.Length > 0 && position <= select.Length)
-                for (int i = 0; i < select.Length; i++)
-                    if (select[i].Exists() && select[i].IsVisible && select[i].InnerText.Contains(name))
-                    {
-                        Console.WriteLine(select[i].InnerText);
-                        select[i].Click();
-                    }
-                    */
 
-            selectItemLiOfListUL(name, contractInputSelect);
+            selectItemLiOfListUL(name, contractInputList);
+
         }
 
-
+        /// <summary>
+        /// выбор элемента/клик из списка по совпадению
+        /// select LI from UL list
+        /// </summary>
+        /// <param name="nameItem"></param>
+        /// <param name="descr"></param>
         public static void selectItemLiOfListUL(string nameItem, CSSDescription descr)
         {
             var select = browser.FindChildren<IWebElement>(descr);
@@ -313,7 +309,7 @@ browser.Page.RunJavaScript(
                 for (int i = 0; i < select.Length; i++)
                     if (select[i].Exists() && select[i].IsVisible && select[i].InnerText.Contains(nameItem))
                     {
-                        Console.WriteLine(select[i].InnerText);
+                       // Console.WriteLine("_ " + select[i].InnerText);
                         select[i].Click();
                     }
         }
@@ -322,3 +318,7 @@ browser.Page.RunJavaScript(
 
     }
 }
+
+//   Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));
+//   Console.WriteLine(browser.Page.RunJavaScript("document.querySelector('" + cssel + "').removeAttribute('aria-labelledby'); "));
+//   Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + cssel + "').getAttribute('aria-labelledby'); "));

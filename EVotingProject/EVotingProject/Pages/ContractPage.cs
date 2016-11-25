@@ -12,7 +12,7 @@ namespace EVotingProject.Pages
         private static CSSDescription pageTitle = new CSSDescription("div#contract-block>div>div>label.main-header-page");
         private static XPathDescription newContractBt = new XPathDescription(".//button[span[text()='добавить новый']]");
         private static CSSDescription contractDateTabl = new CSSDescription("table[role='grid']");
-        private static CSSDescription contractFilter = new CSSDescription("input[id='contractForm:globalFilter']");
+        private static CSSDescription contractFilter = new CSSDescription("input[id='contractForm:contractTable:globalFilter']");
 
         //статус
         private static CSSDescription contractStatusFilterLabel = new CSSDescription("div.ui-selectonemenu>label");//статус собрания - текст, нажимается-выпадает
@@ -27,7 +27,8 @@ namespace EVotingProject.Pages
             return browser.Describe<IWebElement>(pageTitle).Exists() && browser.Describe<IWebElement>(pageTitle).InnerText.Equals("Договоры");
         }
 
-        public static void clickTitle() {
+        public static void clickTitle()
+        {
             browser.Describe<IWebElement>(pageTitle).Click();
         }
 
@@ -48,12 +49,37 @@ namespace EVotingProject.Pages
         }
         */
 
-        public static void clickContractsOfTable(string str) {
-           // Console.WriteLine("searh of " + str);
+        /// <summary>
+        /// есть ли договор в таблице?
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool isContractsOfTableExist(string str)
+        {
             var table = browser.Describe<ITable>(contractDateTabl);
-           // Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
-            table.FindRowWithCellText(str).Cells[0].FindChildren<ILink>().Click();
-            dfsfd
+            var row = table.FindRowWithCellText(str);
+
+            return (row != null && row.Cells[3].Text.Contains("Не создано"));
+
+
+            /* throw new NotImplementedException();
+            if (row != null)
+            {
+                //return row.Cells[0].FindChildren<ILink>().Exists();
+                return true;
+            }
+            else return false;
+                */
+        }
+
+        public static void clickContractsOfTable(string str)
+        {
+            // Console.WriteLine("searh of " + str);
+            var table = browser.Describe<ITable>(contractDateTabl);
+            var row = table.FindRowWithCellText(str);
+            if (row != null)
+                row.Cells[0].FindChildren<ILink>().Click();
+            // Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
         }
 
         /// <summary>

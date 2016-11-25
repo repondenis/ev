@@ -25,14 +25,14 @@ namespace EVotingProject
 
 
         /// <summary>
-        /// добавление нового договора к орг
+        /// поиск/добавление нового договора к орг
         /// "ОАО \"НК \"Роснефть\""
         /// </summary>
         public static void addNewContract(string orgName, string contrName)
         {
             Console.WriteLine(DateTime.Now + " addNewContract().");
             PageHelper.setBrowser(browser);
-            if (!PortalPage.ismenuContractsExist())
+            if (!PortalPage.isMenuContractsExist())
             {
                 PortalPage.logout();
                 browser.Navigate(urlDemo);
@@ -47,17 +47,15 @@ namespace EVotingProject
                 Assert.True(PortalPage.isTruePage());
             }
 
-            if (PortalPage.ismenuContractsExist())//если мы залогинены
+            // if (PortalPage.isMenuContractsExist())//если мы залогинены
+            //  {
+            PortalPage.gotoMenuContracts();
+            Assert.True(ContractPage.isTruePage());
+
+            ContractPage.setFilter(contrName);
+            ContractPage.clickTitle();
+            if (!ContractPage.isContractsOfTableExist(contrName))
             {
-                PortalPage.gotoMenuContracts();
-                Assert.True(ContractPage.isTruePage());
-
-                getTable
-
-                ContractPage.setFilter(contrName);
-                ContractPage.clickTitle();
-
-
                 ContractPage.clickNewContract();
                 Assert.True(NewContractPage.isTruePage());
 
@@ -69,11 +67,13 @@ namespace EVotingProject
                 NewContractPage.setContractDate("26.05.1984");
                 //Console.WriteLine(DateTime.Now + " selectService");
                 //NewContractPage.selectService(1, true);//чекаем 1 чек-бокс
-                NewContractPage.selectService2(1, true);//чекаем 2 чек-бокс
+                NewContractPage.selectAceessOfregistrator(true);
+                NewContractPage.selectService2(0, true);//чекаем 2 чек-бокс
                 NewContractPage.selectService2(2, true);//чекаем 2 чек-бокс
                 NewContractPage.selectService2(3, true);//чекаем 2 чек-бокс
                 NewContractPage.save();
             }
+            // }
             PortalPage.logout();
             Assert.True(LoginPage.isTruePage());
         }

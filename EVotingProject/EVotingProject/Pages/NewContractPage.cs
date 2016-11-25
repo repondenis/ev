@@ -17,6 +17,7 @@ namespace EVotingProject.Pages
         private static CSSDescription contractDate = new CSSDescription("form#materialForm span>input.hasDatepicker");
         private static CSSDescription contractDateSelected = new CSSDescription("a.ui-state-highlight");
 
+        private static CSSDescription accessOfRegistrator = new CSSDescription("form#materialForm>div:nth-child(6) *[type='checkbox']");//Доступен регистратору
         private static CSSDescription serviceTableCb = new CSSDescription("div#cntr-services-edit>table");//чек-боксы с сервисами
         private static CSSDescription serviceCb = new CSSDescription("div#cntr-services-edit>table>tbody input[type='checkbox']");//чек-боксы с сервисами
 
@@ -86,6 +87,12 @@ namespace EVotingProject.Pages
             //Console.WriteLine("IsChecked = " + table.Rows[num].Cells[0].FindChildren<ICheckBox>().IsChecked);
         }
 
+        /// <summary>
+        /// группа чек-боксов - выставляем статус 
+        /// по порядк номеру
+        /// </summary>
+        /// <param name="num">порядк номер</param>
+        /// <param name="state">статус true/false</param>
         public static void selectService2(int num, bool state)
         {
             var services = browser.FindChildren<ICheckBox>(serviceCb);
@@ -94,6 +101,15 @@ namespace EVotingProject.Pages
                 services[num].Set(state);
                 // Console.WriteLine("IsChecked = " + services[1].IsChecked);//
             }
+        }
+
+        /// <summary>
+        /// чек-бокс - доступен регистратору
+        /// </summary>
+        /// <param name="state"></param>
+        public static void selectAceessOfregistrator(bool state)
+        {
+            browser.Describe<ICheckBox>(accessOfRegistrator).Set(state);
         }
 
         public static void save()

@@ -73,8 +73,11 @@ namespace EVotingProject.Pages
 
         }
 
-
-        public static bool ismenuContractsExist()
+        /// <summary>
+        /// если существует меню договоры
+        /// </summary>
+        /// <returns></returns>
+        public static bool isMenuContractsExist()
         {
             return browser.Describe<ILink>(menuContracts).Exists();
         }

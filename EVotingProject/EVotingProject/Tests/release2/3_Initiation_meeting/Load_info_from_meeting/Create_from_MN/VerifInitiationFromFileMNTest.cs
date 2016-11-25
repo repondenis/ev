@@ -303,14 +303,15 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             Assert.IsNotEmpty(NewMeetingPage.getIssuerOrganizationInn());
             Assert.IsNotEmpty(NewMeetingPage.getIssuerOrganizationOgrn());
 
-            NewMeetingPage.setContract(contractName);
+            //NewMeetingPage.setContract(contractName);
+            NewMeetingPage.clickContractInputToggle();
             Assert.True(NewMeetingPage.isContractPanelAppear());
-            NewMeetingPage.selectItemOfContract(0, contractName);
+            NewMeetingPage.selectItemOfContract(contractName);
 
             //3
             NewMeetingPage.submit();
             Assert.False(NewMeetingPage.isErrorMsg(), "При сохранении произошла ошибка!");
-
+            Assert.True(NewMeetingPage.isInfoMsg(), "При сохранении не произошло ошибки!");
 
             Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
             var state = MeetingPage.getState();
@@ -352,7 +353,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             MeetingPage.logout();
         }
 
-
+        string[] s = { "123", "asd" };
 
         /// <summary>
         /// 56957
@@ -365,10 +366,12 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         /// <param name="filePath"></param>
         /// <param name="message"></param>
         /// <param name="contractName"></param>
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"",
-        @"D:\work\test\MN НРД (Роснефть) 1.xml", "Успешно сохранен!", "00100",
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin_denisov_iss", "admin_denisov_iss", "ОАО \"НК \"Роснефть\"",
+        @"D:\work\test\MN НРД (Роснефть) 2.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml",
+        "Успешно сохранен!", "50505",
         TestName = "56957.проверка отображения стр собрания и подтвержд созд собрания, адм evot) MN участник сч комиссии")]
-        public void Test56957(string menuPar, string loginPar, string login, string pass, string orgName, string filePath, string message, string contractName)
+        public void Test56957(string menuPar, string loginPar, string login, string pass, string orgName, 
+            string filePath, string filePathStep6, string filePathStep7, string message, string contractName)
         {
             try
             {
@@ -384,6 +387,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
                 Assert.True(LoginLocalPage.isTruePage());
 
                 LoginLocalPage.runLogin(login, pass);
+                //Assert.False(PortalPage.isErrorAlert(),"не должно быть ошибки авторизации");
                 Assert.True(PortalPage.isTruePage());
 
                 PortalPage.gotoMenuMeetings();
@@ -394,11 +398,13 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
                 NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
 
                 NewMeetingPage.loadFromFile(filePath);
-                Assert.True(NewMeetingPage.getIssuerOrganization(orgName),"должна поменяться организация");
 
-                NewMeetingPage.setContract(contractName);
-                Assert.True(NewMeetingPage.isContractPanelAppear());
-                NewMeetingPage.selectItemOfContract(0, contractName);
+                Assert.True(NewMeetingPage.getIssuerOrganization(orgName), "должна поменяться организация");
+
+                //NewMeetingPage.setContract(contractName);
+                NewMeetingPage.clickContractInputToggle();
+                Assert.True(NewMeetingPage.isContractPanelAppear(),"должен появитсья спикок контрактов");
+                NewMeetingPage.selectItemOfContract(contractName);
 
                 //NewMeetingPage.clickContractInputToggle();
                 //NewMeetingPage.selectContract(0, contractName);
@@ -406,7 +412,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
                 NewMeetingPage.submit();
                 Assert.False(NewMeetingPage.isErrorMsg(), "При сохранении произошла ошибка!");
-
+                Assert.True(NewMeetingPage.isInfoMsg(), "При сохранении не произошла ошибка!");
 
                 Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
                 var state = MeetingPage.getState();
@@ -427,13 +433,14 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
                 //5 обяззательность поля ReadXmlHelper.getElement("Ctry")
 
                 //6 ???
+                NewMeetingPage.loadFromFile(filePathStep6);
                 //7 ???
-
+                NewMeetingPage.loadFromFile(filePathStep7);
                 //    MeetingPage.logout();
             }
             catch (AssertionException e)
             {
-                Reporter.ReportEvent("TestYandex", "Failed during validation", Status.Failed, e);
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e);
                 throw;
             }
         }

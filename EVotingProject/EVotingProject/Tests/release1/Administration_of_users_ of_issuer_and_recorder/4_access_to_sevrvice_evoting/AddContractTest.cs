@@ -17,8 +17,8 @@ namespace EVotingProject
         public void TestFixtureSetUp()
         {
             browser = BrowserFactory.Launch(BrowserType.Chrome);
-           // browser.ClearCache();
-          //  browser.DeleteCookies();
+            // browser.ClearCache();
+            //  browser.DeleteCookies();
             browser.Navigate(urlDemoAdmin);
         }
 
@@ -55,7 +55,7 @@ namespace EVotingProject
             //4
             NewContractPage.setOrganization(orgName);
             Assert.True(NewContractPage.isOrganizationPanelAppear());
-            NewContractPage.selectItemOfOrganization(0,orgName);
+            NewContractPage.selectItemOfOrganization(0, orgName);
 
             //5
             NewContractPage.setContractNumber(contrNumb);
@@ -70,7 +70,9 @@ namespace EVotingProject
             Assert.True(NewContractPage.isMessageGrowleOk(message), message);
 
             Assert.True(ContractPage.isTruePage());
-            ContractPage.getContractsTable(contrNumb);
+            ContractPage.setFilter(contrNumb);
+            ContractPage.clickTitle();
+            ContractPage.isContractsOfTableExist(contrNumb);
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "сбербанк России ОАО", "cnmb123", "cnmb321", "Успешно сохранен!",
@@ -85,7 +87,8 @@ namespace EVotingProject
             Assert.True(ContractPage.isTruePage());
             //2
             ContractPage.setFilter(orgName);//!!!!!не работает поле фильтра!
-            ContractPage.getContractsTable(contrNumb);
+            ContractPage.clickTitle();
+            ContractPage.isContractsOfTableExist(contrNumb);
             ContractPage.clickContractsOfTable(contrNumb);
             Assert.True(NewContractPage.isTruePage());
             Assert.Equals(NewContractPage.getContractNumber(), contrNumb);
@@ -104,11 +107,13 @@ namespace EVotingProject
 
             PortalPage.gotoMenuContracts();
             Assert.True(ContractPage.isTruePage());
-            ContractPage.getContractsTable(newContrNumb);
+            ContractPage.setFilter(newContrNumb);
+            ContractPage.clickTitle();
+            ContractPage.isContractsOfTableExist(newContrNumb);
 
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "сбербанк России ОАО", "cnmb123", "cnmb321","01.01.2016","31.12.2016", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "сбербанк России ОАО", "cnmb123", "cnmb321", "01.01.2016", "31.12.2016", "Успешно сохранен!",
   TestName = "57083 1.Проверка отмены внесения изменений в договор")]
         public void Test57083(string menuPar, string loginPar, string login, string pass, string orgName, string contrNumb, string contrNewNumb, string contrDate, string contrNewDate, string message)
         {
@@ -120,7 +125,8 @@ namespace EVotingProject
             Assert.True(ContractPage.isTruePage());
             //2
             ContractPage.setFilter(orgName);//!!!!!не работает поле фильтра!
-            ContractPage.getContractsTable(contrNumb);
+            ContractPage.clickTitle();
+            ContractPage.isContractsOfTableExist(contrNumb);
             ContractPage.clickContractsOfTable(contrNumb);
             Assert.True(NewContractPage.isTruePage());
             Assert.Equals(NewContractPage.getContractNumber(), contrNumb);
@@ -141,7 +147,7 @@ namespace EVotingProject
 
             PortalPage.gotoMenuContracts();
             Assert.True(ContractPage.isTruePage());
-            ContractPage.getContractsTable(contrNewNumb);//не должно быть такого договора
+            ContractPage.isContractsOfTableExist(contrNewNumb);//не должно быть такого договора
 
         }
 

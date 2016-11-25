@@ -11,9 +11,14 @@ namespace EVotingProject.Helpers
     {
         public static IBrowser browser;
         //
-        private static CSSDescription errorMsg = new CSSDescription("span.ui-messages-error-detail");//? как закрыть?
-        private static CSSDescription errorAlert = new CSSDescription("div.alert-danger");//http://clip2net.com/s/3DsxmiR
+        private static CSSDescription errorMsg = new CSSDescription("span.ui-messages-error-detail");//
+        private static CSSDescription infoMsg = new CSSDescription("span.ui-messages-info-detail");//Собрание уже опубликовано и не может быть изменено
+        private static CSSDescription errorMsgClose = new CSSDescription("ui-icon ui-icon-close");//закрыть
+
+        //Ошибки авторизации
+        private static CSSDescription errorAlert = new CSSDescription("div.alert-danger");//http://clip2net.com/s/3DsxmiR  //общий div Ошибки авторизации
         private static CSSDescription errorAlertClose = new CSSDescription("div.alert-danger a.close");
+        private static CSSDescription errorAlertState = new CSSDescription("strong.ng-binding");//"Ошибка!"
 
         //
         private static CSSDescription message = new CSSDescription("span.ui-growl-title");
@@ -25,6 +30,9 @@ namespace EVotingProject.Helpers
         private static CSSDescription messageGrowleError = new CSSDescription("div.ui-growl-item>span.ui-growl-image-error");//
         private static CSSDescription messageGrowleInfo = new CSSDescription("div.ui-growl-item>span.ui-growl-image-info");
         private static CSSDescription messageGrowleText = new CSSDescription("div.ui-growl-item>div>span.ui-growl-title");
+
+
+
 
 
         public static void setBrowser(IBrowser bro)
@@ -74,9 +82,9 @@ namespace EVotingProject.Helpers
         }
 
 
-        public static bool isErrorMsg()
+        public static bool isInfoMsg()
         {
-            IWebElement msg = browser.Describe<IWebElement>(errorMsg);
+            IWebElement msg = browser.Describe<IWebElement>(infoMsg);
             if (msg.Exists())
             {
                 Console.WriteLine(msg.InnerText);
@@ -86,10 +94,28 @@ namespace EVotingProject.Helpers
                 return false;
         }
 
+        public static bool isErrorMsg()
+        {
+            IWebElement msg = browser.Describe<IWebElement>(errorMsg);
+            if (msg.Exists())
+            {
+                Console.WriteLine("Текст ошибки: " + msg.InnerText);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// есть ли ошибка авторизации?
+        /// красная
+        /// </summary>
+        /// <returns></returns>
         public static bool isErrorAlert()
         {
-            IWebElement msg = browser.Describe<IWebElement>(errorAlert);
-            if (msg.Exists())
+            var msg = browser.Describe<IWebElement>(errorAlert);
+
+            if (msg.Exists() & msg.IsVisible)
             {
                 Console.WriteLine(msg.InnerText);
                 return true;
