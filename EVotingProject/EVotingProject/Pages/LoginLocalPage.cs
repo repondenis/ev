@@ -10,8 +10,8 @@ namespace EVotingProject.Pages
     class LoginLocalPage : Helpers.PageHelper
     {
         //поля логин-пароль
-        private static CSSDescription login = new CSSDescription("input[name='inputLogin']");
-        private static CSSDescription password = new CSSDescription("input[name='inputPassword']");
+        private static CSSDescription login = new CSSDescription("input#login-username");//28112016("input[name='inputLogin']");
+        private static CSSDescription password = new CSSDescription("input#login-password");//28112016("input[name='inputPassword']");
 
         //buttons
         private static CSSDescription sumbit = new CSSDescription("button[type='submit']");//войти

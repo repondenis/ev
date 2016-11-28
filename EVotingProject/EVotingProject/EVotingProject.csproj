@@ -84,6 +84,7 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.Serialization" />
@@ -94,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\MouseHelper.cs" />
     <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Helpers\ReadXmlHelper.cs" />
     <Compile Include="Models\MenuParam.cs" />

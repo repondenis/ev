@@ -21,9 +21,9 @@ namespace EVotingProject.Pages
         private static XPathDescription menuObservers = new XPathDescription(".//div[text()='Для наблюдателей']");
 
         //выбор авториз
-        private static CSSDescription autorisESIA = new CSSDescription(".panel-login>a");
-        private static XPathDescription autorisLogin = new XPathDescription(".//a[@ui-sref='local']");//Войти с помощью логина и пароля
-        private static XPathDescription autorisSert = new XPathDescription(".//a[@ui-sref='cert']");//Войти с помощью неквалифицированной ЭП
+        private static CSSDescription autorisESIA = new CSSDescription("button.btn-e-voting");//28112016(".panel-login>a");
+        private static CSSDescription autorisLogin = new CSSDescription("a.another-login[href='#/local']");//28112016(".//a[@ui-sref='local']");//Войти с помощью логина и пароля
+        private static CSSDescription autorisSert = new CSSDescription("a.another-login[href='#/dig']");//28112016(".//a[@ui-sref='cert']");//Войти с помощью неквалифицированной ЭП
 
         private static CSSDescription header = new CSSDescription("header>div");
 
@@ -81,7 +81,8 @@ namespace EVotingProject.Pages
         public static bool isTruePage()
         {
             browser.Sync();
-            return browser.Describe<ILink>(autorisESIA).Exists();//ищем только 1 кнопку автори3ации в ЕСИА
+            //Console.WriteLine();
+            return browser.Describe<IButton>(autorisESIA).Exists();//ищем только 1 кнопку автори3ации в ЕСИА
         }
     }
 }

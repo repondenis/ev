@@ -18,8 +18,8 @@ namespace EVotingProject
     {
 
         public static IBrowser browser;
-        public static string urlDemo = "https://demo-evoting.test.gosuslugi.ru/";//idp/sso#/
-        public static string urlDemoAdmin = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/local?admin";//ивотинг для администратора
+        public static string urlDemo = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/";//idp/sso#/
+        public static string urlDemoAdmin = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/local?admin=";//ивотинг для администратора
         public static string urlDev = "https://portal-dev-evoting.test.gosuslugi.ru/";
         public static string urlDevAdmin = "https://portal-dev-evoting.test.gosuslugi.ru/idp/sso#/local?admin";//ивотинг для администратора
 

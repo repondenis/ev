@@ -35,7 +35,7 @@ namespace EVotingProject.Pages
 
 
         //private static CSSDescription organizationTitle = new CSSDescription("div#wrap-meeting-list>div>div>label");//эмитенты
-        private static XPathDescription organizationTitle = new XPathDescription(".//div[@id='wrap-meeting-list']/div/div/label");
+        private static XPathDescription organizationTitle = new XPathDescription(".//div[@id='wrap-meeting-list']/div/label");//28112016(".//div[@id='wrap-meeting-list']/div/div/label");
 
         //
         private static CSSDescription meetingsSearhText = new CSSDescription("input[id='form:meetingsList:searchText']");//Нименование эмитента или огрн ввод тескт поле

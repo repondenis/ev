@@ -160,16 +160,16 @@ namespace EVotingProject.Pages
                 browser.Page.RunJavaScript(
                 "document.querySelector('" + cssDivParent + "').style.overflow='visible'; " +
                 "document.querySelector('" + cssDivParent + "').style.display='inline-block'; " +
-                   "document.querySelector('" + cssDivParent + "').style.opacity=1; " +
-                   "document.querySelector('" + cssDivParent + "').style.top=0; " +
-                   "document.querySelector('" + cssDivParent + "').style.left=0; " +
-                  "document.querySelector('" + cssDivParent + "').style.width=100; " +
-                   "document.querySelector('" + cssDivParent + "').style.height=20; " +
-                   "document.querySelector('" + cssDivParent + "').style.filter=''; " +
+            //       "document.querySelector('" + cssDivParent + "').style.opacity=1; " +
+             //      "document.querySelector('" + cssDivParent + "').style.top=0; " +
+             //      "document.querySelector('" + cssDivParent + "').style.left=0; " +
+            //      "document.querySelector('" + cssDivParent + "').style.width=100; " +
+            //       "document.querySelector('" + cssDivParent + "').style.height=20; " +
+            //       "document.querySelector('" + cssDivParent + "').style.filter=''; " +
                  "document.querySelector('" + cssDivParent + "').style.position='relative'; "
                 );
 
-
+                browser.Page.RunJavaScript("document.querySelector('" + cssSpanParent + "').classList.remove('" + cssSpanParentRemoteClass + "')"); //"ui-fileupload-choose"
 
                 browser.Page.RunJavaScript(
                 "document.querySelector('" + cssInputFile + "').style.overflow='visible'; " +
@@ -183,7 +183,7 @@ namespace EVotingProject.Pages
                 "document.querySelector('" + cssInputFile + "').style.position='relative'; "
                 );
 
-                browser.Page.RunJavaScript("document.querySelector('" + cssSpanParent + "').classList.remove('" + cssSpanParentRemoteClass + "')"); //"ui-fileupload-choose"
+               
 
                 var input_file = browser.Describe<IFileField>(new CSSDescription(cssInputFile));
                 Console.WriteLine("2.1-" + DateTime.Now);
