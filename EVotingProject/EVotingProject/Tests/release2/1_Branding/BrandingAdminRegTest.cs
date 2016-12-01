@@ -52,7 +52,7 @@ namespace EVotingProject
 
             Assert.True(LoginLocalPage.isTruePage());
             LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
 
             PortalPage.gotoMenuEmitents();
 

@@ -44,7 +44,7 @@ namespace EVotingProject
             LoginPage.caseLoginParam(loginPar);
             Assert.True(LoginLocalPage.isTruePage());
             LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
 
             //3
             PortalPage.gotoMenuContracts();

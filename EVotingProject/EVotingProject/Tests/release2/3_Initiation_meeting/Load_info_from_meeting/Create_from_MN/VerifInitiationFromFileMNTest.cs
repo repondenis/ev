@@ -8,6 +8,7 @@ using EVotingProject.Helpers;
 using EVotingProject.Models;
 using HP.LFT.Report;
 using System.Drawing;
+using System.Threading;
 
 namespace EVotingProject
 {
@@ -55,10 +56,10 @@ namespace EVotingProject
             Assert.True(LoginLocalPage.isTruePage());
 
             LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
 
             PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
             PortalPage.clickNewMeeting();
             Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
 
@@ -148,7 +149,7 @@ namespace EVotingProject
 
             //8 проверить созд собрания под админом НРД выбрав любой эмитент
             PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
             PortalPage.clickNewMeeting();
             Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
             NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
@@ -172,10 +173,10 @@ namespace EVotingProject
             Assert.True(LoginLocalPage.isTruePage());
 
             LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
 
             PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
             PortalPage.clickNewMeeting();
             Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
             NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
@@ -205,10 +206,10 @@ namespace EVotingProject
             Assert.True(LoginLocalPage.isTruePage());
 
             LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
 
             PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
             PortalPage.clickNewMeeting();
             Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
             NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
@@ -246,10 +247,10 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             Assert.True(LoginLocalPage.isTruePage());
 
             LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
 
             PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
             PortalPage.clickNewMeeting();
             Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
             NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.MANUAL);
@@ -282,10 +283,10 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             Assert.True(LoginLocalPage.isTruePage());
 
             LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
 
             PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage());
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
             PortalPage.clickNewMeeting();
             Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
 
@@ -366,11 +367,11 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         /// <param name="filePath"></param>
         /// <param name="message"></param>
         /// <param name="contractName"></param>
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin_denisov_iss", "admin_denisov_iss", "ОАО \"НК \"Роснефть\"",
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"",//"admin_denisov_iss"
         @"D:\work\test\MN НРД (Роснефть) 2.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml",
-        "Успешно сохранен!", "50505",
+        "Успешно сохранен!", "56565",
         TestName = "56957.проверка отображения стр собрания и подтвержд созд собрания, адм evot) MN участник сч комиссии")]
-        public void Test56957(string menuPar, string loginPar, string login, string pass, string orgName, 
+        public void Test56957(string menuPar, string loginPar, string login, string pass, string orgName,
             string filePath, string filePathStep6, string filePathStep7, string message, string contractName)
         {
             try
@@ -381,17 +382,30 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
                 browser.Navigate(urlDemo);
                 Assert.True(LoginPage.isTruePage());
 
-                LoginPage.caseMenuParam(menuPar);
+                //LoginPage.clickLogoMain();
+                // Thread.Sleep(5000);
+
+                LoginPage.caseMenuParam(MenuParam.organizators);
                 LoginPage.caseLoginParam(loginPar);
+                
 
                 Assert.True(LoginLocalPage.isTruePage());
 
-                LoginLocalPage.runLogin(login, pass);
+                LoginLocalPage.setLogin(login);
+                LoginLocalPage.setPassword(pass);
+                LoginLocalPage.clickSubmit();
+                //LoginLocalPage.runLogin(login, pass);
+
+
+
+                Assert.False(LoginPage.isErrorAutorisExist(),"ошибка авторизации");
+
+
                 //Assert.False(PortalPage.isErrorAlert(),"не должно быть ошибки авторизации");
-                Assert.True(PortalPage.isTruePage());
+                Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
 
                 PortalPage.gotoMenuMeetings();
-                Assert.True(PortalPage.isTruePage());
+                Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
                 PortalPage.clickNewMeeting();
                 Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
 
@@ -399,11 +413,14 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
                 NewMeetingPage.loadFromFile(filePath);
 
+                Assert.False(NewMeetingPage.isErrorMsg(),"не должно быть ошибки после загрузки файла");
+
+
                 Assert.True(NewMeetingPage.getIssuerOrganization(orgName), "должна поменяться организация");
 
                 //NewMeetingPage.setContract(contractName);
                 NewMeetingPage.clickContractInputToggle();
-                Assert.True(NewMeetingPage.isContractPanelAppear(),"должен появитсья спикок контрактов");
+                Assert.True(NewMeetingPage.isContractPanelAppear(), "должен появитсья спикок контрактов");
                 NewMeetingPage.selectItemOfContract(contractName);
 
                 //NewMeetingPage.clickContractInputToggle();
@@ -440,7 +457,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             }
             catch (AssertionException e)
             {
-                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e);
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
                 throw;
             }
         }

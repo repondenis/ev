@@ -18,7 +18,7 @@ namespace EVotingProject
     {
 
         public static IBrowser browser;
-        public static string urlDemo = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/";//idp/sso#/
+        public static string urlDemo = "http://demo-evoting.test.gosuslugi.ru/";//idp/sso#/
         public static string urlDemoAdmin = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/local?admin=";//ивотинг для администратора
         public static string urlDev = "https://portal-dev-evoting.test.gosuslugi.ru/";
         public static string urlDevAdmin = "https://portal-dev-evoting.test.gosuslugi.ru/idp/sso#/local?admin";//ивотинг для администратора
@@ -44,7 +44,7 @@ namespace EVotingProject
                 Assert.True(LoginLocalPage.isTruePage());
 
                 LoginLocalPage.runLogin("admin", "admin");
-                Assert.True(PortalPage.isTruePage());
+                Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
             }
 
             // if (PortalPage.isMenuContractsExist())//если мы залогинены
@@ -137,7 +137,7 @@ public class SetupFixture : UnitTestSuiteBase
     [OneTimeSetUp]
     public void AssemblySetUp()
     {
-        Console.WriteLine("AssemblySetUp");
+       
         TestSuiteSetup(TestContext.CurrentContext.WorkDirectory);
     }
 

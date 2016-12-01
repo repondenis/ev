@@ -31,15 +31,39 @@ namespace EVotingProject.Helpers
         private static CSSDescription messageGrowleInfo = new CSSDescription("div.ui-growl-item>span.ui-growl-image-info");
         private static CSSDescription messageGrowleText = new CSSDescription("div.ui-growl-item>div>span.ui-growl-title");
 
+        //
+        private static CSSDescription errorAutoris = new CSSDescription("div.swal2-modal");
+        private static CSSDescription errorAutorisDescr = new CSSDescription("div.swal2-modal>h2");
+        private static CSSDescription errorAutorisClose = new CSSDescription("div.swal2-modal>button.swal2-confirm");
 
+        private static CSSDescription logoMain = new CSSDescription("a[href='#/']");
 
-
+        public static void clickLogoMain()
+        {
+            browser.Describe<ILink>(logoMain).Click();
+        }
 
         public static void setBrowser(IBrowser bro)
         {
             browser = bro;
         }
 
+        public static bool isErrorAutorisExist()
+        {
+            var errorAutorisat = browser.Describe<IWebElement>(errorAutoris);
+            if (errorAutorisat.Exists() && errorAutorisat.IsVisible)
+            {
+                var errorAutorisDescript = browser.Describe<IWebElement>(errorAutorisDescr);
+                var errorAutorisCloseBt = browser.Describe<IButton>(errorAutorisClose);
+                if (errorAutorisDescript.Exists() && errorAutorisDescript.IsVisible && errorAutorisCloseBt.Exists() && errorAutorisCloseBt.IsVisible)
+                {
+                    Console.WriteLine(errorAutorisDescript.InnerText);
+                    errorAutorisCloseBt.Click();
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public static bool isMessageGrowleOk()
         {

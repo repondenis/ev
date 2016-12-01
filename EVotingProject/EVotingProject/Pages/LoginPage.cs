@@ -16,7 +16,6 @@ namespace EVotingProject.Pages
         //переключатели верхн меню
         private static XPathDescription menuSecurities = new XPathDescription(".//div[text()='Для владельцев ценных бумаг']");
         private static XPathDescription menuOrganizators = new XPathDescription(".//div[text()='Для организаторов']");
-        // private static CSSDescription menuOrganizators = new CSSDescription("header.header>div>div:nth-child(2)");
         private static XPathDescription menuRegistrators = new XPathDescription(".//div[text()='Для регистраторов']");
         private static XPathDescription menuObservers = new XPathDescription(".//div[text()='Для наблюдателей']");
 
@@ -25,8 +24,15 @@ namespace EVotingProject.Pages
         private static CSSDescription autorisLogin = new CSSDescription("a.another-login[href='#/local']");//28112016(".//a[@ui-sref='local']");//Войти с помощью логина и пароля
         private static CSSDescription autorisSert = new CSSDescription("a.another-login[href='#/dig']");//28112016(".//a[@ui-sref='cert']");//Войти с помощью неквалифицированной ЭП
 
-        private static CSSDescription header = new CSSDescription("header>div");
+        // private static CSSDescription header = new CSSDescription("header>div");
 
+
+
+        /// <summary>
+        /// выбор нужного пункта меню
+        /// под кем авторизоваться
+        /// </summary>
+        /// <param name="param"></param>
         public static void caseMenuParam(string param)
         {
             try
@@ -55,24 +61,23 @@ namespace EVotingProject.Pages
             }
         }
 
-
-
+        /// <summary>
+        /// выбор метода авторизации
+        /// </summary>
+        /// <param name="param"></param>
         public static void caseLoginParam(String param)
         {
             //выбор авториз
             switch (param)
             {
                 case LoginParam.esia:
-                    ILink autorisatESIA = browser.Describe<ILink>(autorisESIA);
-                    autorisatESIA.Click();
+                    browser.Describe<ILink>(autorisESIA).Click();
                     break;
                 case LoginParam.login:
-                    ILink autorisatLogin = browser.Describe<ILink>(autorisLogin);//Войти с помощью логина и пароля
-                    autorisatLogin.Click();
+                    browser.Describe<ILink>(autorisLogin).Click();//Войти с помощью логина и пароля
                     break;
                 case LoginParam.sertif:
-                    ILink autorisatSert = browser.Describe<ILink>(autorisSert);//Войти с помощью неквалифицированной ЭП
-                    autorisatSert.Click();
+                    browser.Describe<ILink>(autorisSert).Click();//Войти с помощью неквалифицированной ЭП
                     break;
             }
             browser.Sync();

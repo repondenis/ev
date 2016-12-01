@@ -45,7 +45,7 @@ namespace EVotingProject.Tests
                 LoginPage.caseLoginParam(loginPar);
                 Assert.True(LoginLocalPage.isTruePage());
                 LoginLocalPage.runLogin(login, pass);
-                Assert.True(PortalPage.isTruePage());
+                Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
                 PortalPage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage());
                 EmployeePage.addNewAdminEVoting();
