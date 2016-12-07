@@ -37,29 +37,26 @@ namespace EVotingProject.Pages
         //private static CSSDescription organizationTitle = new CSSDescription("div#wrap-meeting-list>div>div>label");//эмитенты
         private static XPathDescription organizationTitle = new XPathDescription(".//div[@id='wrap-meeting-list']/div/label");//28112016(".//div[@id='wrap-meeting-list']/div/div/label");
 
-        //
-        private static CSSDescription meetingsSearhText = new CSSDescription("input[id='form:meetingsList:searchText']");//Нименование эмитента или огрн ввод тескт поле
-        private static CSSDescription meetingsStartInput = new CSSDescription("input#form:meetingsList:meetingStart_input");// дата собр, текст поле
-
-
-
-        private static CSSDescription meetingsFixingDateInput = new CSSDescription("input#form:meetingsList:entitlementFixingDate_input");// дата фиксац списка участн, текст поле
+        // search
+        private static CSSDescription meetingsSearhText = new CSSDescription("input[id='form:searchText']");//28-11-16("input[id='form:meetingsList:searchText']");//Нименование эмитента или огрн ввод тескт поле
+        private static CSSDescription meetingsStartInput = new CSSDescription("form:meetingStart_input");//("input#form:meetingsList:meetingStart_input");// дата собр, текст поле
+        private static CSSDescription meetingsFixingDateInput = new CSSDescription("input[id='form:entitlementFixingDate_input']");//28-11-16("input#form:meetingsList:entitlementFixingDate_input");// дата фиксац списка участн, текст поле
 
         //статус
-        private static CSSDescription meetingStatusFilterLabel = new CSSDescription("label#form:meetingsList:meetingStatusFilter_label");//статус собрания - текст, нажимается-выпадает
-        private static XPathDescription meetingStatusFilterToggle = new XPathDescription(".//div[@id='form:meetingsList:meetingStatusFilter']/div/span");
-        private static CSSDescription meetingStatusFilterItems = new CSSDescription("ul[id='form:meetingsList:meetingStatusFilter_items']");//input
+        private static CSSDescription meetingStatusFilterLabel = new CSSDescription("label[id='form:meetingStatusFilter_label']");//("label#form:meetingsList:meetingStatusFilter_label");//статус собрания - текст, нажимается-выпадает
+        private static XPathDescription meetingStatusFilterToggle = new XPathDescription(".//div[@id='form:meetingStatusFilter']/div/span");//(".//div[@id='form:meetingsList:meetingStatusFilter']/div/span");
+        private static CSSDescription meetingStatusFilterItems = new CSSDescription("ul[id='form:meetingStatusFilter_items']");//("ul[id='form:meetingsList:meetingStatusFilter_items']");//input
 
 
 
 
-        //список собраний - редактировать выбранное
+        //список собраний - редактировать выбранное - ИЗМЕНИЛ селекты!
         private static CSSDescription meetingsList = new CSSDescription("div[id='form:meetingsList_content']>ul>li");//список созданных собраний:
-        private static CSSDescription meetingState = new CSSDescription("span.status-meeting-item"); //статус внутри meetingsList
-        private static CSSDescription meetingOrgName = new CSSDescription("span.header-meeting-item"); // наименование орг -//-
-        private static XPathDescription meetingDate = new XPathDescription(".//div[div[contains(text(),'Дата собрания')]]/div/span");//дата собрания -//-
-        private static XPathDescription meetingDateFix = new XPathDescription(".//div[div[contains(text(),'Дата фиксации списка участников')]]/div/span");//Дата фиксации списка участников-//-
-        private static XPathDescription meetingEdit = new XPathDescription(".//a[text()='Редактирование']");//ведет на MeetingPage
+        private static CSSDescription meetingState = new CSSDescription("div.main-info__status>span.text");//внутри("span.status-meeting-item"); //статус внутри meetingsList
+        private static CSSDescription meetingOrgName = new CSSDescription("div.main-info__header>span.text");//внутри("span.header-meeting-item"); // наименование орг -//-
+        private static CSSDescription meetingDate = new CSSDescription("div.additional-info__data-meeting>span.data");//внутри(".//div[div[contains(text(),'Дата собрания')]]/div/span");//дата собрания -//-
+        private static CSSDescription meetingDateFix = new CSSDescription("div.additional-info__data-fixing>span.data");//внутри(".//div[div[contains(text(),'Дата фиксации списка участников')]]/div/span");//Дата фиксации списка участников-//-
+        private static CSSDescription meetingEdit = new CSSDescription("div.additional-info__actions>div.action__edit>a");//(".//a[text()='Редактирование']");//ведет на MeetingPage
 
 
 
@@ -198,29 +195,28 @@ namespace EVotingProject.Pages
         }
 
         /// <summary>
-        /// Открытое акционерное общество \"Нефтяная компания \"Роснефть\"
+        /// Нажимаем - редактировать в нужном собрании по ОРГ
         /// </summary>
-        /// <param name="orgName"></param>
+        /// <param name="orgName">Открытое акционерное общество \"Нефтяная компания \"Роснефть\"</param>
         public static void editMeetingOfTable(string orgNameT)
         {
 
             var liMeetings = browser.FindChildren<IWebElement>(meetingsList);
             if (liMeetings != null && liMeetings.Length > 0)
-            {
                 for (int i = 0; i < liMeetings.Length; i++)
                 {
-                    var meetingChldr = liMeetings[i].Describe<IWebElement>(new CSSDescription("span.header-meeting-item"));
+                    var meetingChldr = liMeetings[i].Describe<IWebElement>(meetingOrgName);
                     Console.WriteLine(i + ":" + meetingChldr.InnerText);
                     if (meetingChldr.Exists() && meetingChldr.InnerText.Equals(orgNameT))
                     {
-                        liMeetings[i].FindChildren<ILink>(new XPathDescription(".//a[text()='Редактирование']"))[0].Click();
+                        liMeetings[i].FindChildren<ILink>(meetingEdit)[0].Click();
                         break;
                     }
 
                 }
 
 
-            }
+
 
         }
 

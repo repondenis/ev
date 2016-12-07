@@ -50,7 +50,7 @@ namespace EVotingProject
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
 
-            Assert.True(LoginLocalPage.isTruePage());
+            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
 

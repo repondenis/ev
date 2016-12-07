@@ -37,6 +37,7 @@
         public const string itemMeetComplete = "Собрание завершено";
         public const string itemArchive = "Перенесено в архив";
         public const string itemCancel = "Отменено";
+        public const string itemIsNotCreated = "Не создано";
     }
 
     class MeetingMethodCreate

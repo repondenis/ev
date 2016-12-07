@@ -19,14 +19,24 @@ namespace EVotingProject
 
         public static IBrowser browser;
         public static string urlDemo = "http://demo-evoting.test.gosuslugi.ru/";//idp/sso#/
-        public static string urlDemoAdmin = "https://demo-evoting.test.gosuslugi.ru/idp/sso#/local?admin=";//ивотинг для администратора
+        public static string urlDemoAdmin = "https://demo-evoting.test.gosuslugi.ru/idp/sso/#/?admin";//28112016"https://demo-evoting.test.gosuslugi.ru/idp/sso#/local?admin=";//ивотинг для администратора
         public static string urlDev = "https://portal-dev-evoting.test.gosuslugi.ru/";
         public static string urlDevAdmin = "https://portal-dev-evoting.test.gosuslugi.ru/idp/sso#/local?admin";//ивотинг для администратора
+
+        public static string adminEvotingLogin = "admin";
+        public static string adminEvotingPassword = "admin";
+
+        public static void autorizeFromEVoting(string url, string login, string password)
+        {
+            Console.WriteLine(DateTime.Now + " autorizeFromEVoting().");
+
+        }
 
 
         /// <summary>
         /// поиск/добавление нового договора к орг
         /// "ОАО \"НК \"Роснефть\""
+        /// только под админом е-voting
         /// </summary>
         public static void addNewContract(string orgName, string contrName)
         {
@@ -37,14 +47,12 @@ namespace EVotingProject
                 PortalPage.logout();
                 browser.Navigate(urlDemo);
                 Assert.True(LoginPage.isTruePage());
-
-                LoginPage.caseLoginParam(LoginParam.login);
                 browser.Navigate(urlDemoAdmin);
+                LoginPage.caseLoginParam(LoginParam.login);
+                Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
-                Assert.True(LoginLocalPage.isTruePage());
-
-                LoginLocalPage.runLogin("admin", "admin");
-                Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
+                LoginLocalPage.runLogin(adminEvotingLogin, adminEvotingPassword);
+                Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
             }
 
             // if (PortalPage.isMenuContractsExist())//если мы залогинены
@@ -54,7 +62,7 @@ namespace EVotingProject
 
             ContractPage.setFilter(contrName);
             ContractPage.clickTitle();
-            if (!ContractPage.isContractsOfTableExist(contrName))
+            if (!ContractPage.isContractsOfTableExist(contrName, MeetingStatusFilter.itemIsNotCreated))
             {
                 ContractPage.clickNewContract();
                 Assert.True(NewContractPage.isTruePage());
@@ -64,7 +72,7 @@ namespace EVotingProject
                 NewContractPage.selectItemOfOrganization(0, orgName);
 
                 NewContractPage.setContractNumber(contrName);
-                NewContractPage.setContractDate("26.05.1984");
+                NewContractPage.setContractDate(DateTime.Now.ToString("dd.MM.yyyy"));//"26.05.1984"
                 //Console.WriteLine(DateTime.Now + " selectService");
                 //NewContractPage.selectService(1, true);//чекаем 1 чек-бокс
                 NewContractPage.selectAceessOfregistrator(true);
@@ -137,7 +145,7 @@ public class SetupFixture : UnitTestSuiteBase
     [OneTimeSetUp]
     public void AssemblySetUp()
     {
-       
+
         TestSuiteSetup(TestContext.CurrentContext.WorkDirectory);
     }
 

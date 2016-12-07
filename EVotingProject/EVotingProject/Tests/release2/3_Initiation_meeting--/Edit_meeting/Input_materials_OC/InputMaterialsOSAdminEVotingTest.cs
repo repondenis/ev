@@ -8,26 +8,32 @@ using EVotingProject.Helpers;
 using EVotingProject.Models;
 using HP.LFT.Report;
 using System.Drawing;
+//using OpenQA.Selenium;
+//using OpenQA.Selenium.Chrome;
+//using OpenQA.Selenium.Support;
+using HP.LFT.SDK.Insight;
 
 namespace EVotingProject
 {
     [TestFixture]
-    [Description("Получение списка участников собрания")]
-    public class VerificationOfLogicalTestAdminRegTest : UnitTestClassBase
+    [Description("Ввод и коррестировка матералов ОС ,админ ЕВотинга")]
+    public class InputMaterialsOSAdminEVotingTest : UnitTestClassBase
     {
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
 
             ReportConfiguration r = new ReportConfiguration();
-            r.IsOverrideExisting = true;
-            r.Title = "E-Voting reports";
+            r.IsOverrideExisting = false;
+            r.Title = "My LeanFT Report";
             Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
-            //        browser.ClearCache();
-            //        browser.DeleteCookies();
+            
+            // browser.ClearCache();
+            // browser.DeleteCookies();
             PageHelper.setBrowser(browser);
+
         }
 
         [SetUp]
@@ -36,9 +42,15 @@ namespace EVotingProject
             // Before each test
         }
 
-        [TestCase(MenuParam.registrators, LoginParam.login, "admin_reestrrn_reg", "admin_reestrrn_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
-              TestName = "56975.Проверка получения списка участников админ регистратора")]
-        public void Test56975(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
+
+
+
+
+        //либо искать ОРГ по ИНН = 1027700043502
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", @"D:\work\test\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
+              TestName = "56909.Проверка добавл нового материала ОС,админ ЕВотинга")]
+       // [TestCaseSource("ALM")]
+        public void Test56849(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
         {
 
             Console.WriteLine(DateTime.Now);
@@ -46,21 +58,26 @@ namespace EVotingProject
             browser.Navigate(urlDemo);
             Assert.True(LoginPage.isTruePage());
 
-            LoginPage.caseMenuParam(menuPar);
+            browser.Navigate(urlDemoAdmin);
+
             LoginPage.caseLoginParam(loginPar);
-            //browser.Navigate(urlDemoAdmin);
-            //browser.Sync();
             Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
+            // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
+
 
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
 
-            PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
 
-            //????????????????????????????
+
+            PortalPage.setMeetingsSearhText(orgName);//фильтр
+            PortalPage.editMeetingOfTable(orgName);
+
+            //.............
 
         }
+
+  
 
         [TearDown]
         public void TearDown()
@@ -74,7 +91,6 @@ namespace EVotingProject
             Reporter.GenerateReport();
             PortalPage.logout();
             browser.Close();
-        } // Clean up once per fixture
-
+        }
     }
 }

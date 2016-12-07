@@ -42,7 +42,7 @@ namespace EVotingProject
             //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage());
+            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
 
@@ -72,7 +72,7 @@ namespace EVotingProject
             Assert.True(ContractPage.isTruePage());
             ContractPage.setFilter(contrNumb);
             ContractPage.clickTitle();
-            ContractPage.isContractsOfTableExist(contrNumb);
+            ContractPage.isContractsOfTableExist(contrNumb, MeetingStatusFilter.itemIsNotCreated);
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "сбербанк России ОАО", "cnmb123", "cnmb321", "Успешно сохранен!",
@@ -88,7 +88,7 @@ namespace EVotingProject
             //2
             ContractPage.setFilter(orgName);//!!!!!не работает поле фильтра!
             ContractPage.clickTitle();
-            ContractPage.isContractsOfTableExist(contrNumb);
+            ContractPage.isContractsOfTableExist(contrNumb, MeetingStatusFilter.itemIsNotCreated);
             ContractPage.clickContractsOfTable(contrNumb);
             Assert.True(NewContractPage.isTruePage());
             Assert.Equals(NewContractPage.getContractNumber(), contrNumb);
@@ -109,7 +109,7 @@ namespace EVotingProject
             Assert.True(ContractPage.isTruePage());
             ContractPage.setFilter(newContrNumb);
             ContractPage.clickTitle();
-            ContractPage.isContractsOfTableExist(newContrNumb);
+            ContractPage.isContractsOfTableExist(newContrNumb, MeetingStatusFilter.itemIsNotCreated);
 
         }
 
@@ -126,7 +126,7 @@ namespace EVotingProject
             //2
             ContractPage.setFilter(orgName);//!!!!!не работает поле фильтра!
             ContractPage.clickTitle();
-            ContractPage.isContractsOfTableExist(contrNumb);
+            ContractPage.isContractsOfTableExist(contrNumb, MeetingStatusFilter.itemIsNotCreated);
             ContractPage.clickContractsOfTable(contrNumb);
             Assert.True(NewContractPage.isTruePage());
             Assert.Equals(NewContractPage.getContractNumber(), contrNumb);
@@ -147,7 +147,7 @@ namespace EVotingProject
 
             PortalPage.gotoMenuContracts();
             Assert.True(ContractPage.isTruePage());
-            ContractPage.isContractsOfTableExist(contrNewNumb);//не должно быть такого договора
+            ContractPage.isContractsOfTableExist(contrNewNumb, MeetingStatusFilter.itemIsNotCreated);//не должно быть такого договора
 
         }
 

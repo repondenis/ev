@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
+using EVotingProject.Models;
 
 namespace EVotingProject.Pages
 {
@@ -21,9 +22,9 @@ namespace EVotingProject.Pages
 
         private static CSSDescription block = new CSSDescription("div#meeting-block");//главн див
         private static CSSDescription state = new CSSDescription("div.meeting-menu div span.result-header-page");//статус - Доступно заочное голосование на собрании
-        private static CSSDescription nameMeet = new CSSDescription("div.meeting-menu>div:nth-child(2)>span.header-meeting-item");//Годовое собрание акционеров
-        private static CSSDescription nameOrg = new CSSDescription("div.meeting-menu>div:nth-child(3)>span.header-meeting-item");//org name
-        private static CSSDescription emitent = new CSSDescription("div.meeting-menu div span.header-meeting-item");//Акционерный коммерческий Сберегательный бан
+        private static XPathDescription nameMeet = new XPathDescription(".//div[@class='meeting-menu']/div[1]/div[2]/span");//28-11("div.meeting-menu>div:nth-child(2)>span.header-meeting-item");//Годовое собрание акционеров
+        private static XPathDescription nameOrg = new XPathDescription(".//div[@class='meeting-menu']/div[1]/div[3]/span");//28-11("div.meeting-menu>div:nth-child(3)>span.header-meeting-item");//org name
+                                                                                                                           //  private static CSSDescription emitent = new CSSDescription("div.meeting-menu div span.header-meeting-item");//Акционерный коммерческий Сберегательный бан
 
         private static CSSDescription dateMeet = new CSSDescription("form#controlPanelForm div span.result-label-data");//Дата собрания
 
@@ -389,7 +390,7 @@ namespace EVotingProject.Pages
         {
             browser.Sync();
             return browser.Describe<IWebElement>(nameMeet).Exists()
-                && (browser.Describe<IWebElement>(nameMeet).InnerText.Equals("Годовое собрание акционеров"));
+                && (browser.Describe<IWebElement>(nameMeet).InnerText.Equals(meetingType.years));
         }
 
         public static bool isTruePage(string orgName)

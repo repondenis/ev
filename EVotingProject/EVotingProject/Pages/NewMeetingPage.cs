@@ -135,7 +135,10 @@ namespace EVotingProject.Pages
         }
 
 
-
+        /// <summary>
+        /// загрузить файл
+        /// </summary>
+        /// <param name="filePathHeader"></param>
         public static void loadFromFile(string filePathHeader)
         {
             if (System.IO.File.Exists(filePathHeader))
@@ -144,28 +147,20 @@ namespace EVotingProject.Pages
 
                 //Console.WriteLine(ReadXmlHelper.getBodyXml());
 
-
-                //            browser.Describe<IWebElement>(new CSSDescription("div.ui-fileupload-buttonbar")).Click();
-                //            browser.Describe<IWebElement>(new CSSDescription("div.ui-fileupload-buttonbar>span")).Click();
-                //            browser.Describe<ILink>(new XPathDescription(".//a[text()='Загрузить файл']")).Click();
-
-
-                // ".removeAttribute('HREF')"
                 var cssDivParent = "div.ui-fileupload";
                 var cssSpanParent = "div.ui-fileupload>div>span";
                 var cssSpanParentRemoteClass = "ui-fileupload-choose";
                 var cssInputFile = "input[type=file]";
 
-
                 browser.Page.RunJavaScript(
                 "document.querySelector('" + cssDivParent + "').style.overflow='visible'; " +
                 "document.querySelector('" + cssDivParent + "').style.display='inline-block'; " +
-            //       "document.querySelector('" + cssDivParent + "').style.opacity=1; " +
-             //      "document.querySelector('" + cssDivParent + "').style.top=0; " +
-             //      "document.querySelector('" + cssDivParent + "').style.left=0; " +
-            //      "document.querySelector('" + cssDivParent + "').style.width=100; " +
-            //       "document.querySelector('" + cssDivParent + "').style.height=20; " +
-            //       "document.querySelector('" + cssDivParent + "').style.filter=''; " +
+                 //       "document.querySelector('" + cssDivParent + "').style.opacity=1; " +
+                 //      "document.querySelector('" + cssDivParent + "').style.top=0; " +
+                 //      "document.querySelector('" + cssDivParent + "').style.left=0; " +
+                 //      "document.querySelector('" + cssDivParent + "').style.width=100; " +
+                 //       "document.querySelector('" + cssDivParent + "').style.height=20; " +
+                 //       "document.querySelector('" + cssDivParent + "').style.filter=''; " +
                  "document.querySelector('" + cssDivParent + "').style.position='relative'; "
                 );
 
@@ -174,21 +169,17 @@ namespace EVotingProject.Pages
                 browser.Page.RunJavaScript(
                 "document.querySelector('" + cssInputFile + "').style.overflow='visible'; " +
                 "document.querySelector('" + cssInputFile + "').style.display='inline-block'; " +
-                 "document.querySelector('" + cssInputFile + "').style.opacity=1; " +
-                  "document.querySelector('" + cssInputFile + "').style.top=0; " +
-                 "document.querySelector('" + cssInputFile + "').style.left=0; " +
-                 "document.querySelector('" + cssInputFile + "').style.width=100; " +
-                 "document.querySelector('" + cssInputFile + "').style.height=20; " +
-                 "document.querySelector('" + cssInputFile + "').style.filter=''; " +
+                "document.querySelector('" + cssInputFile + "').style.opacity=1; " +
+                "document.querySelector('" + cssInputFile + "').style.top=0; " +
+                "document.querySelector('" + cssInputFile + "').style.left=0; " +
+                "document.querySelector('" + cssInputFile + "').style.width=100; " +
+                "document.querySelector('" + cssInputFile + "').style.height=20; " +
+                "document.querySelector('" + cssInputFile + "').style.filter=''; " +
                 "document.querySelector('" + cssInputFile + "').style.position='relative'; "
                 );
 
-               
-
                 var input_file = browser.Describe<IFileField>(new CSSDescription(cssInputFile));
-                Console.WriteLine("2.1-" + DateTime.Now);
                 input_file.SetValue(filePathHeader);
-                Console.WriteLine("2.2-" + DateTime.Now);
 
             }
         }
@@ -309,7 +300,7 @@ namespace EVotingProject.Pages
                 for (int i = 0; i < select.Length; i++)
                     if (select[i].Exists() && select[i].IsVisible && select[i].InnerText.Contains(nameItem))
                     {
-                       // Console.WriteLine("_ " + select[i].InnerText);
+                        // Console.WriteLine("_ " + select[i].InnerText);
                         select[i].Click();
                     }
         }

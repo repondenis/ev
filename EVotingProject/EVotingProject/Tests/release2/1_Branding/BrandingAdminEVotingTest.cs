@@ -70,12 +70,12 @@ namespace EVotingProject
             browser.Navigate(urlDemo);
             Assert.True(LoginPage.isTruePage());
 
-            // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-
             browser.Navigate(urlDemoAdmin);
-            browser.Sync();
-            Assert.True(LoginLocalPage.isTruePage());
+            //browser.Sync();
+            LoginPage.caseLoginParam(loginPar);
+            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
+            // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
+
 
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");

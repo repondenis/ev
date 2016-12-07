@@ -44,7 +44,7 @@ namespace EVotingProject
             //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage());
+            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
 
@@ -200,7 +200,7 @@ TestName = "2.Проверка редактирования данных и по
             //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage());
+            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
 
@@ -387,7 +387,7 @@ TestName = "2.Проверка редактирования данных и по
             //2
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage());
+            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
 

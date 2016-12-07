@@ -51,18 +51,43 @@ namespace EVotingProject.Pages
 
         /// <summary>
         /// есть ли договор в таблице?
+        /// MeetingStatusFilter
         /// </summary>
-        /// <param name="str"></param>
+        /// <param name="contractName"></param>
         /// <returns></returns>
-        public static bool isContractsOfTableExist(string str)
+        public static bool isContractsOfTableExist(string contractName, string meetingStatus)
         {
-            var table = browser.Describe<ITable>(contractDateTabl);
+            //var table = browser.Describe<ITable>(contractDateTabl);
+            var table = browser.Describe<IWebElement>(contractDateTabl);
+
+            var rows = table.FindChildren<IWebElement>(new CSSDescription("tr"));
+            if (rows != null && rows.Length > 0)
+                for (int i = 0; i < rows.Length; i++)
+                {
+                    var columns = rows[i].FindChildren<IWebElement>(new CSSDescription("td"));
+                    if (columns != null && columns.Length > 0)
+                        if (columns[0].InnerText.Contains(contractName) && columns[3].InnerText.Contains(meetingStatus))
+                            // if (columns[0].InnerText.Contains(contractName) && columns[3].InnerText.Contains("Не создано"))
+                            return true;
+                }
+            return false;
+
+
+
+
+            /* 
+            Console.WriteLine(rows.Length + rows[0].InnerText);
+            Console.WriteLine(rows.Length + rows[1].InnerText);
+            Console.WriteLine(rows.Length + rows[3].InnerText);
+
+
+
             var row = table.FindRowWithCellText(str);
-
+            Console.WriteLine(row.Cells[3].Text);
             return (row != null && row.Cells[3].Text.Contains("Не создано"));
-
-
-            /* throw new NotImplementedException();
+             * 
+             * 
+             * throw new NotImplementedException();
             if (row != null)
             {
                 //return row.Cells[0].FindChildren<ILink>().Exists();

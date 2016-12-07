@@ -48,6 +48,10 @@ namespace EVotingProject.Helpers
             browser = bro;
         }
 
+        /// <summary>
+        /// есть ли ошибка при авторизации?
+        /// </summary>
+        /// <returns></returns>
         public static bool isErrorAutorisExist()
         {
             var errorAutorisat = browser.Describe<IWebElement>(errorAutoris);

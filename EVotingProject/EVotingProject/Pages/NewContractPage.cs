@@ -83,7 +83,7 @@ namespace EVotingProject.Pages
         {
             var table = browser.Describe<ITable>(serviceTableCb);
             //Console.WriteLine("Text = " + table.Rows[num].Cells[1].Text);
-            table.Rows[num].Cells[0].FindChildren<ICheckBox>(0).Set(state);
+            table.Rows[num].Cells[0].FindChildren<ICheckBox>().Set(state);
             //Console.WriteLine("IsChecked = " + table.Rows[num].Cells[0].FindChildren<ICheckBox>().IsChecked);
         }
 
