@@ -35,7 +35,7 @@ namespace EVotingProject.Pages
 
 
         //private static CSSDescription organizationTitle = new CSSDescription("div#wrap-meeting-list>div>div>label");//эмитенты
-        private static XPathDescription organizationTitle = new XPathDescription(".//div[@id='wrap-meeting-list']/div/label");//28112016(".//div[@id='wrap-meeting-list']/div/div/label");
+        private static CSSDescription organizationTitle = new CSSDescription("div#wrap-meeting-list>div>label");//28112016(".//div[@id='wrap-meeting-list']/div/div/label");
 
         // search
         private static CSSDescription meetingsSearhText = new CSSDescription("input[id='form:searchText']");//28-11-16("input[id='form:meetingsList:searchText']");//Нименование эмитента или огрн ввод тескт поле
@@ -59,15 +59,16 @@ namespace EVotingProject.Pages
         private static CSSDescription meetingEdit = new CSSDescription("div.additional-info__actions>div.action__edit>a");//(".//a[text()='Редактирование']");//ведет на MeetingPage
 
 
-
+        /// <summary>
+        /// если страница Собрания
+        /// </summary>
+        /// <returns></returns>
         public static bool isTruePage()
         {
-
             browser.Sync();
             //Console.WriteLine("textMeeting=" + browser.Describe<IWebElement>(organizationTitle).InnerText);
             return browser.Describe<IWebElement>(organizationTitle).Exists() &&
                 browser.Describe<IWebElement>(organizationTitle).InnerText.Equals("собрания");
-
         }
 
         /// <summary>
@@ -88,7 +89,8 @@ namespace EVotingProject.Pages
         /// </summary>
         public static void gotoMenuMeetings()
         {
-            browser.Describe<ILink>(menuMeetings).Click();
+            if (!isTruePage())
+                browser.Describe<ILink>(menuMeetings).Click();
         }
 
         public static void gotoMenuEmployees()

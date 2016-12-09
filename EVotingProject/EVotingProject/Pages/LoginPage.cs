@@ -31,6 +31,7 @@ namespace EVotingProject.Pages
         /// <summary>
         /// выбор нужного пункта меню
         /// под кем авторизоваться
+        /// не нужен для АДМИНА Е-Voting
         /// </summary>
         /// <param name="param"></param>
         public static void caseMenuParam(string param)

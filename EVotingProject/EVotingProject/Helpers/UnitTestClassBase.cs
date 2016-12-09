@@ -26,10 +26,33 @@ namespace EVotingProject
         public static string adminEvotingLogin = "admin";
         public static string adminEvotingPassword = "admin";
 
-        public static void autorizeFromEVoting(string url, string login, string password)
+        /// <summary>
+        /// авторизация на проекте
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="loginParam"></param>
+        /// <param name="menuParam"></param>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        public static void autorizeFromEVoting(string url, string loginParam, string menuParam, string login, string password)
         {
             Console.WriteLine(DateTime.Now + " autorizeFromEVoting().");
 
+            PortalPage.logout();
+            browser.Navigate(urlDemo);
+            Assert.True(LoginPage.isTruePage());
+
+            //если надо залогиниться под админом
+            if (url.Equals(urlDemoAdmin))
+                browser.Navigate(urlDemoAdmin);
+            else
+                LoginPage.caseMenuParam(menuParam);
+
+            LoginPage.caseLoginParam(loginParam);
+            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
+
+            LoginLocalPage.runLogin(login, password);
+            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
         }
 
 
@@ -40,7 +63,7 @@ namespace EVotingProject
         /// </summary>
         public static void addNewContract(string orgName, string contrName)
         {
-            Console.WriteLine(DateTime.Now + " addNewContract().");
+            Console.WriteLine(DateTime.Now + " Verification of existence of document and his addition.");
             PageHelper.setBrowser(browser);
             if (!PortalPage.isMenuContractsExist())
             {

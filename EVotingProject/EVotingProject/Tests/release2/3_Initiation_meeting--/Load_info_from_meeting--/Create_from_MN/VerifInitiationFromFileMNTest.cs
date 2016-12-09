@@ -45,21 +45,25 @@ namespace EVotingProject
         {
 
             Console.WriteLine(DateTime.Now);
-
+            /*
             browser.Navigate(urlDemo);
             Assert.True(LoginPage.isTruePage());
-
+            
             // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
             browser.Navigate(urlDemoAdmin);
 
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
+            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+            */
+
+            autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
             PortalPage.gotoMenuMeetings();
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+
             PortalPage.clickNewMeeting();
             Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
 
@@ -170,7 +174,7 @@ namespace EVotingProject
             browser.Navigate(urlDemo);
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
+            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
@@ -203,7 +207,7 @@ namespace EVotingProject
             browser.Navigate(urlDemo);
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
+            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
@@ -244,7 +248,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             browser.Navigate(urlDemo);
             LoginPage.caseMenuParam(menuPar);
             LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
+            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
@@ -280,7 +284,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             LoginPage.caseLoginParam(loginPar);
             browser.Navigate(urlDemoAdmin);
 
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
+            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
             LoginLocalPage.runLogin(login, pass);
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
@@ -387,7 +391,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
                 LoginPage.caseMenuParam(MenuParam.organizators);
                 LoginPage.caseLoginParam(loginPar);
-                Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
+                Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
                 LoginLocalPage.setLogin(login);
                 LoginLocalPage.setPassword(pass);
@@ -396,7 +400,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
 
 
-//               Assert.False(LoginPage.isErrorAutorisExist(),"ошибка авторизации");
+                //               Assert.False(LoginPage.isErrorAutorisExist(),"ошибка авторизации");
 
 
                 //Assert.False(PortalPage.isErrorAlert(),"не должно быть ошибки авторизации");
@@ -411,7 +415,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
                 NewMeetingPage.loadFromFile(filePath);
 
-                Assert.False(NewMeetingPage.isErrorMsg(),"не должно быть ошибки после загрузки файла");
+                Assert.False(NewMeetingPage.isErrorMsg(), "не должно быть ошибки после загрузки файла");
 
 
                 Assert.True(NewMeetingPage.getIssuerOrganization(orgName), "должна поменяться организация");
@@ -427,13 +431,14 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
                 NewMeetingPage.submit();
                 Assert.False(NewMeetingPage.isErrorMsg(), "При сохранении произошла ошибка!");
-//                Assert.True(NewMeetingPage.isInfoMsg(), "При сохранении не произошла ошибка!");
+                //                Assert.True(NewMeetingPage.isInfoMsg(), "При сохранении не произошла ошибка!");
 
                 Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
                 var state = MeetingPage.getState();
 
                 //2
-                Assert.AreEqual(MeetingPage.getMeetingAddress(), ReadXmlHelper.getElement("AdrLine"));
+                //Console.WriteLine(MeetingPage.getMeetingAddress() + "<?>" + ReadXmlHelper.getElement("AdrLine"));
+                Assert.AreEqual(MeetingPage.getMeetingAddress(), ReadXmlHelper.getElement("AdrLine"), "проверка Address");
 
                 //3
                 MeetingPage.setmeetingAddress("1111111111111111111111111111111111111111111111111111111111111111111111");//70symb
@@ -443,7 +448,8 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
                 MeetingPage.save();
 
                 //4
-                Assert.AreEqual(MeetingPage.getmeetingCountry(), ReadXmlHelper.getElement("Ctry"));
+                //Console.WriteLine(MeetingPage.getmeetingCountry() + "<?>" + ReadXmlHelper.getElement("Ctry"));
+                Assert.AreEqual(MeetingPage.getmeetingCountry(), ReadXmlHelper.getElement("Ctry"), "проверка Country");
 
                 //5 обяззательность поля ReadXmlHelper.getElement("Ctry")
 
