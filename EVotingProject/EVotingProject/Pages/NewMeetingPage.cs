@@ -9,6 +9,7 @@ using EVotingProject.Models;
 using EVotingProject.Helpers;
 using HP.LFT.SDK;
 
+
 namespace EVotingProject.Pages
 {
     /// <summary>
@@ -139,7 +140,7 @@ namespace EVotingProject.Pages
         /// загрузить файл
         /// </summary>
         /// <param name="filePathHeader"></param>
-        public static void loadFromFile(string filePathHeader)
+        public static void loadFromFileOld(string filePathHeader)
         {
             if (System.IO.File.Exists(filePathHeader))
             {
@@ -155,13 +156,7 @@ namespace EVotingProject.Pages
                 browser.Page.RunJavaScript(
                 "document.querySelector('" + cssDivParent + "').style.overflow='visible'; " +
                 "document.querySelector('" + cssDivParent + "').style.display='inline-block'; " +
-                 //       "document.querySelector('" + cssDivParent + "').style.opacity=1; " +
-                 //      "document.querySelector('" + cssDivParent + "').style.top=0; " +
-                 //      "document.querySelector('" + cssDivParent + "').style.left=0; " +
-                 //      "document.querySelector('" + cssDivParent + "').style.width=100; " +
-                 //       "document.querySelector('" + cssDivParent + "').style.height=20; " +
-                 //       "document.querySelector('" + cssDivParent + "').style.filter=''; " +
-                 "document.querySelector('" + cssDivParent + "').style.position='relative'; "
+                "document.querySelector('" + cssDivParent + "').style.position='relative'; "
                 );
 
                 browser.Page.RunJavaScript("document.querySelector('" + cssSpanParent + "').classList.remove('" + cssSpanParentRemoteClass + "')"); //"ui-fileupload-choose"
@@ -181,6 +176,84 @@ namespace EVotingProject.Pages
                 var input_file = browser.Describe<IFileField>(new CSSDescription(cssInputFile));
                 input_file.SetValue(filePathHeader);
 
+            }
+        }
+
+
+
+        public static void loadFromFile(string filePathHeader)
+        {
+            if (System.IO.File.Exists(filePathHeader))
+            {
+                ReadXmlHelper.loadXml(filePathHeader);
+
+                var upload = browser.Describe<ILink>(uploadFile);
+
+                /*
+                Point p = upload.AbsoluteLocation;
+                var toX = 65535 * (p.X + 5) / Screen.PrimaryScreen.Bounds.Width;
+                var toY = 65535 * (p.Y + 5) / Screen.PrimaryScreen.Bounds.Height;
+
+                InputSimulator keyb = new InputSimulator();
+                keyb.Mouse.MoveMouseTo(toX, toY);
+                keyb.Mouse.LeftButtonClick();
+                */
+
+                click2Object(upload);
+
+                string browserTitle = string.Empty;
+                switch (browser.Version.Type)
+                {
+                    case "Chrome":
+                        browserTitle = @"Открыть";
+                        break;
+                    case "Mozilla Firefox":
+                        browserTitle = @"Выгрузка файла";
+                        break;
+                    case "internet explorer":
+                        browserTitle = @"Выбор выкладываемого файла";
+                        break;
+                }
+                Console.WriteLine(browser.Version.Type);
+
+                WindowsHelper.isWindowExist(browser.Version.Type);
+
+
+                /*
+                                var openFileDialog = Desktop.Describe<IWindow>(new WindowDescription
+                                {
+                                    IsOwnedWindow = false,
+                                    IsChildWindow = false//,
+                                                         //  WindowClassRegExp = @"MozillaWindowClass",
+                                                         //  WindowTitleRegExp = @" Mozilla Firefox"
+                                }).Describe<IDialog>(new DialogDescription
+                                {
+                                    IsOwnedWindow = true,
+                                    IsChildWindow = false,
+                                    Text = browserTitle, //@"Выгрузка файла",
+                                    WindowTitleRegExp = browserTitle // @"Выгрузка файла"
+                                });
+                */
+
+
+
+                /* var openFileDialog = Desktop.Describe<IWindow>(new WindowDescription
+                 {
+                     IsOwnedWindow = false,
+                     IsChildWindow = false,
+                     Text = @"НРД - Google Chrome",
+                     WindowClassRegExp = @"Chrome_WidgetWin_1",
+                     NativeClass = @"Chrome_WidgetWin_1",
+                     WindowTitleRegExp = @" Google Chrome"
+                 }).Describe<IDialog>(new DialogDescription
+                 {
+                     IsOwnedWindow = true,
+                     IsChildWindow = false,
+                     Text = @"Открыть",
+                     WindowTitleRegExp = @"Открыть"
+                 });
+                 */
+              //  Console.WriteLine("openFileDialog is " + openFileDialog.Exists(5));
             }
         }
 

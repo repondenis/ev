@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
+using System.Drawing;
+using WindowsInput;
+using System.Windows.Forms;
 
 namespace EVotingProject.Helpers
 {
@@ -153,7 +156,32 @@ namespace EVotingProject.Helpers
         }
 
 
+        /// <summary>
+        /// низкоуровневые действия
+        /// клик по элементу
+        /// </summary>
+        /// <param name="elem"></param>
+        public static void click2Object(IWebElement elem)
+        {
+            Point p = elem.AbsoluteLocation;
+            var toX = 65535 * (p.X + 5) / Screen.PrimaryScreen.Bounds.Width;
+            var toY = 65535 * (p.Y + 5) / Screen.PrimaryScreen.Bounds.Height;
 
+            InputSimulator keyb = new InputSimulator();
+            keyb.Mouse.MoveMouseTo(toX, toY);
+            keyb.Mouse.LeftButtonClick();
+        }
+
+        /// <summary>
+        /// низкоуровневые действия
+        /// ввод текста в текущее положение под курсором
+        /// </summary>
+        /// <param name="v"></param>
+        public static void sendText2Object(string v)
+        {
+            InputSimulator keyb = new InputSimulator();
+            keyb.Keyboard.TextEntry(v);
+        }
 
     }
 }

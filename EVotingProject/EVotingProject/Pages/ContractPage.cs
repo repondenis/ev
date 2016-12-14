@@ -9,7 +9,7 @@ namespace EVotingProject.Pages
 {
     class ContractPage : PortalPage
     {
-        private static CSSDescription pageTitle = new CSSDescription("div#contract-block>div>div>label.main-header-page");
+        private static CSSDescription pageTitle = new CSSDescription("label.main-header-page");//28112016("div#contract-block>div>div>label.main-header-page")
         private static XPathDescription newContractBt = new XPathDescription(".//button[span[text()='добавить новый']]");
         private static CSSDescription contractDateTabl = new CSSDescription("table[role='grid']");
         private static CSSDescription contractFilter = new CSSDescription("input[id='contractForm:contractTable:globalFilter']");

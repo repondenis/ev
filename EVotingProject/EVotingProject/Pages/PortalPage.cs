@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
+
 //using HP.LFT.SDK.StdWin;
 //using HP.LFT.SDK.WinForms;
 
@@ -202,7 +203,6 @@ namespace EVotingProject.Pages
         /// <param name="orgName">Открытое акционерное общество \"Нефтяная компания \"Роснефть\"</param>
         public static void editMeetingOfTable(string orgNameT)
         {
-
             var liMeetings = browser.FindChildren<IWebElement>(meetingsList);
             if (liMeetings != null && liMeetings.Length > 0)
                 for (int i = 0; i < liMeetings.Length; i++)
@@ -216,11 +216,8 @@ namespace EVotingProject.Pages
                     }
 
                 }
-
-
-
-
         }
+
 
     }
 }

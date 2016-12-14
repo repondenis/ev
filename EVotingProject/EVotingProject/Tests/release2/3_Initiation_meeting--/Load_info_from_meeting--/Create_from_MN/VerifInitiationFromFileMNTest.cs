@@ -381,8 +381,11 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             try
             {
                 Console.WriteLine(DateTime.Now);
+
                 addNewContract(orgName, contractName);
 
+                autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
+                /*
                 browser.Navigate(urlDemo);
                 Assert.True(LoginPage.isTruePage());
 
@@ -408,6 +411,8 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
                 PortalPage.gotoMenuMeetings();
                 Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+                */
+
                 PortalPage.clickNewMeeting();
                 Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
 

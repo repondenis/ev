@@ -52,6 +52,8 @@ namespace EVotingProject
             Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
             LoginLocalPage.runLogin(login, password);
+            Assert.True(PublicPage.isTruePage(), "должна быть общая страница голосований");
+            PublicPage.gotoPortalPage();
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
         }
 
@@ -67,6 +69,9 @@ namespace EVotingProject
             PageHelper.setBrowser(browser);
             if (!PortalPage.isMenuContractsExist())
             {
+                autorizeFromEVoting(urlDemoAdmin, LoginParam.login, null, adminEvotingLogin, adminEvotingPassword);
+
+                /*
                 PortalPage.logout();
                 browser.Navigate(urlDemo);
                 Assert.True(LoginPage.isTruePage());
@@ -76,6 +81,7 @@ namespace EVotingProject
 
                 LoginLocalPage.runLogin(adminEvotingLogin, adminEvotingPassword);
                 Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+                */
             }
 
             // if (PortalPage.isMenuContractsExist())//если мы залогинены

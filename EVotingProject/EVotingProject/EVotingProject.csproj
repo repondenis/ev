@@ -103,9 +103,11 @@
     <Compile Include="Helpers\MouseHelper.cs" />
     <Compile Include="Helpers\PageHelper.cs" />
     <Compile Include="Helpers\ReadXmlHelper.cs" />
+    <Compile Include="Helpers\WindowsHelper.cs" />
     <Compile Include="Models\MenuParam.cs" />
     <Compile Include="Pages\ContractPage.cs" />
     <Compile Include="Pages\EmitentPage.cs" />
+    <Compile Include="Pages\PublicPage.cs" />
     <Compile Include="Pages\NewContractPage.cs" />
     <Compile Include="Pages\NewEmployeePage.cs" />
     <Compile Include="Pages\EmployeePage.cs" />

@@ -13,11 +13,11 @@ namespace EVotingProject.Pages
         private static CSSDescription organizationInput = new CSSDescription("input[id='materialForm:organization_input']");
         private static CSSDescription organizationPanel = new CSSDescription("div[id='materialForm:organization_panel']>ul");
         private static CSSDescription organizationPanelList = new CSSDescription("div[id='materialForm:organization_panel'] li");
-        private static CSSDescription contractNumber = new CSSDescription("form#materialForm>div:nth-child(5)>div:nth-child(2)>input");
+        private static CSSDescription contractNumber = new CSSDescription("form#materialForm>div>div:nth-child(3)>div:nth-child(2)>input");//28112016("form#materialForm>div:nth-child(5)>div:nth-child(2)>input");
         private static CSSDescription contractDate = new CSSDescription("form#materialForm span>input.hasDatepicker");
         private static CSSDescription contractDateSelected = new CSSDescription("a.ui-state-highlight");
 
-        private static CSSDescription accessOfRegistrator = new CSSDescription("form#materialForm>div:nth-child(6) *[type='checkbox']");//Доступен регистратору
+        private static CSSDescription accessOfRegistrator = new CSSDescription("form#materialForm>div>div:nth-child(4) input[type='checkbox']");//28112016("form#materialForm>div:nth-child(6) *[type='checkbox']");//Доступен регистратору
         private static CSSDescription serviceTableCb = new CSSDescription("div#cntr-services-edit>table");//чек-боксы с сервисами
         private static CSSDescription serviceCb = new CSSDescription("div#cntr-services-edit>table>tbody input[type='checkbox']");//чек-боксы с сервисами
 
