@@ -19,7 +19,7 @@ namespace EVotingProject
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(urlDemo);
+           // browser.Navigate(urlDemo);
 
 
         }
@@ -38,16 +38,7 @@ namespace EVotingProject
             Console.WriteLine(DateTime.Now);
             PageHelper.setBrowser(browser);
 
-            //1
-            Assert.True(LoginPage.isTruePage());
-
-            //2
-            LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
-
+            autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
             //3
             PortalPage.gotoMenuEmployees();
             Assert.True(EmployeePage.isTruePage());
@@ -245,16 +236,7 @@ TestName = "2.Проверка редактирования данных и по
                 PortalPage.logout();
 
 
-            //1
-            Assert.True(LoginPage.isTruePage());
-
-            //2
-            LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
-
+            autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
             //3
             PortalPage.gotoMenuEmployees();
             Assert.True(EmployeePage.isTruePage());
@@ -430,17 +412,7 @@ TestName = "2.Проверка редактирования данных и по
             if (PortalPage.isUserNameExist())
                 PortalPage.logout();
 
-
-            //1
-            Assert.True(LoginPage.isTruePage());
-
-            //2
-            LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
-
+            autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
             //3
             PortalPage.gotoMenuEmployees();
             Assert.True(EmployeePage.isTruePage());

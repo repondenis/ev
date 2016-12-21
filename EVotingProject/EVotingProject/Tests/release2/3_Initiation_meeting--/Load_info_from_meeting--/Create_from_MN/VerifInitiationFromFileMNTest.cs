@@ -1,21 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
 using HP.LFT.SDK;
-using HP.LFT.Verifications;
 using HP.LFT.SDK.Web;
 using EVotingProject.Pages;
 using EVotingProject.Helpers;
 using EVotingProject.Models;
-using HP.LFT.Report;
-using System.Drawing;
-using System.Threading;
-
-using System;
-using HP.LFT.SDK;
-using HP.LFT.UnitTesting;
-using HP.LFT.Common;
-using HP.LFT.SDK.Web;
-using HP.LFT.SDK;
 using HP.LFT.Report;
 using HP.LFT.SDK.StdWin;
 using System.Diagnostics;
@@ -35,7 +24,7 @@ namespace EVotingProject
             r.Title = "E-Voting reports";
             Reporter.Init(r);
 
-            browser = BrowserFactory.Launch(BrowserType.Chrome);
+            browser = BrowserFactory.Launch(BrowserType.Firefox);
             browser.ClearCache();
             browser.DeleteCookies();
             PageHelper.setBrowser(browser);
@@ -55,19 +44,6 @@ namespace EVotingProject
         {
 
             Console.WriteLine(DateTime.Now);
-            /*
-            browser.Navigate(urlDemo);
-            Assert.True(LoginPage.isTruePage());
-            
-            // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-            browser.Navigate(urlDemoAdmin);
-
-            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
-
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
-            */
 
             autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
@@ -178,16 +154,9 @@ namespace EVotingProject
          string filePathAnyIssuer, string filePathItIssuer, string message)
         {
             //9 созд собр адм эмитента - свой эмитент
-            PortalPage.logout();
-            browser.ClearCache();
-            browser.DeleteCookies();
-            browser.Navigate(urlDemo);
-            LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+            autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
+
 
             PortalPage.gotoMenuMeetings();
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
@@ -211,16 +180,7 @@ namespace EVotingProject
         {
 
             //11 созд собр адм регистратора - свой эмитент
-            PortalPage.logout();
-            browser.ClearCache();
-            browser.DeleteCookies();
-            browser.Navigate(urlDemo);
-            LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
-
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+            autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
 
             PortalPage.gotoMenuMeetings();
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
@@ -252,16 +212,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         {
 
             //15 ВРУЧНУЮ???????????????????????
-            PortalPage.logout();
-            browser.ClearCache();
-            browser.DeleteCookies();
-            browser.Navigate(urlDemo);
-            LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
-
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+            autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
 
             PortalPage.gotoMenuMeetings();
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
@@ -287,17 +238,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
             var contractName = "00005";
 
-            browser.Navigate(urlDemo);
-            Assert.True(LoginPage.isTruePage());
-
-            // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-            browser.Navigate(urlDemoAdmin);
-
-            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
-
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+            autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
             PortalPage.gotoMenuMeetings();
             Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
@@ -395,33 +336,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
                 addNewContract(orgName, contractName);
 
                 autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
-                /*
-                browser.Navigate(urlDemo);
-                Assert.True(LoginPage.isTruePage());
 
-                //LoginPage.clickLogoMain();
-                // Thread.Sleep(5000);
-
-                LoginPage.caseMenuParam(MenuParam.organizators);
-                LoginPage.caseLoginParam(loginPar);
-                Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
-
-                LoginLocalPage.setLogin(login);
-                LoginLocalPage.setPassword(pass);
-                LoginLocalPage.clickSubmit();
-                //LoginLocalPage.runLogin(login, pass);
-
-
-
-                //               Assert.False(LoginPage.isErrorAutorisExist(),"ошибка авторизации");
-
-
-                //Assert.False(PortalPage.isErrorAlert(),"не должно быть ошибки авторизации");
-                Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
-
-                PortalPage.gotoMenuMeetings();
-                Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
-                */
 
                 PortalPage.clickNewMeeting();
                 Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
@@ -485,30 +400,35 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
 
 
 
-        [Test]
+        [TestCase]
         public void TestCalculator()
         {
-            SDK.Init(new SdkConfiguration());
+          //  SDK.Init(new SdkConfiguration());
+
             Reporter.Init(new ReportConfiguration());
             Process.Start(@"C:\Windows\System32\calc.exe");
-            IWindow win = Desktop.Describe<IWindow>(new WindowDescription
+
+
+
+            var win = Desktop.Describe<HP.LFT.SDK.StdWin.IWindow>(new HP.LFT.SDK.StdWin.WindowDescription
             {
                 IsOwnedWindow = false,
                 IsChildWindow = false,
                 WindowClassRegExp = @"CalcFrame",
-                WindowTitleRegExp = @"Calculator"
+                WindowTitleRegExp = @"Калькулятор"
             });
 
-            Trace.WriteLine("Calculator window title is " + win.WindowTitleRegExp);
-
-
-            var button8 = win.Describe<HP.LFT.SDK.StdWin.IButton>(new HP.LFT.SDK.StdWin.ButtonDescription
+            var bt8 = win.Describe<HP.LFT.SDK.StdWin.IButton>(new HP.LFT.SDK.StdWin.ButtonDescription
             {
-                Text = string.Empty,
-                WindowId = 138,
+                Text = @"8",
                 NativeClass = @"Button"
             });
-            button8.Click();
+
+            Console.WriteLine(win.Text + " " + win.WindowTitleRegExp);
+            Console.WriteLine(bt8.WindowTitleRegExp);
+
+            bt8.Click();
+
 
             var result = win.Describe<IStatic>(new StaticDescription
             {
@@ -517,24 +437,21 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             });
             Trace.WriteLine("Result text contains " + result.Text);
 
-          //  var calculatorModel = new CalculatorModel();
-          //  calculatorModel.CalculatorWindow.ButtonPlus.Click();
-          //  calculatorModel.CalculatorWindow.Button3.Click();
-          //  calculatorModel.CalculatorWindow.ButtonEquals.Click();
+
             Trace.WriteLine("Result of addition is " + result.Text);
-            Assert.AreEqual("11", result.Text, "Addition of 8 and 3");
+            Assert.AreEqual("8", result.Text, "Addition of 8");
             win.Close();
             Reporter.GenerateReport();
-            SDK.Cleanup();
+          //  SDK.Cleanup();
 
         }
 
-    
 
 
 
 
-    [TearDown]
+
+        [TearDown]
         public void TearDown()
         {
             // Clean up after each test

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
 using EVotingProject.Models;
+using EVotingProject.Helpers;
 
 namespace EVotingProject.Pages
 {
@@ -203,9 +204,11 @@ namespace EVotingProject.Pages
         //form load list participants
         private static XPathDescription formLoadListParticipants = new XPathDescription(".//div[div[span[text()='Загрузка списка участников собрания']]]");
         private static XPathDescription formLoadListParticipantsClose = new XPathDescription(".//div[div[span[text()='Загрузка списка участников собрания']]]/div/a");//close
-        private static CSSDescription selectFileParticipants = new CSSDescription("div#dialog-upload-e-voting>div>div>span>input[type='file']");// Выбрать файл
-        private static XPathDescription loadFileParticipants = new XPathDescription(".//button[span[text()='Загрузить файлы']]");//загрузить файлы
-        private static XPathDescription loadFileParticipantsCancel = new XPathDescription(".//button[span[text()='Отменить']]");//cancel загрузить файлы
+
+        // private static CSSDescription selectFileParticipants = new CSSDescription("div#dialog-upload-e-voting>div>div>span>input[type='file']");// Выбрать файл
+        private static CSSDescription selectFileParticip = new CSSDescription("div#participants-page>div[aria-hidden='false'] span.ui-fileupload-choose");// Выбрать файл
+        private static CSSDescription loadFileParticipants = new CSSDescription("div#participants-page>div[aria-hidden='false'] button.ui-fileupload-upload");//(".//button[span[text()='Загрузить файлы']]");//загрузить файлы
+        private static CSSDescription loadFileParticipantsCancel = new CSSDescription("div#participants-page>div[aria-hidden='false'] button.ui-fileupload-cancel");//(".//button[span[text()='Отменить']]");//cancel загрузить файлы
                                                                                                                                 //end 
 
         private static CSSDescription listParticipants = new CSSDescription("tbody[id='tabView:participantsForm:ownersList_data']>tr");//кол-во участников
@@ -473,6 +476,9 @@ namespace EVotingProject.Pages
                 && browser.Describe<IButton>(loadListParticipants).IsVisible;
         }
 
+        /// <summary>
+        /// Загрузить список участников
+        /// </summary>
         public static void clickLoadListParticipants()
         {
             browser.Describe<IButton>(loadListParticipants).Click();
@@ -481,28 +487,30 @@ namespace EVotingProject.Pages
         {
             return browser.Describe<IWebElement>(loadListParticipants).Exists();
         }
-        public static void clickSelectFileParticipants()
+
+        /// <summary>
+        /// Выбрать файл
+        /// </summary>
+        public static void selectFileParticipants(string filePath)
         {
-            IFileField ff = browser.Describe<IFileField>(selectFileParticipants);
+            if (System.IO.File.Exists(filePath))
+            {
+                var selectFile = browser.Describe<IWebElement>(selectFileParticip);
 
-            ff.SetValue(@"D:\temp\test.xml");
+                click2Object(selectFile);
 
-            browser.Describe<IWebElement>(selectFileParticipants).Click();
-            browser.Describe<IFileField>(selectFileParticipants).Click();
-            browser.Describe<IFileField>(selectFileParticipants).FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
-            browser.Describe<IFileField>(selectFileParticipants).FireEvent(EventInfoFactory.CreateMouseEventInfo(MouseEventTypes.OnClick));
-            Console.WriteLine("IFileField = " + browser.Describe<IFileField>(selectFileParticipants).Value);
+                WindowsHelper.setFilePath2WinDialog(browser.Version.Type, filePath);
+            }
 
-            Console.WriteLine("IFileField = " + browser.Describe<IFileField>(selectFileParticipants).GetVisibleText());
-            browser.Describe<IFileField>(selectFileParticipants).Highlight();
+        }
 
-            browser.Describe<IWebElement>(
-                new CSSDescription("div#dialog-upload-e-voting>div>div>span>span:nth-child(1)")).Click();
-
-            browser.Describe<IWebElement>(
-                 new CSSDescription("div#dialog-upload-e-voting>div>div>span>span:nth-child(2)")).Click();
-
-
+        /// <summary>
+        /// загрузить файлы
+        /// </summary>
+        public static void clickUploadFile()
+        {
+            var loadFiles = browser.Describe<IWebElement>(loadFileParticipants);
+            click2Object(loadFiles);
         }
 
         /// <summary>

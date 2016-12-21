@@ -71,17 +71,6 @@ namespace EVotingProject
             {
                 autorizeFromEVoting(urlDemoAdmin, LoginParam.login, null, adminEvotingLogin, adminEvotingPassword);
 
-                /*
-                PortalPage.logout();
-                browser.Navigate(urlDemo);
-                Assert.True(LoginPage.isTruePage());
-                browser.Navigate(urlDemoAdmin);
-                LoginPage.caseLoginParam(LoginParam.login);
-                Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
-
-                LoginLocalPage.runLogin(adminEvotingLogin, adminEvotingPassword);
-                Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
-                */
             }
 
             // if (PortalPage.isMenuContractsExist())//если мы залогинены

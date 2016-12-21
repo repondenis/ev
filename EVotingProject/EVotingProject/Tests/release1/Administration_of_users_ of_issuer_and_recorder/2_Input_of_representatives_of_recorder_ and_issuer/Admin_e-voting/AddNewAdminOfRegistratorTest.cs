@@ -20,7 +20,7 @@ namespace EVotingProject.Tests.release1
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(urlDemoAdmin);
+           // browser.Navigate(urlDemoAdmin);
         }
 
         [SetUp]
@@ -38,12 +38,9 @@ namespace EVotingProject.Tests.release1
                 Console.WriteLine(DateTime.Now);
 
                 PageHelper.setBrowser(browser);
-                Assert.True(LoginPage.isTruePage());
-                LoginPage.caseMenuParam(menuPar);
-                LoginPage.caseLoginParam(loginPar);
-                Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
-                LoginLocalPage.runLogin(login, pass);
-                Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
+
+                autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
+
                 PortalPage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage());
                 EmployeePage.addNewUser();

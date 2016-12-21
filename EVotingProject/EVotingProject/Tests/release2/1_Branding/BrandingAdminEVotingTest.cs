@@ -67,18 +67,7 @@ namespace EVotingProject
 
             Console.WriteLine(DateTime.Now);
 
-            browser.Navigate(urlDemo);
-            Assert.True(LoginPage.isTruePage());
-
-            browser.Navigate(urlDemoAdmin);
-            //browser.Sync();
-            LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
-            // для админ паге - не надо LoginPage.caseMenuParam(menuPar);
-
-
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
+            autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
             PortalPage.gotoMenuOrganizations();
 

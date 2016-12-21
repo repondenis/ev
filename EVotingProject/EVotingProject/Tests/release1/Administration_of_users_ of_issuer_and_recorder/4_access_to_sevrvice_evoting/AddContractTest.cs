@@ -17,9 +17,9 @@ namespace EVotingProject
         public void TestFixtureSetUp()
         {
             browser = BrowserFactory.Launch(BrowserType.Chrome);
-            // browser.ClearCache();
-            //  browser.DeleteCookies();
-            browser.Navigate(urlDemoAdmin);
+             browser.ClearCache();
+             browser.DeleteCookies();
+           // browser.Navigate(urlDemoAdmin);
         }
 
         [SetUp]
@@ -36,15 +36,8 @@ namespace EVotingProject
             Console.WriteLine(DateTime.Now);
             PageHelper.setBrowser(browser);
 
-            //1
-            Assert.True(LoginPage.isTruePage());
 
-            //2
-            LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
+            autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
             //3
             PortalPage.gotoMenuContracts();

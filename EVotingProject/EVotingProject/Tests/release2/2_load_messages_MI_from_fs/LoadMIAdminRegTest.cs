@@ -37,27 +37,14 @@ namespace EVotingProject
         }
 
         //либо искать ОРГ по ИНН = 1027700043502
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin_reestrrn_reg", "admin_reestrrn_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin_reestrrn_reg", "admin_reestrrn_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
+            @"D:\work\test\MI НРД (Роснефть) 3 без деном.xml", "Успешно сохранен!",
               TestName = "56974.Проверка получения списка участников админ регистратора")]
-        public void Test56974(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
+        public void Test56974(string menuPar, string loginPar, string login, string pass, string orgName, string filePathMI, string message)
         {
 
             Console.WriteLine(DateTime.Now);
-
-            browser.Navigate(urlDemo);
-            Assert.True(LoginPage.isTruePage());
-
-            LoginPage.caseMenuParam(menuPar);
-            LoginPage.caseLoginParam(loginPar);
-           // browser.Navigate(urlDemoAdmin);
-           // browser.Sync();
-            Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
-
-            LoginLocalPage.runLogin(login, pass);
-            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
-
-            PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
+            autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
             PortalPage.setMeetingsSearhText(orgName);
             PortalPage.selectMeetingStatusFilterItems(MeetingStatusFilter.itemLoadMN);
 
@@ -66,41 +53,8 @@ namespace EVotingProject
             MeetingPage.gotoMenuList();
             Assert.True(MeetingPage.isListOfMeetingExist());
             MeetingPage.clickLoadListParticipants();
-            MeetingPage.clickSelectFileParticipants();
-
-            /*
-
-            Assert.True(OrganizationPage.isTruePage());
-            OrganizationPage.setOrganizationSearhInput(orgName);//фильтр
-
-            OrganizationPage.getOrganizationTable(orgName);//получаем табл
-            OrganizationPage.editOrganizationOfTable(orgName);//нажим РЕдактировать нужного 
-            Assert.True(NewOrganizationPage.isTruePage(orgName));
-            NewOrganizationPage.gotoMenuProfileOrg();
-
-            Assert.True(NewOrganizationPage.isTitlePanelExist("Информация"));
-            NewOrganizationPage.clickLoadLogo();
-
-            NewOrganizationPage.clickLoadLogoHeader();
-
-            Console.WriteLine(DateTime.Now + "clickLoadLogoList after");
-            Assert.False(NewOrganizationPage.isOpenFileDialog());
-            NewOrganizationPage.selectLogoFileOfDialog(filePathHeader);
-            NewOrganizationPage.clickOkOfOpenFileDialog();
-            Console.WriteLine(DateTime.Now + "clickLoadLogoList before");
-
-
-            //            Reporter.ReportEvent("Setting value in edit box", "", Status.Passed, browser.GetSnapshot());
-
-
-            NewOrganizationPage.clickLoadLogo();
-            NewOrganizationPage.clickLoadLogoList();
-            NewOrganizationPage.selectLogoFileOfDialog(filePathList);
-            NewOrganizationPage.setColorHeader(color);
-            NewOrganizationPage.setColorButton(color);
-
-            NewOrganizationPage.save();
-            */
+            MeetingPage.selectFileParticipants(filePathMI);
+            MeetingPage.clickUploadFile();
         }
 
 

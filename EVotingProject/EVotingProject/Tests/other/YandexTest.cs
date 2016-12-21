@@ -5,6 +5,7 @@ using HP.LFT.SDK.Web;
 using HP.LFT.Verifications;
 using EVotingProject.Pages;
 using HP.LFT.Report;
+using System.Diagnostics;
 
 namespace EVotingProject
 {
@@ -314,5 +315,64 @@ namespace EVotingProject
         {
             // Clean up once per fixture
         }
+
+
+
+
+
+
+
+
+
+        [TestCase]
+        public void TestCalculator()
+        {
+            //  SDK.Init(new SdkConfiguration());
+
+            Reporter.Init(new ReportConfiguration());
+            Process.Start(@"C:\Windows\System32\calc.exe");
+
+
+
+            var win = Desktop.Describe<HP.LFT.SDK.StdWin.IWindow>(new HP.LFT.SDK.StdWin.WindowDescription
+            {
+                IsOwnedWindow = false,
+                IsChildWindow = false,
+                WindowClassRegExp = @"CalcFrame",
+                WindowTitleRegExp = @"Калькулятор"
+            });
+
+            var bt8 = win.Describe<HP.LFT.SDK.StdWin.IButton>(new HP.LFT.SDK.StdWin.ButtonDescription
+            {
+                Text = @"8",
+                NativeClass = @"Button"
+            });
+
+            Console.WriteLine(win.Text + " " + win.WindowTitleRegExp);
+            Console.WriteLine(bt8.WindowTitleRegExp);
+
+            bt8.Click();
+
+
+            var result = win.Describe<HP.LFT.SDK.StdWin.IStatic>(new HP.LFT.SDK.StdWin.StaticDescription
+            {
+                WindowId = 150,
+                NativeClass = @"Static"
+            });
+            Trace.WriteLine("Result text contains " + result.Text);
+
+
+            Trace.WriteLine("Result of addition is " + result.Text);
+            Assert.AreEqual("8", result.Text, "Addition of 8");
+            win.Close();
+            Reporter.GenerateReport();
+            //  SDK.Cleanup();
+
+        }
+
+
+
+
+
     }
 }

@@ -21,7 +21,7 @@ namespace EVotingProject.Tests
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
-            browser.Navigate(urlDemoAdmin);
+            //browser.Navigate(urlDemoAdmin);
         }
 
         [SetUp]
@@ -32,20 +32,18 @@ namespace EVotingProject.Tests
 
         // [Test, Description("Проверка инициации добавления нового администратора E-Voting, 57030")]
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin"
-            , TestName = "1.Проверка инициации добавления нового администратора E-Voting, 57030")]
+            , TestName = "57030. 1.Проверка инициации добавления нового администратора E-Voting, 57030")]
         public void Test57030(string menuPar, string loginPar, string login, string pass)
         {
             try
             {
                 Console.WriteLine(DateTime.Now);
+                
 
                 PageHelper.setBrowser(browser);
-                Assert.True(LoginPage.isTruePage());
-                LoginPage.caseMenuParam(menuPar);
-                LoginPage.caseLoginParam(loginPar);
-                Assert.True(LoginLocalPage.isTruePage(),"должна быть страница авториз по логину-паролю");
-                LoginLocalPage.runLogin(login, pass);
-                Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
+
+                autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
+
                 PortalPage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage());
                 EmployeePage.addNewAdminEVoting();
