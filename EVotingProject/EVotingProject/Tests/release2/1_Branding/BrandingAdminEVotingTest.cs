@@ -1,17 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
 using HP.LFT.SDK;
-using HP.LFT.Verifications;
 using HP.LFT.SDK.Web;
 using EVotingProject.Pages;
 using EVotingProject.Helpers;
 using EVotingProject.Models;
 using HP.LFT.Report;
-using System.Drawing;
-//using OpenQA.Selenium;
-//using OpenQA.Selenium.Chrome;
-//using OpenQA.Selenium.Support;
-using HP.LFT.SDK.Insight;
+
 
 namespace EVotingProject
 {
@@ -23,10 +18,10 @@ namespace EVotingProject
         public void TestFixtureSetUp()
         {
 
-            ReportConfiguration r = new ReportConfiguration();
-            r.IsOverrideExisting = false;
-            r.Title = "My LeanFT Report";
-            Reporter.Init(r);
+            //ReportConfiguration r = new ReportConfiguration();
+            //r.IsOverrideExisting = false;
+            //r.Title = "My LeanFT Report 1";
+            //Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
 
@@ -42,6 +37,8 @@ namespace EVotingProject
 
                         chromeDriver.Navigate().GoToUrl(urlDemo);
             */
+
+
             // browser.ClearCache();
             // browser.DeleteCookies();
             PageHelper.setBrowser(browser);
@@ -61,44 +58,46 @@ namespace EVotingProject
         //либо искать ОРГ по ИНН = 1027700043502
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", @"D:\work\test\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
               TestName = "56849.Проверка инициации настройки брендирования админ ЕВотинга")]
-       // [TestCaseSource("ALM")]
+        // [TestCaseSource("ALM")]
         public void Test56849(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
         {
+            try
+            {
+                Console.WriteLine(DateTime.Now);
 
-            Console.WriteLine(DateTime.Now);
+                autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
-            autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
+                PortalPage.gotoMenuOrganizations();
 
-            PortalPage.gotoMenuOrganizations();
+                Assert.True(OrganizationPage.isTruePage());
+                OrganizationPage.setOrganizationSearhInput(orgName);//фильтр
 
-            Assert.True(OrganizationPage.isTruePage());
-            OrganizationPage.setOrganizationSearhInput(orgName);//фильтр
+                OrganizationPage.getOrganizationTable(orgName);//получаем табл
+                OrganizationPage.editOrganizationOfTable(orgName);//нажим РЕдактировать нужного 
+                Assert.True(NewOrganizationPage.isTruePage(orgName));
+                NewOrganizationPage.gotoMenuProfileOrg();
 
-            OrganizationPage.getOrganizationTable(orgName);//получаем табл
-            OrganizationPage.editOrganizationOfTable(orgName);//нажим РЕдактировать нужного 
-            Assert.True(NewOrganizationPage.isTruePage(orgName));
-            NewOrganizationPage.gotoMenuProfileOrg();
+                Assert.True(NewOrganizationPage.isTitlePanelExist("Информация"));
+                NewOrganizationPage.clickLoadLogo();
 
-            Assert.True(NewOrganizationPage.isTitlePanelExist("Информация"));
-            // NewOrganizationPage.clickLoadLogo();
+                NewOrganizationPage.clickLoadLogoHeader();
 
-            // NewOrganizationPage.clickLoadLogoHeader();
-
-            //Assert.False(NewOrganizationPage.isOpenFileDialog());
-            NewOrganizationPage.selectLogoFileOfDialog(filePathHeader);
-            //NewOrganizationPage.clickOkOfOpenFileDialog();
+                NewOrganizationPage.selectLogoFileOfDialog(filePathHeader);
 
 
-            //            Reporter.ReportEvent("Setting value in edit box", "", Status.Passed, browser.GetSnapshot());
+                // --//-- ПОВТОРИТЬ ДЛЯ 2 ЛОГОТИПА
 
-            // --//-- ПОВТОРИТЬ ДЛЯ 2 ЛОГОТИПА
+                NewOrganizationPage.setColorHeader(color);
+                NewOrganizationPage.setColorButton(color);
 
-            NewOrganizationPage.setColorHeader(color);
-            NewOrganizationPage.setColorButton(color);
-
-            Assert.True(NewOrganizationPage.isSaveExist());
-            NewOrganizationPage.save();
-
+                Assert.True(NewOrganizationPage.isSaveExist(),"должна быть кнопка Сохранить");
+                NewOrganizationPage.save();
+            }
+            catch (AssertionException e)
+            {
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
+                throw;
+            }
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", "D:\\work\\test\\logoh.jpg", "#001199", "Успешно сохранен!",

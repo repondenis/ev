@@ -7,6 +7,9 @@ using HP.LFT.SDK.Web;
 
 namespace EVotingProject.Pages
 {
+    /// <summary>
+    /// пользователи
+    /// </summary>
     class EmployeePage : PortalPage
     {
         //private static CSSDescription divEmployee = new CSSDescription("div#employee-block");
@@ -49,6 +52,9 @@ namespace EVotingProject.Pages
         private static CSSDescription employeesDateEdit = new CSSDescription(
             "tbody[id='personForm:employeeTable_data'] tr:nth-child(1)>td:nth-child(5)>a");//первый пользователь - редактировать
 
+        /// <summary>
+        /// добавить нового пользователя
+        /// </summary>
         public static void addNewUser()
         {
             browser.Describe<IButton>(employeeAdd).Click();
@@ -62,16 +68,26 @@ namespace EVotingProject.Pages
         public static new bool isTruePage()
         {
             browser.Sync();
-            return browser.Describe<IWebElement>(divEmployeeTitle).Exists() && browser.Describe<IWebElement>(divEmployeeTitle).InnerText.Equals("пользователи");
+            return browser.Describe<IWebElement>(divEmployeeTitle).Exists() &&
+                browser.Describe<IWebElement>(divEmployeeTitle).InnerText.Equals("пользователи");
         }
 
         public static void getEmployeesTable(string str)
         {
+
+
             Console.WriteLine("searh of " + str);
+
+
+            setFioSnilsFilter(str);
+
+
             var table = browser.Describe<ITable>(employeesDateTabl);
-            Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
+            isItemExistOfTable(str, table, 0);
+
+            //  Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
+            //  Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
+            //  Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
 
             //table.FindRowWithCellText(str).Cells[0].FindChildren<ILink>().Click();
 
@@ -84,11 +100,9 @@ namespace EVotingProject.Pages
         public static void editEmployeesOfTable(string str)
         {
             var table = browser.Describe<ITable>(employeesDateTabl);
-           // Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
-           // Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
-           // Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
-
-            table.FindRowWithCellText(str).Cells[0].FindChildren<ILink>().Click();
+            var row = table.FindRowWithCellText(str);
+            if (row != null)
+                row.Cells[0].FindChildren<ILink>().Click();
         }
 
         public static void setFioSnilsFilter(string v)

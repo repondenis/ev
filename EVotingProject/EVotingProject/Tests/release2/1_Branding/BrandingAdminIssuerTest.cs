@@ -1,13 +1,11 @@
 ﻿using System;
 using NUnit.Framework;
 using HP.LFT.SDK;
-using HP.LFT.Verifications;
 using HP.LFT.SDK.Web;
 using EVotingProject.Pages;
 using EVotingProject.Helpers;
 using EVotingProject.Models;
 using HP.LFT.Report;
-using System.Drawing;
 
 namespace EVotingProject
 {
@@ -19,10 +17,10 @@ namespace EVotingProject
         public void TestFixtureSetUp()
         {
 
-            ReportConfiguration r = new ReportConfiguration();
-            r.IsOverrideExisting = true;
-            r.Title = "My LeanFT Report";
-            Reporter.Init(r);
+            //ReportConfiguration r = new ReportConfiguration();
+            //r.IsOverrideExisting = false;
+            //r.Title = "My LeanFT Report 3";
+            //Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
@@ -37,7 +35,7 @@ namespace EVotingProject
             // Before each test
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin_denisov_iss", "admin_denisov_iss", "ОАО \"НК \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "ОАО \"НК \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
               TestName = "56856.Проверка инициации настройки брендирования")]
         public void Test56856(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
         {

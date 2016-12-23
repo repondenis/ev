@@ -19,12 +19,12 @@ namespace EVotingProject
         public void TestFixtureSetUp()
         {
 
-            ReportConfiguration r = new ReportConfiguration();
-            r.IsOverrideExisting = true;
-            r.Title = "E-Voting reports";
-            Reporter.Init(r);
+            //ReportConfiguration r = new ReportConfiguration();
+            //r.IsOverrideExisting = false;
+            //r.Title = "E-Voting test reports 5";
+            //Reporter.Init(r);
 
-            browser = BrowserFactory.Launch(BrowserType.Firefox);
+            browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
             PageHelper.setBrowser(browser);
@@ -109,7 +109,7 @@ namespace EVotingProject
         //либо искать ОРГ по ИНН = 1027700043502
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin",
             "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml", "D:\\temp\\MN НРД (Роснефть) 1.xml",
-           "D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
+           "D:\\temp\\MN НРД (Роснефть) 2.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
               TestName = "56944.проверка типа KD (тип бумаги вид собрания эмитент) MN админ ЕВотинга")]
         public void Test56944(string menuPar, string loginPar, string login, string pass,
            string filePath1, string filePath2, string filePath3, string filePath4, string filePath5, string filePath6, string filePath7,
@@ -147,8 +147,8 @@ namespace EVotingProject
             NewMeetingPage.cancel();
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin_denisov_iss", "admin_denisov_iss",
-            "D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss",
+            "D:\\temp\\MN НРД (Роснефть) 2.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
         TestName = "56944Step9-10.проверка типа KD (тип бумаги вид собрания эмитент) MN админ эмитента")]
         public void Test56944Step910(string menuPar, string loginPar, string login, string pass,
          string filePathAnyIssuer, string filePathItIssuer, string message)
@@ -172,8 +172,8 @@ namespace EVotingProject
             NewMeetingPage.logout();
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin_reestrrn_reg", "admin_reestrrn_reg",
-     "D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg",
+     "D:\\temp\\MN НРД (Роснефть) 2.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
  TestName = "56944Step11-12.проверка типа KD (тип бумаги вид собрания эмитент) MN админ регистратора")]
         public void Test56944Step1112(string menuPar, string loginPar, string login, string pass,
   string filePathAnyIssuer, string filePathItIssuer, string message)
@@ -205,7 +205,7 @@ namespace EVotingProject
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "Rn_sk_1", "Rn_sk_1",
-"D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
+"D:\\temp\\MN НРД (Роснефть) 2.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
 TestName = "56944Step15.проверка типа KD (тип бумаги вид собрания эмитент) MN участник сч комиссии")]
         public void Test56944Step15(string menuPar, string loginPar, string login, string pass,
 string filePathAnyIssuer, string filePathItIssuer, string message)
@@ -230,7 +230,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin",
-        "D:\\temp\\MN НРД (СБЕРБАНК) 1.xml", "Успешно сохранен!",
+        "D:\\temp\\MN НРД (Роснефть) 2.xml", "Успешно сохранен!",
         TestName = "56964.проверка отображения стр собрания и подствержд созд собрания, адм evot) MN участник сч комиссии")]
         public void Test56964(string menuPar, string loginPar, string login, string pass, string filePath, string message)
         {
@@ -322,7 +322,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         /// <param name="filePath"></param>
         /// <param name="message"></param>
         /// <param name="contractName"></param>
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin_denisov_iss", "admin_denisov_iss", "ОАО \"НК \"Роснефть\"",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "ОАО \"НК \"Роснефть\"",
         @"D:\work\test\MN НРД (Роснефть) 2.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml",
         "Успешно сохранен!", "012345",
         TestName = "56957.проверка отображения стр собрания и подтвержд созд собрания, адм evot) MN участник сч комиссии")]
@@ -403,7 +403,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         [TestCase]
         public void TestCalculator()
         {
-          //  SDK.Init(new SdkConfiguration());
+            //  SDK.Init(new SdkConfiguration());
 
             Reporter.Init(new ReportConfiguration());
             Process.Start(@"C:\Windows\System32\calc.exe");
@@ -442,7 +442,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             Assert.AreEqual("8", result.Text, "Addition of 8");
             win.Close();
             Reporter.GenerateReport();
-          //  SDK.Cleanup();
+            //  SDK.Cleanup();
 
         }
 

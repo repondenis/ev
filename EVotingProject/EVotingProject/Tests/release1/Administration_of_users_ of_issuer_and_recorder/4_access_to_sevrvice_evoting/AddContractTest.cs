@@ -29,7 +29,7 @@ namespace EVotingProject
 
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "сбербанк России ОАО", "cnmb123", "01.01.2016", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", "cnmb123", "01.01.2016", "Успешно сохранен!",
               TestName = "57076 1.Проверка инициации добавление договора")]
         public void Test57076(string menuPar, string loginPar, string login, string pass, string orgName, string contrNumb, string contrDate, string message)
         {
@@ -68,7 +68,7 @@ namespace EVotingProject
             ContractPage.isContractsOfTableExist(contrNumb, MeetingStatusFilter.itemIsNotCreated);
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "сбербанк России ОАО", "cnmb123", "cnmb321", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", "cnmb123", "cnmb321", "Успешно сохранен!",
          TestName = "57079 1.Проверка внесения изменений в договор ")]
         public void Test57079(string menuPar, string loginPar, string login, string pass, string orgName, string contrNumb, string newContrNumb, string message)
         {
@@ -106,7 +106,7 @@ namespace EVotingProject
 
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "сбербанк России ОАО", "cnmb123", "cnmb321", "01.01.2016", "31.12.2016", "Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "ОАО \"НК \"Роснефть\"", "cnmb123", "cnmb321", "01.01.2016", "31.12.2016", "Успешно сохранен!",
   TestName = "57083 1.Проверка отмены внесения изменений в договор")]
         public void Test57083(string menuPar, string loginPar, string login, string pass, string orgName, string contrNumb, string contrNewNumb, string contrDate, string contrNewDate, string message)
         {

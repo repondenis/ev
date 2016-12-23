@@ -23,10 +23,10 @@ namespace EVotingProject
         public void TestFixtureSetUp()
         {
 
-            ReportConfiguration r = new ReportConfiguration();
-            r.IsOverrideExisting = false;
-            r.Title = "My LeanFT Report";
-            Reporter.Init(r);
+            //ReportConfiguration r = new ReportConfiguration();
+            //r.IsOverrideExisting = false;
+            //r.Title = "My LeanFT Report";
+            //Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             

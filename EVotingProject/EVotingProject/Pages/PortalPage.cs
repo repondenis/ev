@@ -30,6 +30,9 @@ namespace EVotingProject.Pages
         private static CSSDescription userNameBlock = new CSSDescription("div.block__info-user");//text name user
         private static CSSDescription userNameLogout = new CSSDescription("a.link-cancel-e-voting");// button exit
 
+        private static CSSDescription menuUserName2 = new CSSDescription("a.header-username");
+        private static CSSDescription userNameLogout2 = new CSSDescription("button.btn-logout");// button exit
+
 
         //
         private static XPathDescription newMeeting = new XPathDescription(".//button[@type='submit' and span[text()='Новое собрание']]");//;button
@@ -121,6 +124,7 @@ namespace EVotingProject.Pages
 
         public static bool isUserNameExist()
         {
+            Console.WriteLine("menuUserName " + browser.Describe<ILink>(menuUserName).Exists());
             return browser.Describe<ILink>(menuUserName).Exists();
         }
 
@@ -136,8 +140,16 @@ namespace EVotingProject.Pages
 
         public static bool isToggleUserNameExist()
         {
+            // Console.WriteLine("userNameToggle " + browser.Describe<IWebElement>(userNameToggle).Exists());
             return browser.Describe<IWebElement>(userNameToggle).Exists();
         }
+
+        public static bool isUserName2Exist()
+        {
+            // Console.WriteLine("menuUserName2 " + browser.Describe<IWebElement>(menuUserName2).Exists());
+            return browser.Describe<IWebElement>(menuUserName2).Exists();
+        }
+
 
         public static bool isBlockUserName()
         {
@@ -146,15 +158,32 @@ namespace EVotingProject.Pages
 
         public static void logout()
         {
-            if (isToggleUserNameExist() && isUserNameExist())
+            if (isToggleUserNameExist() /*&& isUserNameExist()*/)
             {
                 clickToggleUserName();
 
                 if (isBlockUserName())
                     browser.Describe<ILink>(userNameLogout).Click();
-            }
+            }/*
+            else if (isUserName2Exist())
+            {
+                clickUserName2();
+                if (isUserNameLogout2Exist())
+                    browser.Describe<IButton>(userNameLogout2).Click();
+            }*/
+
         }
 
+        public static void clickUserName2()
+        {
+            browser.Describe<ILink>(menuUserName2).Click();
+        }
+
+        private static bool isUserNameLogout2Exist()
+        {
+            // Console.WriteLine("userNameLogout2 " + browser.Describe<IButton>(userNameLogout2).Exists());
+            return browser.Describe<IButton>(userNameLogout2).Exists();
+        }
 
         public static string getUserName()
         {
@@ -216,6 +245,32 @@ namespace EVotingProject.Pages
                     }
 
                 }
+        }
+
+        /// <summary>
+        /// есть ли Item <br>V</br> в данной табл в столбце <br>columnNumber</br>
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="table"></param>
+        /// <param name="columnNumber"></param>
+        /// <returns></returns>
+        public static bool isItemExistOfTable(string v, IWebElement table, int columnNumber)
+        {
+            // var table = browser.Describe<IWebElement>(orgSearchTable);
+
+            var rows = table.FindChildren<IWebElement>(new CSSDescription("tr"));
+            if (rows != null && rows.Length > 1)
+                for (int i = 0; i < rows.Length; i++)
+                {
+                    var columns = rows[i].FindChildren<IWebElement>(new CSSDescription("td"));
+                    if (columns != null && columns.Length > 1)
+                        if (columns[columnNumber].InnerText.Contains(@v))
+                        {
+                            Console.WriteLine("содержит {0}", v);
+                            return true;
+                        }
+                }
+            return false;
         }
 
 

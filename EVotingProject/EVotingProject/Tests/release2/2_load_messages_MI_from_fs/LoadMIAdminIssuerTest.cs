@@ -19,10 +19,10 @@ namespace EVotingProject
         public void TestFixtureSetUp()
         {
 
-            ReportConfiguration r = new ReportConfiguration();
-            r.IsOverrideExisting = true;
-            r.Title = "E-Voting reports";
-            Reporter.Init(r);
+            //ReportConfiguration r = new ReportConfiguration();
+            //r.IsOverrideExisting = true;
+            //r.Title = "E-Voting reports";
+            //Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
             //        browser.ClearCache();
@@ -37,10 +37,10 @@ namespace EVotingProject
         }
 
         //либо искать ОРГ по ИНН = 1027700043502
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin_denisov_iss", "admin_denisov_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
-            @"D:\work\test\MI НРД (Роснефть) 3 без деном.xml","Успешно сохранен!",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
+            @"D:\work\test\MI НРД (Роснефть) 3 без деном.xml", "Успешно сохранен!",
               TestName = "56972.Проверка логического контроля админ эмитента")]
-        public void Test56972(string menuPar, string loginPar, string login, string pass, string orgName, string filePathMi,string message)
+        public void Test56972(string menuPar, string loginPar, string login, string pass, string orgName, string filePathMi, string message)
         {
 
             Console.WriteLine(DateTime.Now);
@@ -57,7 +57,7 @@ namespace EVotingProject
             MeetingPage.clickLoadListParticipants();
             MeetingPage.selectFileParticipants(filePathMi);
             MeetingPage.clickUploadFile();
-           
+
         }
 
 

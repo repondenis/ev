@@ -19,12 +19,12 @@ namespace EVotingProject
         public void TestFixtureSetUp()
         {
 
-            ReportConfiguration r = new ReportConfiguration();
-            r.IsOverrideExisting = true;
-            r.Title = "E-Voting reports";
-            Reporter.Init(r);
+            //ReportConfiguration r = new ReportConfiguration();
+            //r.IsOverrideExisting = false;
+            //r.Title = "E-Voting test reports 4";
+            //Reporter.Init(r);
 
-            browser = BrowserFactory.Launch(BrowserType.Firefox);
+            browser = BrowserFactory.Launch(BrowserType.Chrome);
             browser.ClearCache();
             browser.DeleteCookies();
             PageHelper.setBrowser(browser);

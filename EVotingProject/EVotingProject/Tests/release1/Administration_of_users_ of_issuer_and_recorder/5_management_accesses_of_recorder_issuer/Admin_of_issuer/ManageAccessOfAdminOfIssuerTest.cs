@@ -31,7 +31,7 @@ namespace EVotingProject
 
         }
 
-        [TestCase(MenuParam.registrators, LoginParam.login, "admin_denisov_iss", "admin_denisov_iss", "Андрей Денисов", "Успешно сохранен!",
+        [TestCase(MenuParam.registrators, LoginParam.login, "adm_iss", "adm_iss", "Андрей Денисов", "Успешно сохранен!",
               TestName = "1.Проверка инициации изменения полномочий, 57017")]
         public void Test57017(string menuPar, string loginPar, string login, string pass, string userName, string message)
         {
@@ -41,10 +41,10 @@ namespace EVotingProject
             autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
             //3
             PortalPage.gotoMenuEmployees();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.setFioSnilsFilter(userName);//заполняем фильтр
             EmployeePage.editEmployeesOfTable(userName);//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
 
         }
 
@@ -58,7 +58,7 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1 2 3 4 5
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.setFirstName(NewEmployeePage.getFirstName() + suff);
             NewEmployeePage.setLastName(NewEmployeePage.getLastName() + suff);
             NewEmployeePage.setOtherName(NewEmployeePage.getOtherName() + suff);
@@ -75,7 +75,7 @@ TestName = "2.Проверка редактирования данных и по
             NewEmployeePage.save();
             Assert.True(NewEmployeePage.isMessageGrowleOk(message), message);
             PortalPage.gotoMenuEmployees();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.getEmployeesTable(userName);//проверяем есть ли новый ищмененный пользователь
 
         }
@@ -89,7 +89,7 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1 2
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.gotoRolePanel();
             Assert.True(NewEmployeePage.isRolePanel());
             NewEmployeePage.clickAvailRoleListToogle();//нажимаем полномочия
@@ -110,7 +110,7 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.setFirstName(NewEmployeePage.getFirstName() + suff);
             NewEmployeePage.setLastName(NewEmployeePage.getLastName() + suff);
             NewEmployeePage.setOtherName(NewEmployeePage.getOtherName() + suff);
@@ -118,7 +118,7 @@ TestName = "2.Проверка редактирования данных и по
 
             NewEmployeePage.cancel();
 
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.getEmployeesTable(userName);//проверяем есть ли старый не измененный пользователь
 
         }
@@ -132,10 +132,10 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.setFioSnilsFilter(userName.Replace(" ", suff + " "));//заполняем фильтр
             EmployeePage.editEmployeesOfTable(userName.Replace(" ", suff + " "));//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             //
             NewEmployeePage.setPhone("AbC_12$");
             NewEmployeePage.setMail("AbC_12$");
@@ -143,7 +143,7 @@ TestName = "2.Проверка редактирования данных и по
             Assert.False(NewEmployeePage.isMessageGrowleOk(message1), message1);
 
             NewEmployeePage.cancel();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
 
         }
 
@@ -166,10 +166,10 @@ TestName = "2.Проверка редактирования данных и по
 
             //1
             PortalPage.gotoMenuEmployees();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.setFioSnilsFilter(userName.Replace(" ", suff + ""));//заполняем фильтр
             EmployeePage.editEmployeesOfTable(userName.Replace(" ", suff + ""));//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             //
             NewEmployeePage.setFirstName("Татьянова");
             NewEmployeePage.setLastName("Татьяна");
@@ -197,7 +197,7 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.setFirstName(NewEmployeePage.getFirstName() + suff);
             NewEmployeePage.setLastName(NewEmployeePage.getLastName() + suff);
             NewEmployeePage.setOtherName(NewEmployeePage.getOtherName() + suff);
@@ -205,7 +205,7 @@ TestName = "2.Проверка редактирования данных и по
 
             NewEmployeePage.cancel();
 
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.getEmployeesTable(userName);//проверяем есть ли старый не измененный пользователь
 
         }
@@ -225,10 +225,10 @@ TestName = "2.Проверка редактирования данных и по
             autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
             //3
             PortalPage.gotoMenuEmployees();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.setFioSnilsFilter(userName);//заполняем фильтр
             EmployeePage.editEmployeesOfTable(userName);//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
 
         }
 
@@ -239,7 +239,7 @@ TestName = "2.Проверка редактирования данных и по
             Console.WriteLine(DateTime.Now);
             PageHelper.setBrowser(browser);
             //
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
 
             //1
             NewEmployeePage.gotoRolePanel();
@@ -269,7 +269,7 @@ TestName = "2.Проверка редактирования данных и по
             NewEmployeePage.save();
             Assert.True(NewEmployeePage.isMessageGrowleOk(message), message);
             PortalPage.gotoMenuEmployees();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.getEmployeesTable(userName.Replace(" ", suff + " "));//проверяем есть ли новый и3мененный пользователь
 
         }
@@ -282,10 +282,10 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.setFioSnilsFilter(userName.Replace(" ", suff + " "));//заполняем фильтр
             EmployeePage.editEmployeesOfTable(userName.Replace(" ", suff + " "));//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             //
             NewEmployeePage.setFirstName("AbC_12$");
             NewEmployeePage.setLastName("AbC_12$");
@@ -298,14 +298,14 @@ TestName = "2.Проверка редактирования данных и по
             Assert.False(NewEmployeePage.isMessageGrowleOk(message1), message2);
 
             NewEmployeePage.cancel();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
 
             EmployeePage.getEmployeesTable(userName.Replace(" ", suff + " "));//проверяем есть ли HEищмененный пользователь
 
         }
 
 
-        [TestCase("Андрей Денисов", "01", "сбербанк России ОАО", "Рога и копыта", "Используются недопустимые символы", "Заполнены не все обязательные поля",
+        [TestCase("Андрей Денисов", "01", "ОАО \"НК \"Роснефть\"", "Рога и копыта", "Используются недопустимые символы", "Заполнены не все обязательные поля",
        TestName = "9.Проверка редактирования организации представителя рег, 57011")]
         public void Test57011(string userName, string suff, string orgNameTrue, string orgNameFalse, string message1, string message2)
         {
@@ -313,22 +313,22 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.setFioSnilsFilter(userName.Replace(" ", suff + " "));//заполняем фильтр
             EmployeePage.editEmployeesOfTable(userName.Replace(" ", suff + " "));//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             //
 
             NewEmployeePage.setOrganization(orgNameTrue);
-            Assert.True(NewEmployeePage.isOrganizationPanelAppear());
-            NewEmployeePage.selectItemOfOrganizationPanel(orgNameTrue);
+            
+            
 
             NewEmployeePage.save();
             Assert.False(NewEmployeePage.isMessageGrowleOk(message1), message1);
 
             //2
             NewEmployeePage.setOrganization(orgNameFalse);
-            Assert.False(NewEmployeePage.isOrganizationPanelAppear());
+            //
         }
 
 
@@ -355,7 +355,7 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.gotoRolePanel();
             Assert.True(NewEmployeePage.isRolePanel());
             NewEmployeePage.clickAvailRoleListToogle();//нажимаем полномочия
@@ -375,7 +375,7 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.setFirstName(NewEmployeePage.getFirstName() + suff);
             NewEmployeePage.setLastName(NewEmployeePage.getLastName() + suff);
             NewEmployeePage.setOtherName(NewEmployeePage.getOtherName() + suff);
@@ -383,7 +383,7 @@ TestName = "2.Проверка редактирования данных и по
 
             NewEmployeePage.cancel();
 
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.getEmployeesTable(userName);//проверяем есть ли старый не измененный пользователь
 
         }
@@ -402,10 +402,10 @@ TestName = "2.Проверка редактирования данных и по
             autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
             //3
             PortalPage.gotoMenuEmployees();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.setFioSnilsFilter(userName);//заполняем фильтр
             EmployeePage.editEmployeesOfTable(userName);//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
 
         }
 
@@ -416,7 +416,7 @@ TestName = "2.Проверка редактирования данных и по
             Console.WriteLine(DateTime.Now);
             PageHelper.setBrowser(browser);
             //
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
 
             //1
             NewEmployeePage.gotoRolePanel();
@@ -446,7 +446,7 @@ TestName = "2.Проверка редактирования данных и по
             NewEmployeePage.save();
             Assert.True(NewEmployeePage.isMessageGrowleOk(message), message);
             PortalPage.gotoMenuEmployees();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.getEmployeesTable(userName.Replace(" ", suff + " "));//проверяем есть ли новый и3мененный пользователь
 
         }
@@ -459,10 +459,10 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.setFioSnilsFilter(userName.Replace(" ", suff + " "));//заполняем фильтр
             EmployeePage.editEmployeesOfTable(userName.Replace(" ", suff + " "));//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             //
             NewEmployeePage.setFirstName("AbC_12$");
             NewEmployeePage.setLastName("AbC_12$");
@@ -475,13 +475,13 @@ TestName = "2.Проверка редактирования данных и по
             Assert.False(NewEmployeePage.isMessageGrowleOk(message1), message2);
 
             NewEmployeePage.cancel();
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
 
             EmployeePage.getEmployeesTable(userName.Replace(" ", suff + " "));//проверяем есть ли HEищмененный пользователь
 
         }
 
-        [TestCase("Еленова Елена Еленовна", "01", "сбербанк России ОАО", "Рога и копыта", "Используются недопустимые символы", "Заполнены не все обязательные поля",
+        [TestCase("Еленова Елена Еленовна", "01", "ОАО \"НК \"Роснефть\"", "Рога и копыта", "Используются недопустимые символы", "Заполнены не все обязательные поля",
         TestName = "16.Проверка редактирования организации представителя эмитента, 57004")]
         public void Test57004(string userName, string suff, string orgNameTrue, string orgNameFalse, string message1, string message2)
         {
@@ -489,26 +489,26 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.setFioSnilsFilter(userName.Replace(" ", suff + " "));//заполняем фильтр
             EmployeePage.editEmployeesOfTable(userName.Replace(" ", suff + " "));//нажим РЕдактировать нужного польз
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             //
 
             NewEmployeePage.setOrganization(orgNameTrue);
-            Assert.True(NewEmployeePage.isOrganizationPanelAppear());
-            NewEmployeePage.selectItemOfOrganizationPanel(orgNameTrue);
+            
+            
 
             NewEmployeePage.save();
             Assert.False(NewEmployeePage.isMessageGrowleOk(message1), message1);
 
             //2
             NewEmployeePage.setOrganization(orgNameFalse);
-            Assert.False(NewEmployeePage.isOrganizationPanelAppear());
+            //
         }
 
 
-        [TestCase("Еленова Елена Еленовна", "01", "сбербанк России ОАО",
+        [TestCase("Еленова Елена Еленовна", "01", "ОАО \"НК \"Роснефть\"",
             TestName = "17.Проверка редактирования полномочий выбранной роли представителя эмитента, 57007")]
         [Ignore("57014 - непонятен ТЕстКейс")]
         public void Test57007(string userName, string suff, string orgNameTrue)
@@ -517,7 +517,7 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.gotoRolePanel();
             Assert.True(NewEmployeePage.isRolePanel());
             NewEmployeePage.clickAvailRoleListToogle();//нажимаем полномочия
@@ -536,7 +536,7 @@ TestName = "2.Проверка редактирования данных и по
             PageHelper.setBrowser(browser);
 
             //1
-            Assert.True(NewEmployeePage.isTruePage());
+            Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.setFirstName(NewEmployeePage.getFirstName() + suff);
             NewEmployeePage.setLastName(NewEmployeePage.getLastName() + suff);
             NewEmployeePage.setOtherName(NewEmployeePage.getOtherName() + suff);
@@ -544,7 +544,7 @@ TestName = "2.Проверка редактирования данных и по
 
             NewEmployeePage.cancel();
 
-            Assert.True(EmployeePage.isTruePage());
+            Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
             EmployeePage.getEmployeesTable(userName);//проверяем есть ли старый не измененный пользователь
 
         }

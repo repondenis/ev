@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using NUnit.Framework;
 using HP.LFT.Report;
 using HP.LFT.UnitTesting;
@@ -8,6 +7,7 @@ using HP.LFT.SDK.Web;
 using EVotingProject.Pages;
 using EVotingProject.Helpers;
 using EVotingProject.Models;
+using HP.LFT.Report;
 
 namespace EVotingProject
 {
@@ -36,25 +36,35 @@ namespace EVotingProject
         /// <param name="password"></param>
         public static void autorizeFromEVoting(string url, string loginParam, string menuParam, string login, string password)
         {
-            Console.WriteLine(DateTime.Now + " autorizeFromEVoting().");
 
-            PortalPage.logout();
-            browser.Navigate(urlDemo);
-            Assert.True(LoginPage.isTruePage());
+            try
+            {
+                //Console.WriteLine(DateTime.Now + " autorizeFromEVoting().");
+              //  if (PublicPage.isTruePage())
+              //      PublicPage.gotoPortalPage();
 
-            //если надо залогиниться под админом
-            if (url.Equals(urlDemoAdmin))
-                browser.Navigate(urlDemoAdmin);
-            else
-                LoginPage.caseMenuParam(menuParam);
+                PortalPage.logout();
+                browser.Navigate(urlDemo);
+                Assert.True(LoginPage.isTruePage());
 
-            LoginPage.caseLoginParam(loginParam);
-            Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
+                //если надо залогиниться под админом
+                if (url.Equals(urlDemoAdmin))
+                    browser.Navigate(urlDemoAdmin);
+                else
+                    LoginPage.caseMenuParam(menuParam);
 
-            LoginLocalPage.runLogin(login, password);
-            Assert.True(PublicPage.isTruePage(), "должна быть общая страница голосований");
-            PublicPage.gotoPortalPage();
-            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+                LoginPage.caseLoginParam(loginParam);
+                Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
+
+                LoginLocalPage.runLogin(login, password);
+                Assert.True(PublicPage.isTruePage(), "должна быть общая страница голосований");
+                PublicPage.gotoPortalPage();
+                Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+            }
+            catch (AssertionException)
+            {
+
+            }
         }
 
 

@@ -35,10 +35,6 @@ namespace EVotingProject.Pages
             Console.WriteLine("table.Exists=" + table.Exists() + " " + table.Rows.Count + " " + table.Rows[0].Cells.Count);
             Console.WriteLine("FindRowWithCellText = " + table.Rows[1].Cells[1].Text);
 
-            // Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).ToString());
-            //            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[1].Text.ToString());
-
-            //            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
             var itable = table.FindRowWithCellText(@str);
             if (itable != null)
             {

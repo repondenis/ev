@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HP.LFT.SDK.Web;
-using HP.LFT.SDK;
-using HP.LFT.SDK.StdWin;
+﻿using HP.LFT.SDK.Web;
 
 
 namespace EVotingProject.Pages
 {
     class NewOrganizationPage : Helpers.PageHelper
     {
-        private static CSSDescription orgProfileTitle = new CSSDescription("div#org-profile>label.main-header-page");//"Сбербанк России ОАО"
+        private static CSSDescription orgProfileTitle = new CSSDescription("div#org-profile>label.main-header-page");//"ОАО \"НК \"Роснефть\""
 
         //MENU
         private static XPathDescription menuMeeting = new XPathDescription(".//a[text()='Собрания']");
@@ -103,10 +96,13 @@ namespace EVotingProject.Pages
 
         public static void selectLogoFileOfDialog(string filePathHeader)
         {
-
-
             if (System.IO.File.Exists(filePathHeader))
             {
+                Helpers.WindowsHelper.setFilePath2WinDialog(browser.Version.Type, filePathHeader);
+
+                #region
+                /*
+
                 Console.WriteLine(browser.Version.Type);
                 string[] css = { "#uploaderListLogo", "#uploaderListLogo>div",
                     "#uploaderListLogo span.ui-button-text", "#uploaderListLogo>div>div.ui-fileupload-buttonbar",
@@ -137,7 +133,7 @@ namespace EVotingProject.Pages
          /*       Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + css[6] + "').getAttribute('aria-labelledby'); "));
                 browser.Page.RunJavaScript("document.querySelector('" + css[6] + "').removeAttribute('aria-labelledby'); ");
                 Console.WriteLine("aria-labelledby=" + browser.Page.RunJavaScript("document.querySelector('" + css[6] + "').getAttribute('aria-labelledby'); "));
-        */
+        /
 
                 var loadLogoHeaderBt = browser.Describe<IFileField>(new CSSDescription(
                     "#uploaderListLogo input[type=file]"));
@@ -151,7 +147,7 @@ namespace EVotingProject.Pages
                                 var elDivNone = browser.Describe<IWebElement>(divNone);
                                 Console.WriteLine("Descr = " + elDivNone.GetAttribute("style") + "; "
                                     + elDivNone.GetDescription() + "; ");
-                */
+                /
 
                 //string query = "var but = document.querySelector('div#uploaderListLogo');var align = but.getAttribute('style');alert(align); ";
                 //string query = @"alert(document.querySelectorAll('div#uploaderListLogo').getAttribute('style'));";
@@ -165,7 +161,8 @@ namespace EVotingProject.Pages
                 //loadLogoHeaderBt2.SetDescription(ISupportSendKeys)
                 // loadLogoHeaderBt.Click(MouseButton.Left);
                 // loadLogoHeaderBt.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
-
+*/
+                #endregion
 
             }
         }
@@ -191,7 +188,7 @@ namespace EVotingProject.Pages
 
         public static bool isSaveExist()
         {
-            return browser.Describe<HP.LFT.SDK.Web.IButton>(saveB).Exists() && browser.Describe<HP.LFT.SDK.Web.IButton>(saveB).IsEnabled;
+            return browser.Describe<IButton>(saveB).Exists() && browser.Describe<IButton>(saveB).IsEnabled;
         }
 
         public static void gotoMenuMeeting()
@@ -220,8 +217,15 @@ namespace EVotingProject.Pages
             browser.Describe<HP.LFT.SDK.Web.IButton>(loadLogo).Click();
         }
 
+        /// <summary>
+        /// загрузить логотип шапки
+        /// </summary>
         public static void clickLoadLogoHeader()
         {
+            var loadLogoHeaderBt = browser.Describe<ILink>(loadLogoHeader);
+            Helpers.PageHelper.click2Object(loadLogoHeaderBt);
+
+            #region
             // browser.getPage().runJavaScript("window.scrollTo(120,100);");
             // browser.Page.RunJavaScript("window.scrollTo(120,1000);");
 
@@ -319,11 +323,16 @@ namespace EVotingProject.Pages
             Console.WriteLine("(loadLogoHeaderBt4).Exists=" + loadLogoHeaderBt4.Exists());
             loadLogoHeaderBt4.Click();
             */
+            #endregion
         }
 
+        /// <summary>
+        /// ЗАГРУЗИТЬ ЛОГОТИП СПИСКА
+        /// </summary>
         public static void clickLoadLogoList()
         {
-            browser.Describe<ILink>(loadLogoList).Click();
+            var loadLogoListBt = browser.Describe<ILink>(loadLogoList);
+            Helpers.PageHelper.click2Object(loadLogoListBt);
         }
 
         public static void setColorHeader(string color)

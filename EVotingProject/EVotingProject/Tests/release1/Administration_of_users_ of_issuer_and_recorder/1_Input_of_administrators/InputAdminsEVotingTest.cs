@@ -1,7 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
 using HP.LFT.SDK;
-using HP.LFT.Verifications;
 using HP.LFT.SDK.Web;
 using EVotingProject.Pages;
 using EVotingProject.Models;
@@ -45,14 +44,14 @@ namespace EVotingProject.Tests
                 autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
                 PortalPage.gotoMenuEmployees();
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
 
             }
             catch (Exception e)
             {
-                Reporter.ReportEvent(GetTestName(), "Failed during validation", Status.Failed, e);
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
                 throw;
             }
         }
@@ -66,7 +65,7 @@ namespace EVotingProject.Tests
 
                 PageHelper.setBrowser(browser);
 
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -79,7 +78,7 @@ namespace EVotingProject.Tests
                 NewEmployeePage.save();
                 Assert.True(NewEmployeePage.isBlockExist());
                 NewEmployeePage.gotoMenuEmployees();
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
 
                 //проверяем есть ли текущий пользователь в табл пользователей
                 EmployeePage.getEmployeesTable("Имя Фамилия Отчество");
@@ -87,7 +86,7 @@ namespace EVotingProject.Tests
             }
             catch (Exception e)
             {
-                Reporter.ReportEvent(GetTestName(), "Failed during validation", Status.Failed, e);
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
                 throw;
             }
         }
@@ -101,9 +100,9 @@ namespace EVotingProject.Tests
 
                 PageHelper.setBrowser(browser);
 
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Орлов");
                 NewEmployeePage.setFirstName("Сергей");
                 NewEmployeePage.setOtherName("Сергеевич");
@@ -111,7 +110,7 @@ namespace EVotingProject.Tests
                 NewEmployeePage.save();
                 Assert.True(NewEmployeePage.isMessageGrowleOk("Сохраненеи успешно прошло"));
                 NewEmployeePage.gotoMenuEmployees();
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
 
                 //проверяем есть ли текущий пользователь в табл пользователей
                 EmployeePage.getEmployeesTable("Орлов Сергей Сергеевич");
@@ -119,7 +118,7 @@ namespace EVotingProject.Tests
             }
             catch (Exception e)
             {
-                Reporter.ReportEvent(GetTestName(), "Failed during validation", Status.Failed, e);
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
                 throw;
             }
         }
@@ -134,9 +133,9 @@ namespace EVotingProject.Tests
 
                 PageHelper.setBrowser(browser);
 
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Орлов");
                 NewEmployeePage.setFirstName("Сергей");
                 NewEmployeePage.setOtherName("Сергеевич");
@@ -144,7 +143,7 @@ namespace EVotingProject.Tests
                 NewEmployeePage.save();
                 Assert.True(NewEmployeePage.isMessageGrowleOk("Сохраненеи успешно прошло"));
                 NewEmployeePage.gotoMenuEmployees();
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
 
                 //проверяем есть ли текущий пользователь в табл пользователей
                 EmployeePage.getEmployeesTable("Орлов Сергей Сергеевич");
@@ -152,7 +151,7 @@ namespace EVotingProject.Tests
             }
             catch (Exception e)
             {
-                Reporter.ReportEvent(GetTestName(), "Failed during validation", Status.Failed, e);
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
                 throw;
             }
         }
@@ -167,17 +166,17 @@ namespace EVotingProject.Tests
                 PageHelper.setBrowser(browser);
 
                 //step1 - не указываем данные в обязат полях
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.save();
                 Assert.False(NewEmployeePage.isMessageGrowleOk(), "должна вылетель ошибка");
                 NewEmployeePage.cancel();
 
                 //step2 - заполн соотв поля не в соотв с Паттернами, login&snils is null
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Orlov6");
                 NewEmployeePage.setFirstName("Сер гей 123");
                 NewEmployeePage.setOtherName("123456");
@@ -186,9 +185,9 @@ namespace EVotingProject.Tests
                 NewEmployeePage.cancel();
 
                 //step3 - заполн соотв поля не в соотв с Паттернами, login&snils is not null
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Orlov6");
                 NewEmployeePage.setFirstName("Сер гей 123");
                 NewEmployeePage.setOtherName("123456");
@@ -199,9 +198,9 @@ namespace EVotingProject.Tests
                 NewEmployeePage.cancel();
 
                 //step3 - заполн соотв поля в соотв с Паттернами, login<6 symbols
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -213,7 +212,7 @@ namespace EVotingProject.Tests
             }
             catch (Exception e)
             {
-                Reporter.ReportEvent(GetTestName(), "Failed during validation", Status.Failed, e);
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
                 throw;
             }
         }
@@ -228,11 +227,11 @@ namespace EVotingProject.Tests
                 PageHelper.setBrowser(browser);
 
                 //step-1
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.getEmployeesTable("Имя" + " " + "Фамилия" + " " + "Отчество");//проверяем есть ли текущий пользователь в табл пользователей
 
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -243,14 +242,14 @@ namespace EVotingProject.Tests
                
                 //step-2
                 NewEmployeePage.cancel();
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
 
                 //step-3 - вводим дубл данные, логин - пропускаем 
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.getEmployeesTable("Имя" + " " + "Фамилия" + " " + "Отчество");//проверяем есть ли текущий пользователь в табл пользователей
 
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -261,11 +260,11 @@ namespace EVotingProject.Tests
                 //step-4 - ???
 
                 //step-5 - вводим дубл данные, снилс - пропускаем 
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.getEmployeesTable("Имя" + " " + "Фамилия" + " " + "Отчество");//проверяем есть ли текущий пользователь в табл пользователей
 
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Имя");
                 NewEmployeePage.setFirstName("Фамилия");
                 NewEmployeePage.setOtherName("Отчество");
@@ -276,12 +275,12 @@ namespace EVotingProject.Tests
 
                 //step-6
                 NewEmployeePage.cancel();
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
 
             }
             catch (Exception e)
             {
-                Reporter.ReportEvent(GetTestName(), "Failed during validation", Status.Failed, e);
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
                 throw;
             }
         }
@@ -296,16 +295,16 @@ namespace EVotingProject.Tests
 
                 PageHelper.setBrowser(browser);
 
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
                 EmployeePage.addNewAdminEVoting();
-                Assert.True(NewEmployeePage.isTruePage());
+                Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
                 NewEmployeePage.setLastName("Имя2");
                 NewEmployeePage.setFirstName("Фамилия2");
                 NewEmployeePage.setOtherName("Отчество2");
                 NewEmployeePage.setLogin("fio666");
                 NewEmployeePage.setSnils("66645678910");
                 NewEmployeePage.cancel();
-                Assert.True(EmployeePage.isTruePage());
+                Assert.True(EmployeePage.isTruePage(),"должна быть страница Пользователей");
 
                 //проверяем НЕТ ли текущий пользователь в табл пользователей
                 EmployeePage.getEmployeesTable("Имя2 Фамилия2 Отчество2");
@@ -313,7 +312,7 @@ namespace EVotingProject.Tests
             }
             catch (Exception e)
             {
-                Reporter.ReportEvent(GetTestName(), "Failed during validation", Status.Failed, e);
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
                 throw;
             }
         }

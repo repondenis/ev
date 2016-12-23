@@ -71,30 +71,6 @@ namespace EVotingProject.Pages
                             return true;
                 }
             return false;
-
-
-
-
-            /* 
-            Console.WriteLine(rows.Length + rows[0].InnerText);
-            Console.WriteLine(rows.Length + rows[1].InnerText);
-            Console.WriteLine(rows.Length + rows[3].InnerText);
-
-
-
-            var row = table.FindRowWithCellText(str);
-            Console.WriteLine(row.Cells[3].Text);
-            return (row != null && row.Cells[3].Text.Contains("Не создано"));
-             * 
-             * 
-             * throw new NotImplementedException();
-            if (row != null)
-            {
-                //return row.Cells[0].FindChildren<ILink>().Exists();
-                return true;
-            }
-            else return false;
-                */
         }
 
         public static void clickContractsOfTable(string str)
@@ -106,6 +82,7 @@ namespace EVotingProject.Pages
                 row.Cells[0].FindChildren<ILink>().Click();
             // Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
         }
+
 
         /// <summary>
         /// не работает поле фильтра 07-11-2016 

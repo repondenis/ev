@@ -6,29 +6,37 @@ using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
 using EVotingProject.Helpers;
 using EVotingProject.Models;
+using System.Threading;
 
 namespace EVotingProject.Pages
 {
     class NewEmployeePage : PortalPage//PageHelper
     {
-        private static XPathDescription divEmployeeAddInfoTitle = new XPathDescription(".//form[@id='form']/div/div/label");//"Добавление пользователя"
+        private static CSSDescription divEmployeeAddInfoTitle = new CSSDescription("div#employee-setting label.main-header-page");//28112016(".//form[@id='form']/div/div/label");//"Добавление пользователя"
 
         private static CSSDescription menuInfo = new CSSDescription("div[id='form:tabView']>ul>li:nth-child(1)>a");//ДАННЫЕ
         private static CSSDescription menuRole = new CSSDescription("div[id='form:tabView']>ul>li:nth-child(2)>a");//ROLE
 
         //ДАННЫЕ
-        private static CSSDescription organizationInput = new CSSDescription("input[id='form:tabView:organization_input']");
+        private static CSSDescription organizationInput_ = new CSSDescription("input[id='form:tabView:organization_input']");
         private static CSSDescription lastName = new CSSDescription("input[id='form:tabView:lastName']");
         private static CSSDescription firstName = new CSSDescription("input[id='form:tabView:firstName']");
         private static CSSDescription phone = new CSSDescription("input[id='form:tabView:phone']");
+        //ПОИСК ОРГ
+        private static XPathDescription orgSearchButtonEdit = new XPathDescription(".//button[span[text()='Изменить']]");
+        private static CSSDescription orgSearchInput = new CSSDescription("input[id='form:tabView:orgSearchInput']");
+        private static XPathDescription orgSearchButton = new XPathDescription(".//button[span[text()='найти']]");
+        private static CSSDescription orgSearchTable = new CSSDescription("table[role='grid']");
+
+
 
         private static CSSDescription organizationPanel = new CSSDescription("div[id='form:tabView:organization_panel']>ul");
 
 
-        private static CSSDescription otherName = new CSSDescription("div#employee-data-custom>div:nth-child(4) input");
-        private static CSSDescription login = new CSSDescription("div#employee-data-custom>div:nth-child(6) input");
-        private static CSSDescription snils = new CSSDescription("div#employee-data-custom>div:nth-child(7) input");
-        private static CSSDescription mail = new CSSDescription("div#employee-data-custom>div:nth-child(8) input");
+        private static CSSDescription otherName = new CSSDescription("input[id='form:tabView:middleName']");
+        private static CSSDescription login = new CSSDescription("div#employee-data-custom>div.ui-g>div:nth-child(2)>div:nth-child(1) input");//28112016//("div#employee-data-custom>div:nth-child(6) input");
+        private static CSSDescription snils = new CSSDescription("div#employee-data-custom>div.ui-g>div:nth-child(2)>div:nth-child(2) input");
+        private static CSSDescription mail = new CSSDescription("input[id='form:tabView:email']");
         //ЕНД ДАННЫЕ
 
 
@@ -62,7 +70,9 @@ namespace EVotingProject.Pages
 
 
         private static XPathDescription saveB = new XPathDescription(".//button[span[text()='Сохранить']]");
+        private static XPathDescription addB = new XPathDescription(".//button[span[text()='Добавить']]");
         private static XPathDescription cancelB = new XPathDescription(".//button[span[text()='Отменить']]");
+
 
         private static XPathDescription unblockB = new XPathDescription(".//button[span[text()='Разблокировать']]");
         private static XPathDescription blockB = new XPathDescription(".//button[span[text()='Заблокировать']]");
@@ -75,7 +85,8 @@ namespace EVotingProject.Pages
         {
             browser.Sync();
             return browser.Describe<IWebElement>(divEmployeeAddInfoTitle).Exists() &&
-                (browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Equals("Добавление пользователя") | browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Contains("Редактирование пользователя"));
+                (browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Equals("Добавление пользователя") |
+                browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Contains("Редактирование пользователя"));
         }
 
 
@@ -116,12 +127,95 @@ namespace EVotingProject.Pages
             }
         }
 
+        public static bool isOrgSearchInputExist()
+        {
+            return browser.Describe<IEditField>(orgSearchInput).Exists();
+        }
+
+        /// <summary>
+        /// выбрать организацию
+        /// </summary>
+        /// <param name="v"></param>
         public static void setOrganization(string v)
         {
-            var orgInput = browser.Describe<IEditField>(organizationInput);
-            orgInput.SetValue(v);
-            orgInput.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
+            var editButton = browser.Describe<IButton>(orgSearchButtonEdit);
+            editButton.Click();
+
+            if (isOrgSearchInputExist())
+            {
+                var orgInput = browser.Describe<IEditField>(orgSearchInput);
+                orgInput.SetValue(v);
+                orgInput.FireEvent(EventInfoFactory.CreateEventInfo("onkeydown"));
+
+                var searchButton = browser.Describe<IButton>(orgSearchButton);
+                if (searchButton.Exists() && searchButton.IsVisible)
+                {
+
+                    searchButton.Click();
+                    //browser.Sync();
+                    Thread.Sleep(1000);
+                    //Console.WriteLine("нажали searchButton");
+                    selectOrgOfTable(v);
+                }
+
+
+            }
+
         }
+
+        /// <summary>
+        /// выбрать организацию в таблице из списка
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static void selectOrgOfTable(string v)
+        {
+            //Console.WriteLine("поиск орг -" + v);
+            var table = browser.Describe<IWebElement>(orgSearchTable);
+
+            var rows = table.FindChildren<IWebElement>(new CSSDescription("tr"));
+            if (rows != null && rows.Length > 1)
+                for (int i = 0; i < rows.Length; i++)
+                {
+                    var columns = rows[i].FindChildren<IWebElement>(new CSSDescription("td"));
+                    if (columns != null && columns.Length > 1)
+                    {
+                        // Console.WriteLine(columns[0].InnerText + " " + columns[4].InnerText);
+
+                        if (columns[0].InnerText.Contains(@v))
+                        {
+                            //Console.WriteLine("содержит");
+                            var select = columns[4].FindChildren<ILink>(new CSSDescription("a"));
+                            if (select.Length > 0)
+                                select[0].Click();
+                        }
+                    }
+                }
+        }
+
+
+
+
+        /*
+        /// <summary>
+        /// нажать "Выбрать" в списке организаций
+        /// </summary>
+        /// <param name="orgName"></param>
+        public static void selectOrgOfTable_old(string v)
+        {
+            //Console.WriteLine("поиск орг -" + v);
+            var table = browser.Describe<ITable>(orgSearchTable);
+            var row = table.FindRowWithCellText(v);
+            if (row != null)
+            {
+                row.Cells[4].FindChildren<ILink>().Click();
+                Console.WriteLine("нажали -Выбрать");
+            }
+            //else Console.WriteLine("HE нажали -Выбрать");
+
+
+        }
+        */
 
         public static void setFirstName(string v)
         {
@@ -160,12 +254,28 @@ namespace EVotingProject.Pages
 
         public static void save()
         {
-            browser.Describe<IButton>(saveB).Click();
+            if (isTrueTitle("Редактирование пользователя"))
+                browser.Describe<IButton>(saveB).Click();
+            else
+                 if (isTrueTitle("Добавление пользователя"))
+                browser.Describe<IButton>(addB).Click();
+
         }
 
         public static void cancel()
         {
             browser.Describe<IButton>(cancelB).Click();
+        }
+
+        /// <summary>
+        /// "Добавление пользователя"
+        /// "Редактирование пользователя"
+        /// </summary>
+        /// <param name="v"></param>
+        public static bool isTrueTitle(string v)
+        {
+            return browser.Describe<IWebElement>(divEmployeeAddInfoTitle).Exists() &&
+                    browser.Describe<IWebElement>(divEmployeeAddInfoTitle).InnerText.Equals(v);
         }
 
         public static bool isUnblockExist()
@@ -206,7 +316,7 @@ namespace EVotingProject.Pages
 
         public static bool isInfoPanel()
         {
-            return browser.Describe<IWebElement>(organizationInput).Exists();
+            return browser.Describe<IWebElement>(lastName).Exists() && browser.Describe<IWebElement>(lastName).IsVisible;
         }
 
         public static bool isRolePanel()
