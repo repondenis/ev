@@ -18,22 +18,22 @@ namespace EVotingProject
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
-
-            //ReportConfiguration r = new ReportConfiguration();
-            //r.IsOverrideExisting = true;
-            //r.Title = "E-Voting reports";
-            //Reporter.Init(r);
+            var r = new HP.LFT.Report.ReportConfiguration();
+            r.IsOverrideExisting = false;
+            r.Title = "My LeanFT Report";
+            Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
-            //        browser.ClearCache();
-            //        browser.DeleteCookies();
+
+            browser.ClearCache();
+            browser.DeleteCookies();
             PageHelper.setBrowser(browser);
         }
 
         [SetUp]
         public void SetUp()
         {
-            // Before each test
+
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
@@ -55,7 +55,7 @@ namespace EVotingProject
         [TearDown]
         public void TearDown()
         {
-            // Clean up after each test
+            
         }
 
         [OneTimeTearDown]

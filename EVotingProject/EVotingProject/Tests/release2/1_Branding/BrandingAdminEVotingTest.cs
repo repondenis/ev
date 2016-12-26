@@ -17,38 +17,22 @@ namespace EVotingProject
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
-
-            //ReportConfiguration r = new ReportConfiguration();
-            //r.IsOverrideExisting = false;
-            //r.Title = "My LeanFT Report 1";
-            //Reporter.Init(r);
+            var r = new HP.LFT.Report.ReportConfiguration();
+            r.IsOverrideExisting = false;
+            r.Title = "My LeanFT Report";
+            Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
 
-
-            /*
-                               ChromeOptions CO = new ChromeOptions();
-                               CO.AddExtension(@"C:\Program Files (x86)\HP\LeanFT\Installations\Chrome\Agent.crx");
-                               IWebDriver chromeDriver = new ChromeDriver(CO);
-                               browser = BrowserFactory.Attach(new BrowserDescription
-                               {
-                                   Type = BrowserType.Chrome
-                              });
-
-                        chromeDriver.Navigate().GoToUrl(urlDemo);
-            */
-
-
-            // browser.ClearCache();
-            // browser.DeleteCookies();
+            browser.ClearCache();
+            browser.DeleteCookies();
             PageHelper.setBrowser(browser);
-
         }
 
         [SetUp]
         public void SetUp()
         {
-            // Before each test
+
         }
 
 
@@ -117,7 +101,7 @@ namespace EVotingProject
             NewOrganizationPage.selectLogoFileOfDialog(filePathHeader);
 
 
-            Assert.True(NewOrganizationPage.isSaveExist());
+            Assert.True(NewOrganizationPage.isSaveExist(),"должна быть кнопка Сохранить");
             NewOrganizationPage.save();
 
         }
@@ -141,7 +125,7 @@ namespace EVotingProject
             // NewOrganizationPage.clickCancelOfOpenFileDialog();
 
 
-            Assert.True(NewOrganizationPage.isSaveExist());
+            Assert.True(NewOrganizationPage.isSaveExist(),"должна быть кнопка Сохранить");
             NewOrganizationPage.save();
 
         }
@@ -149,7 +133,7 @@ namespace EVotingProject
         [TearDown]
         public void TearDown()
         {
-            // Clean up after each test
+            
         }
 
         [OneTimeTearDown]

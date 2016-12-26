@@ -21,18 +21,13 @@ namespace EVotingProject.Pages
         private static XPathDescription adminAdd = new XPathDescription(
     ".//button[span[text()='Добавить администратора e-voting']]");
 
-        private static CSSDescription fioSnilsFilter = new CSSDescription(
-            "div#employee-block>div>div:nth-child(2)>div:nth-child(2) input");
-        private static CSSDescription role = new CSSDescription(
-            "div#employee-block>div>div:nth-child(2)>div:nth-child(4) input");//("div#employee-block>div>div:nth-child(2) span>input[placeholder='Все роли']");
-        private static CSSDescription roleToggle = new CSSDescription(
-            "div#employee-block>div>div:nth-child(2)>div:nth-child(4) button");
-        private static CSSDescription active = new CSSDescription(
-            "div#employee-block>div>div:nth-child(2)>div:nth-child(6) input");//("div#employee-block>div>div:nth-child(2) span>input[placeholder='Не важно']");
-        private static CSSDescription activeToggle = new CSSDescription(
-            "div#employee-block>div>div:nth-child(2)>div:nth-child(6) button");
+        private static CSSDescription fioSnilsFilter = new CSSDescription("div#employee-block>div>div>div>div>input.ui-inputfield");//28112016("div#employee-block>div>div:nth-child(2)>div:nth-child(2) input");
+        private static CSSDescription role = new CSSDescription("div#employee-block>div>div.vertical-align-flex>div:nth-child(3) label");//("div#employee-block>div>div:nth-child(2)>div:nth-child(4) input");//("div#employee-block>div>div:nth-child(2) span>input[placeholder='Все роли']");
+        private static CSSDescription roleToggle = new CSSDescription("div#employee-block>div>div.vertical-align-flex>div:nth-child(3) span");//("div#employee-block>div>div:nth-child(2)>div:nth-child(4) button");
+        private static CSSDescription active = new CSSDescription("div#employee-block>div>div.vertical-align-flex>div:nth-child(5) label");//("div#employee-block>div>div:nth-child(2)>div:nth-child(6) input");//("div#employee-block>div>div:nth-child(2) span>input[placeholder='Не важно']");
+        private static CSSDescription activeToggle = new CSSDescription("div#employee-block>div>div.vertical-align-flex>div:nth-child(5) span");//("div#employee-block>div>div:nth-child(2)>div:nth-child(6) button");
 
-        private static CSSDescription employeesDateTabl = new CSSDescription("table.table-condensed");//("tbody[id='personForm:employeeTable_data']");
+        private static CSSDescription employeesDateTabl = new CSSDescription("div[id='personForm:employeeTable'] table.table-condensed");//("tbody[id='personForm:employeeTable_data']");
         //private static CSSDescription employeesDateTabl2 = new CSSDescription("thead[id='personForm:employeeTable_head']");//("tbody[id='personForm:employeeTable_data']");
 
 
@@ -72,25 +67,18 @@ namespace EVotingProject.Pages
                 browser.Describe<IWebElement>(divEmployeeTitle).InnerText.Equals("пользователи");
         }
 
-        public static void getEmployeesTable(string str)
+        /// <summary>
+        /// поиск пользователя в табл
+        /// </summary>
+        /// <param name="str"></param>
+        public static bool getEmployeesTable(string v)
         {
+            Console.WriteLine("searh of " + v);
 
-
-            Console.WriteLine("searh of " + str);
-
-
-            setFioSnilsFilter(str);
-
+            setFioSnilsFilter(v);
 
             var table = browser.Describe<ITable>(employeesDateTabl);
-            isItemExistOfTable(str, table, 0);
-
-            //  Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
-            //  Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
-            //  Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
-
-            //table.FindRowWithCellText(str).Cells[0].FindChildren<ILink>().Click();
-
+            return isItemExistOfTable(v, table, 0);
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
 using EVotingProject.Models;
 using EVotingProject.Helpers;
+using HP.LFT.SDK;
 
 namespace EVotingProject.Pages
 {
@@ -82,6 +83,9 @@ namespace EVotingProject.Pages
         private static CSSDescription meetingId = new CSSDescription("input[id='tabView:mainForm:meetingId']");//Идентификатор собрания
         private static CSSDescription formTypeLabel = new CSSDescription("label[id='tabView:mainForm:formType_label']");//Форма проведения общего собрания
         private static CSSDescription meetingStartInput = new CSSDescription("input[id='tabView:mainForm:meetingStart_input']");//Дата и время проведения собрания
+
+
+
         private static CSSDescription meetingCountryInput = new CSSDescription("input[id='tabView:mainForm:meetingCountry_input']");//Страна проведения собрания
         private static CSSDescription meetingAddress = new CSSDescription("input[id='tabView:mainForm:meetingAddress']");//Адрес проведения собрания
         private static CSSDescription voteMktDdlnInput = new CSSDescription("input[id='tabView:mainForm:voteMktDdln_input']");//Дата окончания приема бюллетеней
@@ -104,30 +108,37 @@ namespace EVotingProject.Pages
 
         //МАТЕРИАЛЫ
         private static CSSDescription divMaterial = new CSSDescription("div#material-page");
+        private static CSSDescription divMaterialTitle = new CSSDescription("div#material-page label.main-header-page");
+
         private static XPathDescription addFileMat = new XPathDescription(".//button[span[text()='прикрепить']]");
         private static XPathDescription addFileMatLink = new XPathDescription(".//a[span[text()='Ссылку']]");
         private static XPathDescription addFileMatFile = new XPathDescription(".//a[span[text()='Файл']]");
         //МАТЕРИАЛЫ - форма прикрепления файла
         private static CSSDescription addFileMatFileDiv = new CSSDescription("div[id='tabView:materialUpload']");
         private static CSSDescription addFileMatFileDivTitle = new CSSDescription("span[id='tabView:materialUpload_title']");//"прикрепить файл"
-        private static CSSDescription addFileMatFileDivButton = new CSSDescription("input[id='tabView:materialUploadForm:materialUploader_input']");//загрузить файл
-        private static CSSDescription addFileMatFileDivFileName = new CSSDescription("span[id='tabView:materialUploadForm:fileName']");//после загрузки - имя файла
+        private static CSSDescription addFileMatFileDivButton = new CSSDescription("div[id='tabView:materialUploadForm:materialUploader']");//загрузить файл
+        //private static CSSDescription addFileMatFileDivFileName = new CSSDescription("span[id='tabView:materialUploadForm:fileName']");//после загрузки - имя файла
+        private static CSSDescription addFileMatFileDivFileName = new CSSDescription("span[id='tabView:materialUploadForm:nameRu']");//после загрузки - имя файла
         private static CSSDescription addFileMatFileDivMaterial = new CSSDescription("div[id='tabView:materialUploadForm:uploadType'] label");//material
         private static CSSDescription addFileMatFileDivMaterialToggle = new CSSDescription("div[id='tabView:materialUploadForm:uploadType'] div>span");
         private static CSSDescription addFileMatFileDivMaterialSelect = new CSSDescription("ul[id='tabView:materialUploadForm:uploadType_items']");//список выбор MaterialSelect
-        private static XPathDescription addFileMatFileDivMaterialAdd = new XPathDescription(".//button[span[text()='Прикрепить']]");
-        private static XPathDescription addFileMatFileDivMaterialCancel = new XPathDescription(".//button[span[text()='Отмена']]");
+        private static CSSDescription addFileMatFileDivMaterialLang = new CSSDescription("label[id='tabView:materialUploadForm:multilanguage-material_label']");//список выбор MaterialSelect
+        private static CSSDescription addFileMatFileDivMaterialLangSelect = new CSSDescription("ul[id='tabView:materialUploadForm:multilanguage-material_items");//список выбор MaterialLangSelect
+
+        private static XPathDescription addFileMatFileDivMaterialAdd = new XPathDescription(".//div[@id='add-file-material-page']  //button[span[text()='Прикрепить']]");
+        private static XPathDescription addFileMatFileDivMaterialCancel = new XPathDescription(".//div[@id='add-file-material-page']  //button[span[text()='Отмена']]");
         //end МАТЕРИАЛЫ - форма прикрепления файла
 
         //прикрепленные файлы
-        private static CSSDescription materialTableDataFiles = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr");//кол-во прикрепл материалов
-        private static CSSDescription materialTableDataFile = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)");//1 элемент из прикрепл файлов
+        private static CSSDescription materialTableDataFiles = new CSSDescription("div[id='tabView:materialForm:materialTable'] table");//прикрепл материал
+                                                                                                                                        //private static CSSDescription materialTableDataFiles = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr");//кол-во прикрепл материалов
+                                                                                                                                        //private static CSSDescription materialTableDataFile = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)");//1 элемент из прикрепл файлов
 
-        private static CSSDescription materialTableDataFileFileName = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(1)>a");//1 элемент -назван файла-ссылка
-        private static CSSDescription materialTableDataFileFileType = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(2)");//1 элемент -тип файла
-        private static CSSDescription materialTableDataFileMaterialType = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(3)");//1 элемент из прикрепл файлов
-        private static CSSDescription materialTableDataFileLang = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(4)");//1 элемент -language
-        private static CSSDescription materialTableDataFileDelete = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(5)>a");//1 элемент -delete
+        // private static CSSDescription materialTableDataFileFileName = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(1)>a");//1 элемент -назван файла-ссылка
+        // private static CSSDescription materialTableDataFileFileType = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(2)");//1 элемент -тип файла
+        // private static CSSDescription materialTableDataFileMaterialType = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(3)");//1 элемент из прикрепл файлов
+        // private static CSSDescription materialTableDataFileLang = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(4)");//1 элемент -language
+        // private static CSSDescription materialTableDataFileDelete = new CSSDescription("tbody[id='tabView:materialForm:materialTable_data'] tr:nth-child(1)>td:nth-child(5)>a");//1 элемент -delete
         //end прикрепленные файлы
         private static XPathDescription editCompleteMaterial = new XPathDescription(".//div[@id='material-page'] //div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - ui-state-active
 
@@ -209,7 +220,7 @@ namespace EVotingProject.Pages
         private static CSSDescription selectFileParticip = new CSSDescription("div#participants-page>div[aria-hidden='false'] span.ui-fileupload-choose");// Выбрать файл
         private static CSSDescription loadFileParticipants = new CSSDescription("div#participants-page>div[aria-hidden='false'] button.ui-fileupload-upload");//(".//button[span[text()='Загрузить файлы']]");//загрузить файлы
         private static CSSDescription loadFileParticipantsCancel = new CSSDescription("div#participants-page>div[aria-hidden='false'] button.ui-fileupload-cancel");//(".//button[span[text()='Отменить']]");//cancel загрузить файлы
-                                                                                                                                //end 
+                                                                                                                                                                    //end 
 
         private static CSSDescription listParticipants = new CSSDescription("tbody[id='tabView:participantsForm:ownersList_data']>tr");//кол-во участников
 
@@ -393,6 +404,7 @@ namespace EVotingProject.Pages
         {
             browser.Sync();
             return browser.Describe<IWebElement>(nameMeet).Exists()
+                && browser.Describe<IWebElement>(nameMeet).IsVisible
                 && (browser.Describe<IWebElement>(nameMeet).InnerText.Equals(meetingType.years));
         }
 
@@ -489,7 +501,7 @@ namespace EVotingProject.Pages
         }
 
         /// <summary>
-        /// Выбрать файл
+        /// Выбрать файл Учaстники
         /// </summary>
         public static void selectFileParticipants(string filePath)
         {
@@ -497,7 +509,7 @@ namespace EVotingProject.Pages
             {
                 var selectFile = browser.Describe<IWebElement>(selectFileParticip);
 
-                click2Object(selectFile);
+                PageHelper.click2Object(selectFile);
 
                 WindowsHelper.setFilePath2WinDialog(browser.Version.Type, filePath);
             }
@@ -547,6 +559,17 @@ namespace EVotingProject.Pages
             return browser.Describe<IWebElement>(state).InnerText;
         }
 
+        /// <summary>
+        /// панель материалов?
+        /// </summary>
+        /// <returns></returns>
+        public static bool isMaterialPanel()
+        {
+            return browser.Describe<IWebElement>(divMaterialTitle).Exists() &&
+                browser.Describe<IWebElement>(divMaterialTitle).IsVisible &&
+                browser.Describe<IWebElement>(divMaterialTitle).InnerText.Contains("материалы");
+        }
+
         public static void setissuerFullName(string v) { browser.Describe<IEditField>(issuerFullName).SetValue(v); }
         public static void setmeetingId(string v) { browser.Describe<IEditField>(meetingId).SetValue(v); }
         public static void setformTypeLabel(string v) { browser.Describe<IEditField>(formTypeLabel).SetValue(v); }
@@ -574,6 +597,156 @@ namespace EVotingProject.Pages
         public static string getPostAddress() { return browser.Describe<IEditField>(postAddressInput).Value; }
         public static string getAgenda() { return browser.Describe<IEditField>(agenda).Value; }
         public static string getProcOfFamiliarWMaterials() { return browser.Describe<IEditField>(procOfFamiliarWMaterials).Value; }
+
+        /// <summary>
+        /// нажать Прикрепить
+        /// </summary>
+        public static void addButt()
+        {
+            browser.Describe<IButton>(addFileMat).Click();
+        }
+
+        /// <summary>
+        /// нажать Файл
+        /// </summary>
+        public static void addFileButt()
+        {
+            browser.Describe<ILink>(addFileMatFile).Click();
+        }
+
+        /// <summary>
+        /// нажать LINK
+        /// </summary>
+        public static void addLinkButt()
+        {
+            browser.Describe<ILink>(addFileMatLink).Click();
+        }
+
+        public static bool isAddFilePanel()
+        {
+            return browser.Describe<IWebElement>(addFileMatFileDivTitle).Exists() &&
+                browser.Describe<IWebElement>(addFileMatFileDivTitle).IsVisible &&
+                browser.Describe<IWebElement>(addFileMatFileDivTitle).InnerText.Equals("прикрепить файл");
+        }
+
+        public static bool isAddLinkPanel()
+        {
+
+            return browser.Describe<IWebElement>(addFileMatLinkDivTitle).Exists() &&
+                browser.Describe<IWebElement>(addFileMatLinkDivTitle).IsVisible &&
+                browser.Describe<IWebElement>(addFileMatLinkDivTitle).InnerText.Equals("прикрепить ссылку");
+
+        }
+
+        public static void loadFile(string filePath)
+        {
+            if (System.IO.File.Exists(filePath))
+            {
+                var loadFileButton = browser.Describe<IWebElement>(addFileMatFileDivButton);
+                // loadFileButton.Click();
+                PageHelper.click2Object(loadFileButton);
+                WindowsHelper.setFilePath2WinDialog(browser.Version.Type, filePath);
+
+            }
+        }
+
+        public static bool isLoadingFile(string filePath)
+        {
+            var fileName = System.IO.Path.GetFileName(filePath);
+
+            var addFileMatFileLabel = browser.Describe<IWebElement>(addFileMatFileDivFileName);
+            addFileMatFileLabel.WaitUntil(lbl => lbl.Exists() && lbl.IsVisible && lbl.InnerText.Equals(fileName));
+
+            return browser.Describe<IWebElement>(addFileMatFileDivFileName).Exists() &&
+                browser.Describe<IWebElement>(addFileMatFileDivFileName).IsVisible &&
+                browser.Describe<IWebElement>(addFileMatFileDivFileName).InnerText.Equals(fileName);
+        }
+
+        /// <summary>
+        /// нажать на выбор материала
+        /// </summary>
+        public static void clickTypeMaterial()
+        {
+
+            browser.Describe<IWebElement>(addFileMatFileDivMaterial).Click();
+        }
+
+        /// <summary>
+        /// нажать на выбор языка материала
+        /// </summary>
+        public static void clickTypeMaterialLang()
+        {
+
+            browser.Describe<IWebElement>(addFileMatFileDivMaterialLang).Click();
+        }
+
+        /// <summary>
+        /// выбрать тип
+        /// </summary>
+        /// <param name="v"></param>
+        public static void selectTypeMaterial(string v)
+        {
+            browser.Describe<IListBox>(addFileMatFileDivMaterialSelect).Select(v);
+
+        }
+
+        /// <summary>
+        /// выбрать язык
+        /// </summary>
+        /// <param name="v"></param>
+        public static void selectTypeMaterialLang(string v)
+        {
+            browser.Describe<IListBox>(addFileMatFileDivMaterialLangSelect).Select(v);
+
+        }
+
+
+
+        public static void setLinkName(string v)
+        {
+            browser.Describe<IEditField>(linkName).SetValue(v);
+        }
+
+        public static void setLinkUrl(string v)
+        {
+            browser.Describe<IEditField>(linkUrl).SetValue(v);
+        }
+
+        public static void addFileMaterials()
+        {
+            browser.Describe<IButton>(addFileMatFileDivMaterialAdd).Click();
+        }
+
+        /// <summary>
+        /// добавлен ли документ в материалы?
+        /// </summary>
+        /// <returns></returns>
+        public static bool isExistsMaterialOfTable(string v)
+        {
+            var table = browser.Describe<IWebElement>(materialTableDataFiles);
+            return isItemExistOfTable(v, table, 0);
+
+        }
+
+        /// <summary>
+        /// есть ли вообще таблица с материалами?
+        /// </summary>
+        /// <returns></returns>
+        public static bool isExistsMaterialsTable()
+        {
+            var table = browser.Describe<IWebElement>(materialTableDataFiles);
+            return table.Exists() && table.IsVisible;
+
+        }
+
+
+        internal static void deleteMaterialOfTable(string fileMaterials)
+        {
+            var table = browser.Describe<IWebElement>(materialTableDataFiles);
+            clickLinkOfTable(fileMaterials, table, 0, 4, new XPathDescription(".//a[text()='Удалить']"));
+        }
+
+
 
         public static void save()
         {

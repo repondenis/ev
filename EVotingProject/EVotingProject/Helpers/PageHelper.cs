@@ -96,6 +96,40 @@ namespace EVotingProject.Helpers
             return false;
         }
 
+        /// <summary>
+        /// получить все ошибки скопом)
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> getMessagesGrowleOk()
+        {
+            List<string> s = new List<string>();
+
+            var msg = browser.FindChildren<IWebElement>(messageGrowle);
+
+            foreach (IWebElement m in msg)
+            {
+                s.Add(m.Describe<IWebElement>(messageGrowleText).InnerText);
+                Console.WriteLine(m.Describe<IWebElement>(messageGrowleText).InnerText);
+            }
+
+            /*
+            if (msg != null && msg.Length > 0)
+                for (int i = 0; i < msg.Length; i++)
+                {
+                    msg[i].Describe<IWebElement>(messageGrowleText).InnerHTML;
+                }
+
+            if (msg.Exists())
+            {
+                Console.WriteLine("MSG: " + msg.Describe<IWebElement>(messageGrowleText).InnerHTML + ", " + DateTime.Now);
+                //return browser.Describe<IWebElement>(messageGrowleError).Exists();
+                return msg.Describe<IWebElement>(messageGrowleInfo).Exists() && msg.Describe<IWebElement>(messageGrowleText).InnerHTML;
+            }
+            return false;
+            */
+            return s;
+        }
+
         /**
          * <span class="ui-messages-info-summary">Успешно сохранено!</span>
          */
@@ -163,13 +197,17 @@ namespace EVotingProject.Helpers
         /// <param name="elem"></param>
         public static void click2Object(IWebElement elem)
         {
-            Point p = elem.AbsoluteLocation;
-            var toX = 65535 * (p.X + 5) / Screen.PrimaryScreen.Bounds.Width;
-            var toY = 65535 * (p.Y + 5) / Screen.PrimaryScreen.Bounds.Height;
+            try
+            {
+                Point p = elem.AbsoluteLocation;
+                var toX = 65535 * (p.X + 5) / Screen.PrimaryScreen.Bounds.Width;
+                var toY = 65535 * (p.Y + 5) / Screen.PrimaryScreen.Bounds.Height;
 
-            InputSimulator keyb = new InputSimulator();
-            keyb.Mouse.MoveMouseTo(toX, toY);
-            keyb.Mouse.LeftButtonClick();
+                InputSimulator keyb = new InputSimulator();
+                keyb.Mouse.MoveMouseTo(toX, toY);
+                keyb.Mouse.LeftButtonClick();
+            }
+            catch (Exception) { }
         }
 
         /// <summary>

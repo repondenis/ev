@@ -18,23 +18,22 @@ namespace EVotingProject
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
-
-            //ReportConfiguration r = new ReportConfiguration();
-            //r.IsOverrideExisting = false;
-            //r.Title = "My LeanFT Report 2";
-            //Reporter.Init(r);
+            var r = new HP.LFT.Report.ReportConfiguration();
+            r.IsOverrideExisting = false;
+            r.Title = "My LeanFT Report";
+            Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
+
             browser.ClearCache();
             browser.DeleteCookies();
-          //  browser.Navigate(urlDemo);
             PageHelper.setBrowser(browser);
         }
 
         [SetUp]
         public void SetUp()
         {
-            // Before each test
+
         }
 
         [TestCase(MenuParam.registrators, LoginParam.login, "adm_reg", "adm_reg", "ОАО \"НК \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
@@ -77,7 +76,7 @@ namespace EVotingProject
             NewOrganizationPage.selectLogoFileOfDialog(filePathList);
             NewOrganizationPage.setColorHeader(color);
             NewOrganizationPage.setColorButton(color);
-            Assert.True(NewOrganizationPage.isSaveExist());
+            Assert.True(NewOrganizationPage.isSaveExist(),"должна быть кнопка Сохранить");
             NewOrganizationPage.save();
 
         }
@@ -99,7 +98,7 @@ namespace EVotingProject
             NewOrganizationPage.selectLogoFileOfDialog(filePathHeader);
             Console.WriteLine(DateTime.Now + "clickLoadLogoList before");
 
-            Assert.True(NewOrganizationPage.isSaveExist());
+            Assert.True(NewOrganizationPage.isSaveExist(),"должна быть кнопка Сохранить");
             NewOrganizationPage.save();
 
         }
@@ -123,7 +122,7 @@ namespace EVotingProject
           //  NewOrganizationPage.clickCancelOfOpenFileDialog();
             Console.WriteLine(DateTime.Now + "clickLoadLogoList before");
 
-            Assert.True(NewOrganizationPage.isSaveExist());
+            Assert.True(NewOrganizationPage.isSaveExist(),"должна быть кнопка Сохранить");
             NewOrganizationPage.save();
 
         }
@@ -131,7 +130,7 @@ namespace EVotingProject
         [TearDown]
         public void TearDown()
         {
-            // Clean up after each test
+            
         }
 
         [OneTimeTearDown]

@@ -37,9 +37,12 @@ namespace EVotingProject.Pages
             return browser.Describe<IWebElement>(organizationPanel).Exists();
         }
 
-        public static void selectItemOfOrganization(int position, string name)
+        public static void selectItemOfOrganization(string name)
         {
 
+            browser.Describe<IListBox>(organizationPanel).Select(name);
+            
+            /*
             var orgSelect = browser.Describe<IWebElement>(organizationPanel).Describe<IWebElement>(new CSSDescription("li"));
 
 
@@ -50,7 +53,7 @@ namespace EVotingProject.Pages
                     Console.WriteLine(select[position].InnerText);
                     select[position].Click();
                 }
-
+*/
 
 
         }

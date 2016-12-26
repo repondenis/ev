@@ -9,7 +9,7 @@ using EVotingProject.Helpers;
 using HP.LFT.Report;
 using System.IO;
 
-namespace EVotingProject.Tests.release1
+namespace EVotingProject
 {
     [TestFixture]
     [Description("Проверка ввода представителя-администратора регистратора")]
@@ -18,22 +18,22 @@ namespace EVotingProject.Tests.release1
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
-            //ReportConfiguration r = new ReportConfiguration();
-            //r.ReportFolder = Directory.GetCurrentDirectory();
-            //r.IsOverrideExisting = false;
-            //r.Title = "My LeanFT Report";
-            //Reporter.Init(r);
+            var r = new HP.LFT.Report.ReportConfiguration();
+            r.IsOverrideExisting = false;
+            r.Title = "My LeanFT Report";
+            Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
+
             browser.ClearCache();
             browser.DeleteCookies();
-            // browser.Navigate(urlDemoAdmin);
+            PageHelper.setBrowser(browser);
         }
 
         [SetUp]
         public void SetUp()
         {
-            // Before each test
+
         }
 
 
@@ -142,7 +142,7 @@ namespace EVotingProject.Tests.release1
                 Assert.True(NewEmployeePage.isBlockExist());
 
                 NewEmployeePage.gotoRolePanel();
-                Assert.True(NewEmployeePage.isRolePanel());
+                Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
 
                 NewEmployeePage.gotoMenuEmployees();
@@ -170,7 +170,7 @@ namespace EVotingProject.Tests.release1
                 Assert.True(NewEmployeePage.isBlockExist());
 
                 NewEmployeePage.gotoRolePanel();
-                Assert.True(NewEmployeePage.isRolePanel());
+                Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
 
 
@@ -432,7 +432,7 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.setSnils(snils);
 
                 NewEmployeePage.gotoRolePanel();
-                Assert.True(NewEmployeePage.isRolePanel());
+                Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
                 NewEmployeePage.isAvailRoleList(role);//появилась ли роль
                 NewEmployeePage.clickAvailRoleListToogle();//нажимаем на ПОЛНОМОЧИЯ
@@ -478,7 +478,7 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.setSnils(snils);
                 /*
                 NewEmployeePage.gotoRolePanel();
-                Assert.True(NewEmployeePage.isRolePanel());
+                Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
                 NewEmployeePage.isAvailRoleList(role);//появилась ли роль
                 NewEmployeePage.clickAvailRoleListToogle();//нажимаем на ПОЛНОМОЧИЯ
@@ -501,7 +501,7 @@ namespace EVotingProject.Tests.release1
         [TearDown]
         public void TearDown()
         {
-            // Clean up after each test
+            
         }
 
         [OneTimeTearDown]

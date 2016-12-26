@@ -18,13 +18,13 @@ namespace EVotingProject
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
-
-            //ReportConfiguration r = new ReportConfiguration();
-            //r.IsOverrideExisting = false;
-            //r.Title = "E-Voting test reports 5";
-            //Reporter.Init(r);
+            var r = new HP.LFT.Report.ReportConfiguration();
+            r.IsOverrideExisting = false;
+            r.Title = "My LeanFT Report";
+            Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
+
             browser.ClearCache();
             browser.DeleteCookies();
             PageHelper.setBrowser(browser);
@@ -33,33 +33,41 @@ namespace EVotingProject
         [SetUp]
         public void SetUp()
         {
-            // Before each test
+
         }
 
         //либо искать ОРГ по ИНН = 1027700043502
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
-            @"D:\work\test\MN НРД (Роснефть) 1.xml", "D:\\temp\\Screen Shot 09-15-16 at 07.00 PM.PNG", "Успешно сохранен!",
+            @"D:\work\test\MN НРД (Роснефть) 1.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml", "Успешно сохранен!",
               TestName = "56943.проверка инициации передачи файла сообщ о собрании MN админ ЕВотинга")]
         public void Test56943(string menuPar, string loginPar, string login, string pass, string orgName, string filePathTrueXSD, string filePathBadXSD, string message)
         {
+            try
+            {
+                Console.WriteLine(DateTime.Now);
 
-            Console.WriteLine(DateTime.Now);
+                autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
-            autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
+                PortalPage.gotoMenuMeetings();
+                Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
 
-            PortalPage.gotoMenuMeetings();
-            Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+                PortalPage.clickNewMeeting();
+                Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
 
-            PortalPage.clickNewMeeting();
-            Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
+                NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
 
-            NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
+                //1
+                NewMeetingPage.loadFromFile(filePathTrueXSD);
 
-            //1
-            NewMeetingPage.loadFromFile(filePathTrueXSD);
+                //2 - файл не явл сообщ о проведении собрания XML
+                NewMeetingPage.loadFromFile(filePathBadXSD);
+            }
+            catch (AssertionException e)
+            {
+                Reporter.ReportEvent(GetTestName(), "Ошибка проверки", Status.Failed, e, browser.GetSnapshot());
+                throw;
+            }
 
-            //2 - файл не явл сообщ о проведении собрания XML
-            NewMeetingPage.loadFromFile(filePathBadXSD);
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
@@ -454,7 +462,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         [TearDown]
         public void TearDown()
         {
-            // Clean up after each test
+            
         }
 
         [OneTimeTearDown]

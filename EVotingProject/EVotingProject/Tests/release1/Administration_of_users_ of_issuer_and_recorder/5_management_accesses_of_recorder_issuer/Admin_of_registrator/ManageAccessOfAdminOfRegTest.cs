@@ -16,12 +16,16 @@ namespace EVotingProject
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
+            var r = new HP.LFT.Report.ReportConfiguration();
+            r.IsOverrideExisting = false;
+            r.Title = "My LeanFT Report";
+            Reporter.Init(r);
+
             browser = BrowserFactory.Launch(BrowserType.Chrome);
+
             browser.ClearCache();
             browser.DeleteCookies();
-           // browser.Navigate(urlDemo);
-
-
+            PageHelper.setBrowser(browser);
         }
 
         [SetUp]
@@ -92,7 +96,7 @@ TestName = "57023. 2.Проверка редактирования данных 
             //1 2
             Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.gotoRolePanel();
-            Assert.True(NewEmployeePage.isRolePanel());
+            Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
             NewEmployeePage.clickAvailRoleListToogle();//нажимаем полномочия
             NewEmployeePage.isRoleCheckBoxExist(availRoles.adminOfRegistrators);
             NewEmployeePage.selectRolePermission(availRoles.adminOfRegistrators, 1, true);//чекнуть 1 роль
@@ -258,7 +262,7 @@ TestName = "57023. 2.Проверка редактирования данных 
 
             //1
             NewEmployeePage.gotoRolePanel();
-            Assert.True(NewEmployeePage.isRolePanel());
+            Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
             //2
             NewEmployeePage.selectAvailRolesList(availRoles.memberOfCounter);
             //3
@@ -372,7 +376,7 @@ TestName = "57023. 2.Проверка редактирования данных 
             //1
             Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.gotoRolePanel();
-            Assert.True(NewEmployeePage.isRolePanel());
+            Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
             NewEmployeePage.clickAvailRoleListToogle();//нажимаем полномочия
             NewEmployeePage.isRoleCheckBoxExist(availRoles.adminOfRegistrators);
             NewEmployeePage.selectRolePermission(availRoles.adminOfRegistrators, 1, true);//чекнуть 1 роль
@@ -434,7 +438,7 @@ TestName = "57023. 2.Проверка редактирования данных 
 
             //1
             NewEmployeePage.gotoRolePanel();
-            Assert.True(NewEmployeePage.isRolePanel());
+            Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
             //2
             NewEmployeePage.selectAvailRolesList(availRoles.memberOfCounter);
             //3
@@ -533,7 +537,7 @@ TestName = "57023. 2.Проверка редактирования данных 
             //1
             Assert.True(NewEmployeePage.isTruePage(),"должна быть страница Добавления нов пользователя");
             NewEmployeePage.gotoRolePanel();
-            Assert.True(NewEmployeePage.isRolePanel());
+            Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
             NewEmployeePage.clickAvailRoleListToogle();//нажимаем полномочия
             NewEmployeePage.isRoleCheckBoxExist(availRoles.adminOfRegistrators);
             NewEmployeePage.selectRolePermission(availRoles.adminOfRegistrators, 1, true);//чекнуть 1 роль
@@ -566,7 +570,7 @@ TestName = "57023. 2.Проверка редактирования данных 
         [TearDown]
         public void TearDown()
         {
-            // Clean up after each test
+            
         }
 
         [OneTimeTearDown]

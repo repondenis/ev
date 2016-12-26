@@ -30,8 +30,8 @@ namespace EVotingProject
             //browser.Navigate(this.url);
         }
 
-        [Test]
-        [Description("TestInputFile")]
+    //    [Test]
+   //     [Description("TestInputFile")]
         public void TestInputFile()
         {
             /*
@@ -216,16 +216,16 @@ namespace EVotingProject
 
         }
 
-        [TestCase(true, TestName = "Tест пройден, №503770", Description = "тест пройден")]
-        [TestCase(false, TestName = "Tест не пройден, №503723", Description = "тест не пройден")]
-        [Ignore("тестовый яндекс тест")]
+     //   [TestCase(true, TestName = "Tест пройден, №503770", Description = "тест пройден")]
+      //  [TestCase(false, TestName = "Tест не пройден, №503723", Description = "тест не пройден")]
+     //   [Ignore("тестовый яндекс тест")]
         public void Test1(bool state)
         {
             Assert.True(state);
         }
 
-        [Test]
-        [Ignore("тестовый яндекс тест")]
+     //   [Test]
+     //   [Ignore("тестовый яндекс тест")]
         public void TestYandex()
         {
             try
@@ -248,8 +248,8 @@ namespace EVotingProject
 
 
 
-        [Test]
-        [Ignore("тестовый тест")]
+      //  [Test]
+     //   [Ignore("тестовый тест")]
         public void Verify_SearchSuggestionsArePresentedAndMoreThan0()
         {
 
@@ -318,13 +318,6 @@ namespace EVotingProject
 
 
 
-
-
-
-
-
-
-        [TestCase]
         public void TestCalculator()
         {
             //  SDK.Init(new SdkConfiguration());

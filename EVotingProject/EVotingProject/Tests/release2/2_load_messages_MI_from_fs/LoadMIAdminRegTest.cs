@@ -18,22 +18,22 @@ namespace EVotingProject
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
-
-            //ReportConfiguration r = new ReportConfiguration();
-            //r.IsOverrideExisting = true;
-            //r.Title = "E-Voting reports";
-            //Reporter.Init(r);
+            var r = new HP.LFT.Report.ReportConfiguration();
+            r.IsOverrideExisting = false;
+            r.Title = "My LeanFT Report";
+            Reporter.Init(r);
 
             browser = BrowserFactory.Launch(BrowserType.Chrome);
-            //        browser.ClearCache();
-            //        browser.DeleteCookies();
+
+            browser.ClearCache();
+            browser.DeleteCookies();
             PageHelper.setBrowser(browser);
         }
 
         [SetUp]
         public void SetUp()
         {
-            // Before each test
+
         }
 
         //либо искать ОРГ по ИНН = 1027700043502
@@ -46,7 +46,7 @@ namespace EVotingProject
             Console.WriteLine(DateTime.Now);
             autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
             PortalPage.setMeetingsSearhText(orgName);
-            PortalPage.selectMeetingStatusFilterItems(MeetingStatusFilter.itemLoadMN);
+            PortalPage.selectMeetingStatusFilterItems(MeetingStatus.itemLoadMN);
 
             PortalPage.editMeetingOfTable(orgName);//нажим РЕдактировать нужного 
             Assert.True(MeetingPage.isTruePage(orgName));
@@ -62,7 +62,7 @@ namespace EVotingProject
         [TearDown]
         public void TearDown()
         {
-            // Clean up after each test
+            
         }
 
         [OneTimeTearDown]

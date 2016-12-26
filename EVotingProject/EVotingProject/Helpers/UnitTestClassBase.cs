@@ -40,8 +40,9 @@ namespace EVotingProject
             try
             {
                 //Console.WriteLine(DateTime.Now + " autorizeFromEVoting().");
-              //  if (PublicPage.isTruePage())
-              //      PublicPage.gotoPortalPage();
+                //  if (PublicPage.isTruePage())
+                //      PublicPage.gotoPortalPage();
+
 
                 PortalPage.logout();
                 browser.Navigate(urlDemo);
@@ -86,23 +87,23 @@ namespace EVotingProject
             // if (PortalPage.isMenuContractsExist())//если мы залогинены
             //  {
             PortalPage.gotoMenuContracts();
-            Assert.True(ContractPage.isTruePage());
+            Assert.True(ContractPage.isTruePage(), "Должна быть страница договоров");
 
             ContractPage.setFilter(contrName);
             ContractPage.clickTitle();
-            if (!ContractPage.isContractsOfTableExist(contrName, MeetingStatusFilter.itemIsNotCreated))
+            if (!ContractPage.isContractsOfTableExist(contrName, MeetingStatus.itemIsNotCreated))
             {
                 ContractPage.clickNewContract();
-                Assert.True(NewContractPage.isTruePage());
+                Assert.True(NewContractPage.isTruePage(), "Должна быть страница добавления договора");
 
                 NewContractPage.setOrganization(orgName);
                 Assert.True(NewContractPage.isOrganizationPanelAppear());
-                NewContractPage.selectItemOfOrganization(0, orgName);
+                NewContractPage.selectItemOfOrganization(orgName);
 
                 NewContractPage.setContractNumber(contrName);
                 NewContractPage.setContractDate(DateTime.Now.ToString("dd.MM.yyyy"));//"26.05.1984"
                 //Console.WriteLine(DateTime.Now + " selectService");
-                //NewContractPage.selectService(1, true);//чекаем 1 чек-бокс
+                //NewContractPage.selectService2(1, true);//чекаем 1 чек-бокс
                 NewContractPage.selectAceessOfregistrator(true);
                 NewContractPage.selectService2(0, true);//чекаем 2 чек-бокс
                 NewContractPage.selectService2(2, true);//чекаем 2 чек-бокс

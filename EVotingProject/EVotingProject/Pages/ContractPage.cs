@@ -24,7 +24,8 @@ namespace EVotingProject.Pages
         public static new bool isTruePage()
         {
             browser.Sync();
-            return browser.Describe<IWebElement>(pageTitle).Exists() && browser.Describe<IWebElement>(pageTitle).InnerText.Equals("Договоры");
+            return browser.Describe<IWebElement>(pageTitle).Exists() && 
+                browser.Describe<IWebElement>(pageTitle).InnerText.Equals("Договоры");
         }
 
         public static void clickTitle()
@@ -37,17 +38,7 @@ namespace EVotingProject.Pages
             browser.Describe<IButton>(newContractBt).Click();
         }
 
-        /*
-        public static void getContractsTable(string str)
-        {
-            Console.WriteLine("searh of " + str);
-            var table = browser.Describe<ITable>(contractDateTabl);
-            Console.WriteLine("FindRowWithCellText = " + table.Rows[0].Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells[0].Text);
-            Console.WriteLine("FindRowWithCellText = " + table.FindRowWithCellText(str).Cells.Count);
 
-        }
-        */
 
         /// <summary>
         /// есть ли договор в таблице?

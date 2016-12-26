@@ -18,7 +18,7 @@
     /// <summary>
     /// статус собрания
     /// </summary>
-    class MeetingStatusFilter
+    class MeetingStatus
     {
         public const string itemSelect = "Выберите";
         public const string itemLoadMN = "Загружено из MN";

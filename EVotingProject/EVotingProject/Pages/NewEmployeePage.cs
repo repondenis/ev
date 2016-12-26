@@ -116,15 +116,9 @@ namespace EVotingProject.Pages
 
         public static void selectItemOfOrganizationPanel(string v)
         {
-            try
-            {
-                var orgSelect = browser.Describe<IWebElement>(organizationPanel).Describe<IListBox>(new CSSDescription("li"));
-                orgSelect.Select(v);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace + "\r\n" + e.Message);
-            }
+
+            browser.Describe<IWebElement>(organizationPanel).Describe<IListBox>(new CSSDescription("li")).Select(v);
+
         }
 
         public static bool isOrgSearchInputExist()
@@ -151,27 +145,31 @@ namespace EVotingProject.Pages
                 if (searchButton.Exists() && searchButton.IsVisible)
                 {
 
+                   Console.WriteLine("В ТАБЛ = "+ getItemOfTable(browser.Describe<IWebElement>(orgSearchTable),0,0) );
+
                     searchButton.Click();
-                    //browser.Sync();
                     Thread.Sleep(1000);
+
+                    Console.WriteLine("В ТАБЛ = " + getItemOfTable(browser.Describe<IWebElement>(orgSearchTable), 0, 0));
+
                     //Console.WriteLine("нажали searchButton");
-                    selectOrgOfTable(v);
+                    var table = browser.Describe<IWebElement>(orgSearchTable);
+                    clickLinkOfTable(v, table, 0, 4, new CSSDescription("a"));
+                   // selectOrgOfTable(v, table);
                 }
-
-
             }
-
         }
 
-        /// <summary>
+        /*// <summary>
         /// выбрать организацию в таблице из списка
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        public static void selectOrgOfTable(string v)
+        public static void selectOrgOfTable(string v, IWebElement table)
         {
+            
             //Console.WriteLine("поиск орг -" + v);
-            var table = browser.Describe<IWebElement>(orgSearchTable);
+            //var table = browser.Describe<IWebElement>(orgSearchTable);
 
             var rows = table.FindChildren<IWebElement>(new CSSDescription("tr"));
             if (rows != null && rows.Length > 1)
@@ -192,7 +190,7 @@ namespace EVotingProject.Pages
                     }
                 }
         }
-
+        */
 
 
 
@@ -324,29 +322,36 @@ namespace EVotingProject.Pages
             return browser.Describe<IWebElement>(availRolesLabel).Exists();
         }
 
+        public static void clickSelectRole()
+        {
+            browser.Describe<IWebElement>(availRolesLabel).Click();
+        }
+
         public static void clickAvailRolesToggle()
         {
             browser.Describe<IWebElement>(availRolesToggle).Click();
         }
 
 
-        public static void selectAvailRolesList(string str)
+        public static void selectAvailRolesList(string v)
         {
-            Console.WriteLine(browser.Describe<IWebElement>(availRolesSelect).InnerText);
+           // Console.WriteLine(browser.Describe<IWebElement>(availRolesSelect).InnerText);
+            browser.Describe<IListBox>(availRolesSelect).Select(v);
         }
 
         /**
          * поиск подсказок по полям
          */
-        public static bool? getFieldsError(string message)
+        public static bool getFieldsError(string message)
         {
-            throw new NotImplementedException();
+            return getMessagesGrowleOk().Contains(message);
         }
 
 
         public static bool isAvailRoleList(string str)
         {
-            return browser.Describe<IWebElement>(availRoleList).Exists() && browser.Describe<IWebElement>(availRoleList).InnerText.Contains(str);
+            return browser.Describe<IWebElement>(availRoleList).Exists() && 
+                browser.Describe<IWebElement>(availRoleList).InnerText.Contains(str);
         }
 
         /**

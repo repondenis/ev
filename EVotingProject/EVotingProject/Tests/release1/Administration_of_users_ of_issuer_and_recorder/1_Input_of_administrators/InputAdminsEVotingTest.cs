@@ -17,10 +17,16 @@ namespace EVotingProject.Tests
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
+            var r = new HP.LFT.Report.ReportConfiguration();
+            r.IsOverrideExisting = false;
+            r.Title = "My LeanFT Report";
+            Reporter.Init(r);
+
             browser = BrowserFactory.Launch(BrowserType.Chrome);
+
             browser.ClearCache();
             browser.DeleteCookies();
-            //browser.Navigate(urlDemoAdmin);
+            PageHelper.setBrowser(browser);
         }
 
         [SetUp]

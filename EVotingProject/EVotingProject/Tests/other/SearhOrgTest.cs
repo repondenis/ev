@@ -18,11 +18,11 @@ namespace EVotingProject.Tests.other
         [SetUp]
         public void SetUp()
         {
-            // Before each test
+
         }
 
-        [Test]
-        [Ignore("")]
+     //   [Test]
+     //   [Ignore("")]
         public void Test(string orgNameTrue, string orgNameFalse)
         {
 
@@ -47,7 +47,7 @@ namespace EVotingProject.Tests.other
         [TearDown]
         public void TearDown()
         {
-            // Clean up after each test
+            
         }
 
         [OneTimeTearDown]

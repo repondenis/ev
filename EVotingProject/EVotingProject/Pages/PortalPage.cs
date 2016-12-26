@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
+using HP.LFT.SDK;
 
 //using HP.LFT.SDK.StdWin;
 //using HP.LFT.SDK.WinForms;
@@ -213,14 +214,18 @@ namespace EVotingProject.Pages
 
         public static void clickMeetingStatusFilterLabel()
         {
-            browser.Describe<ILink>(meetingStatusFilterLabel).Click();
+            browser.Describe<IWebElement>(meetingStatusFilterLabel).Click();
         }
 
         public static void clickMeetingStatusFilterToggle()
         {
-            browser.Describe<ILink>(meetingStatusFilterToggle).Click();
+            browser.Describe<IWebElement>(meetingStatusFilterToggle).Click();
         }
 
+        /// <summary>
+        /// выбрать статус собрания в поле фильтра
+        /// </summary>
+        /// <param name="meetingStatusFilter"></param>
         public static void selectMeetingStatusFilterItems(string meetingStatusFilter)
         {
             browser.Describe<IListBox>(meetingStatusFilterItems).Select(meetingStatusFilter);
@@ -237,7 +242,8 @@ namespace EVotingProject.Pages
                 for (int i = 0; i < liMeetings.Length; i++)
                 {
                     var meetingChldr = liMeetings[i].Describe<IWebElement>(meetingOrgName);
-                    Console.WriteLine(i + ":" + meetingChldr.InnerText);
+
+                    //Console.WriteLine("{0}:{1}", i, meetingChldr.InnerText);
                     if (meetingChldr.Exists() && meetingChldr.InnerText.Equals(orgNameT))
                     {
                         liMeetings[i].FindChildren<ILink>(meetingEdit)[0].Click();
@@ -272,6 +278,76 @@ namespace EVotingProject.Pages
                 }
             return false;
         }
+
+
+        /// <summary>
+        /// нажать по ссылке в нужном столбце, если в этой строке есть текст
+        /// </summary>
+        /// <param name="v">ищем текст</param>
+        /// <param name="table"></param>
+        /// <param name="columnNumberEquals">столбец с значением текста</param>
+        /// <param name="columnNumberLink">столбец с ссылкой</param>
+        public static void clickLinkOfTable(string v, IWebElement table, int columnNumberEquals, int columnNumberLink, PropertiesDescription descr)
+        {
+            var rows = table.FindChildren<IWebElement>(new CSSDescription("tr"));
+            if (rows != null && rows.Length > 1)
+                for (int i = 0; i < rows.Length; i++)
+                {
+                    var columns = rows[i].FindChildren<IWebElement>(new CSSDescription("td"));
+                    if (columns != null && columns.Length > 1)
+                        if (columns[columnNumberEquals].InnerText.Contains(@v))
+                        {
+                            Console.WriteLine("содержит {0}", v);
+                            //columns[columnNumberLink].Describe<ILink>( new CSSDescription(".//a[text()='Удалить']") ).Click();
+                            columns[columnNumberLink].Describe<ILink>(descr).Click();
+                        }
+                }
+        }
+
+        /// <summary>
+        /// получить текст из табл по [columnNumber][rowNumber]
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="columnNumber"></param>
+        /// <param name="rowNumber"></param>
+        /// <returns></returns>
+        public static string getItemOfTable(IWebElement table, int columnNumber, int rowNumber)
+        {
+            var rows = table.FindChildren<IWebElement>(new CSSDescription("tr"));
+            if (rows != null && rows.Length > 1)
+            {
+                var columns = rows[rowNumber].FindChildren<IWebElement>(new CSSDescription("td"));
+                if (columns != null && columns.Length > 1)
+                {
+                    return columns[columnNumber].InnerText;
+                }
+            }
+            return null;
+        }
+
+        /*// <summary>
+        /// выбор элемента/клик из списка по совпадению
+        /// select LI from UL list
+        /// </summary>
+        /// <param name="nameItem"></param>
+        /// <param name="descr"></param>
+        public static void selectItemLiOfListUL(string nameItem, CSSDescription descr)
+        {
+            browser.Describe<IListBox>(descr).Select(nameItem);
+
+            /*
+            var select = browser.FindChildren<IWebElement>(descr);
+            if (select.Length > 0)
+                for (int i = 0; i < select.Length; i++)
+                    if (select[i].Exists() && select[i].IsVisible && select[i].InnerText.Contains(nameItem))
+                    {
+                        // Console.WriteLine("_ " + select[i].InnerText);
+                        select[i].Click();
+                    }
+            /
+                    
+        }
+        */
 
 
     }

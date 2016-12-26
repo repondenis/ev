@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HP.LFT.SDK.Web;
-using HP.LFT.SDK.StdWin;
+//using HP.LFT.SDK.StdWin;
 using EVotingProject.Models;
 using EVotingProject.Helpers;
 using HP.LFT.SDK;
@@ -30,7 +30,7 @@ namespace EVotingProject.Pages
 
         //загрузить из файла
         private static CSSDescription uploadFile = new CSSDescription("a.upload-file-link"); // Загрузить файл
-        private static WindowDescription uploadFileWin = new WindowDescription { WindowTitleRegExp = "Выгрузка файла" };
+        //private static WindowDescription uploadFileWin = new WindowDescription { WindowTitleRegExp = "Выгрузка файла" };
 
         //ранее загруженные собрания
         private static CSSDescription formMeetingsLoated = new CSSDescription("div#meetingNotificationMessagesDialog");//Форма появляетс
@@ -297,30 +297,14 @@ namespace EVotingProject.Pages
         /// сам список
         /// </summary>
         /// <param name="position"></param>
-        public static void selectItemOfContract(string name)
+        public static void selectItemOfContract(string v)
         {
-
-            selectItemLiOfListUL(name, contractInputList);
+            browser.Describe<IListBox>(contractInputList).Select(v);
+            
 
         }
 
-        /// <summary>
-        /// выбор элемента/клик из списка по совпадению
-        /// select LI from UL list
-        /// </summary>
-        /// <param name="nameItem"></param>
-        /// <param name="descr"></param>
-        public static void selectItemLiOfListUL(string nameItem, CSSDescription descr)
-        {
-            var select = browser.FindChildren<IWebElement>(descr);
-            if (select.Length > 0)
-                for (int i = 0; i < select.Length; i++)
-                    if (select[i].Exists() && select[i].IsVisible && select[i].InnerText.Contains(nameItem))
-                    {
-                        // Console.WriteLine("_ " + select[i].InnerText);
-                        select[i].Click();
-                    }
-        }
+
 
 
 

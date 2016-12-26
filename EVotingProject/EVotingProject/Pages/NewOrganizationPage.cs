@@ -172,7 +172,8 @@ namespace EVotingProject.Pages
         public static bool isTruePage(string org)
         {
             browser.Sync();
-            return browser.Describe<IWebElement>(orgProfileTitle).Exists() && browser.Describe<IWebElement>(orgProfileTitle).InnerText.Equals(org);
+            return browser.Describe<IWebElement>(orgProfileTitle).Exists() && 
+                browser.Describe<IWebElement>(orgProfileTitle).InnerText.Equals(org);
         }
 
         public static bool isTitlePanelExist(string text)
