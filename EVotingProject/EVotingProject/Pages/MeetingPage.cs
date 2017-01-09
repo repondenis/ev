@@ -42,7 +42,13 @@ namespace EVotingProject.Pages
         private static XPathDescription unloadInfotoFile = new XPathDescription(".//a[span[text()='В файл']]");
 
         private static CSSDescription editState = new CSSDescription("button[id='controlPanelForm:changeStatus_button']");//Изменить статус
+
+
+
         private static XPathDescription editStateOpen = new XPathDescription(".//a[span[text()='Открыть эмитенту и регистратору']]");
+
+
+
         private static XPathDescription editStateCreate = new XPathDescription(".//a[span[text()='Создать общее собрание']]");
 
         //Отменить собрание
@@ -50,6 +56,11 @@ namespace EVotingProject.Pages
         private static CSSDescription cancelDialog = new CSSDescription("div#cancelDialog");//новый диалог  с полями
         private static CSSDescription cancelDialogTitle = new CSSDescription("span#cancelDialog_title");//"Отменить собрание"
         private static CSSDescription cancelDialogReasson = new CSSDescription("textarea[id='cancelForm:cancelReason']");//причина отмены
+
+
+
+
+
         //private static CSSDescription cancelDialogCode = new CSSDescription("label[id='cancelForm:cancelReasonCode_label']");//Код причины отмены
         //private static CSSDescription cancelDialogCodeToggle = new CSSDescription("div[id='cancelForm:cancelReasonCode'] div span");//
         //private static CSSDescription cancelDialogCodeList = new CSSDescription("ul[id='cancelForm:cancelReasonCode_items']");//выпад списко
@@ -63,7 +74,7 @@ namespace EVotingProject.Pages
 
 
 
-        //MENU
+        //MENU внутри собрания
         private static XPathDescription menuFullInfo = new XPathDescription(".//a[text()='Общая информация']");
         private static XPathDescription menuMater = new XPathDescription(".//a[text()='Материалы']");
         private static XPathDescription menuBullet = new XPathDescription(".//a[text()='Бюллетень']");
@@ -78,13 +89,10 @@ namespace EVotingProject.Pages
         private static XPathDescription securities = new XPathDescription();
         private static XPathDescription editSecurities = new XPathDescription(".//div[div[div[text()='ценные бумаги']]]/div/div/button[span[text()='редактировать']]");// редактировать ценные бумаги
 
-
         private static CSSDescription issuerFullName = new CSSDescription("input[id='tabView:mainForm:issuerFullName']");//Полное фирменное наименование эмитента
         private static CSSDescription meetingId = new CSSDescription("input[id='tabView:mainForm:meetingId']");//Идентификатор собрания
         private static CSSDescription formTypeLabel = new CSSDescription("label[id='tabView:mainForm:formType_label']");//Форма проведения общего собрания
         private static CSSDescription meetingStartInput = new CSSDescription("input[id='tabView:mainForm:meetingStart_input']");//Дата и время проведения собрания
-
-
 
         private static CSSDescription meetingCountryInput = new CSSDescription("input[id='tabView:mainForm:meetingCountry_input']");//Страна проведения собрания
         private static CSSDescription meetingAddress = new CSSDescription("input[id='tabView:mainForm:meetingAddress']");//Адрес проведения собрания
@@ -159,7 +167,7 @@ namespace EVotingProject.Pages
         //end МАТЕРИАЛЫ
 
 
-        //ПОВЕСТКА ДНЯ
+        //ПОВЕСТКА ДНЯ - Бюллетень
         private static CSSDescription divQuestions = new CSSDescription("div#questions");
         private static CSSDescription divQuestionsLabel = new CSSDescription("div#questions>div>div>label");//"повестка дня"
 
@@ -205,7 +213,10 @@ namespace EVotingProject.Pages
         private static XPathDescription questionCancel = new XPathDescription(".//form[@id='questionForm'] //a[text()='Отменить']");//
 
         private static XPathDescription editCompleteQuestions = new XPathDescription(".//div[@id='questions'] //div[span[text()='Редактирование раздела завершено']]");//checkBox Редактирование завершено - ui-state-active
-        //енд бюллетень
+        //енд - Бюллетень
+
+
+
 
         //список к собранию
         private static CSSDescription divParticipants = new CSSDescription("div#participants-page");
@@ -230,7 +241,7 @@ namespace EVotingProject.Pages
         private static CSSDescription participantSert = new CSSDescription("tbody[id='tabView:participantsForm:ownersList_data']>tr:nth-child(1)>td:nth-child(4)");//1 участкник - имя
                                                                                                                                                                    //end list4PArticipants
 
-        //НАБЛЮДЖАТЕЛИ 
+        //НАБЛЮДдАТЕЛИ 
         private static CSSDescription divObservers = new CSSDescription("div#observers-page");
         private static CSSDescription observersLabel = new CSSDescription("div#observers-page>div>div>label");
         private static CSSDescription observersSave = new CSSDescription("div#observers-page>div>div>div>button[type='submit']");//SAVE
@@ -448,6 +459,7 @@ namespace EVotingProject.Pages
         {
             browser.Describe<IButton>(cancelMeeting).Click();
         }
+
         /// <summary>
         /// диалог - Отмены собрания
         /// </summary>
@@ -457,6 +469,7 @@ namespace EVotingProject.Pages
             return browser.Describe<IWebElement>(cancelDialogTitle).Exists()
                 && browser.Describe<IWebElement>(cancelDialogTitle).InnerText.Equals("Отменить собрание");
         }
+
         /// <summary>
         /// Причина отмены
         /// </summary>
@@ -465,6 +478,7 @@ namespace EVotingProject.Pages
         {
             browser.Describe<IEditField>(cancelDialogReasson).SetValue(v);
         }
+
         /// <summary>
         /// да отмени уже собрание!Ё
         /// </summary>
@@ -597,6 +611,8 @@ namespace EVotingProject.Pages
         public static string getPostAddress() { return browser.Describe<IEditField>(postAddressInput).Value; }
         public static string getAgenda() { return browser.Describe<IEditField>(agenda).Value; }
         public static string getProcOfFamiliarWMaterials() { return browser.Describe<IEditField>(procOfFamiliarWMaterials).Value; }
+
+        public static string getAnnouncementDate() { return browser.Describe<IEditField>(announcementDate_input).Value; }
 
         /// <summary>
         /// нажать Прикрепить
@@ -747,6 +763,158 @@ namespace EVotingProject.Pages
         }
 
 
+        /// <summary>
+        /// находимся ли мы на вкладке бюллетень ?
+        /// 
+        /// </summary>
+        /// <param name="v">"повестка дня"</param>
+        /// <returns></returns>
+        public static bool isBulletenPanel(string v)
+        {
+            return browser.Describe<IWebElement>(divQuestionsLabel).Exists() &&
+                   browser.Describe<IWebElement>(divQuestionsLabel).InnerText.Equals(v);
+        }
+
+        /// <summary>
+        /// добавить вопрос
+        /// </summary>
+        public static void addQuestion()
+        {
+            browser.Describe<IButton>(addQuestions).Click();
+        }
+
+        /// <summary>
+        /// выбрать вопрос с выбором
+        /// </summary>
+        public static void addQuestionWithChoice()
+        {
+            browser.Describe<IButton>(addQuestionsWithChoice).Click();
+        }
+
+        /// <summary>
+        /// выбрать добавить вопрос
+        /// </summary>
+        public static void addQuestionWithoutChoice()
+        {
+            browser.Describe<IButton>(addQuestionsWithoutChoice).Click();
+        }
+
+        /// <summary>
+        /// вопрос повестки дня
+        /// </summary>
+        /// <param name="v"></param>
+        public static void addNoticeOfQuestion(string v)
+        {
+            browser.Describe<IEditField>(questionsNotice).SetValue(v);
+        }
+
+        /// <summary>
+        /// добавить решение
+        /// </summary>
+        public static void clickAddDecision()
+        {
+            browser.Describe<ILink>(addDecision).Click();
+        }
+
+        /// <summary>
+        /// добавить простое голосование
+        /// </summary>
+        public static void clickAddDecisionSimple()
+        {
+            browser.Describe<ILink>(addDecisionSimple).Click();
+        }
+
+        /// <summary>
+        /// добавить Кумулятивное голосование
+        /// </summary>
+        public static void clickAddDecisionDiff()
+        {
+            browser.Describe<ILink>(addDecisionDiff).Click();
+        }
+
+        public static void checkProceduralQuestion(bool state)
+        {
+            browser.Describe<ICheckBox>(proceduralCheckBox).Set(state);
+
+        }
+
+
+        /// <summary>
+        /// добавить текст решениея
+        /// </summary>
+        /// <param name="v"></param>
+        public static void addDescriptionOfQuestion(string v)
+        {
+            browser.Describe<IEditField>(decisionText).SetValue(v);
+        }
+
+        /// <summary>
+        /// сохранить вопрос
+        /// </summary>
+        public static void saveQuestion()
+        {
+            browser.Describe<IButton>(questionSave).Click();
+        }
+
+        /// <summary>
+        /// отменить вопрос текущий редактируемый
+        /// </summary>
+        public static void cancelQuestion()
+        {
+            browser.Describe<ILink>(questionCancel).Click();
+           
+        }
+
+        /// <summary>
+        /// редактировать вопрос
+        /// </summary>
+        /// <param name="v"></param>
+        public static void clickEditQuestion(int numbQuestion)
+        {
+            browser.Describe<ILink>(questionsEdit).Click();
+            //возможно сделать поиском ссылки удалить в таблице с нужным вопросом numbQuestion
+        }
+
+        /// <summary>
+        /// ввод коэффициента кумулятивного голосования
+        /// </summary>
+        /// <param name="v"></param>
+        public static void setKoefficient(int v)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// добавление кандидата
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="v3"></param>
+        /// <param name="v4"></param>
+        /// <param name="v5"></param>
+        public static void addCandidate(int v1, string v2, string v3, string v4, string v5)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// удаление решения
+        /// </summary>
+        public static void clickDeleteDecision(int v)
+        {
+            browser.Describe<ILink>(decisionItemDelete).Click();
+            //возможно сделать поиском ссылки удалить в таблице с нужным решением v
+        }
+
+
+        /// <summary>
+        /// удалить вопрос
+        /// </summary>
+        /// <param name="v"></param>
+        public static void clickDeleteQuestion(int v)
+        {
+            browser.Describe<ILink>(questionsDelete).Click();
+        }
 
         public static void save()
         {

@@ -30,8 +30,8 @@ namespace EVotingProject
             //browser.Navigate(this.url);
         }
 
-    //    [Test]
-   //     [Description("TestInputFile")]
+        [Test]
+        [Description("TestInputFile")]
         public void TestInputFile()
         {
             /*

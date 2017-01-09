@@ -160,6 +160,9 @@
     <Compile Include="Tests\release2\1_Branding\BrandingAdminRegTest.cs" />
     <Compile Include="Tests\release2\1_Branding\BrandingAdminEVotingTest.cs" />
     <Compile Include="Tests\release2\3_Initiation_meeting--\корректировка_собрания\добавление_вопроса\AddDelQuestionTest.cs" />
+    <Compile Include="Tests\release2\3_Initiation_meeting--\корректировка_собрания\корректировка_вопроса\EditQuestionTest.cs" />
+    <Compile Include="Tests\release2\3_Initiation_meeting--\корректировка_собрания\отмена_собрания\CancelMeetingTest.cs" />
+    <Compile Include="Tests\release2\3_Initiation_meeting--\корректировка_собрания\создание_собрания\CreatelMeetingTest.cs" />
     <Compile Include="Tests\release2\загрузка_информации_о_собрании\LoadMIAdminIssuerTest.cs" />
     <Compile Include="Tests\release2\загрузка_информации_о_собрании\LoadMIAdminRegTest.cs" />
     <Compile Include="Tests\release2\загрузка_информации_о_собрании\LoadMIAdminEVotingTest.cs" />

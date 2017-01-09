@@ -37,73 +37,109 @@ namespace EVotingProject
         }
 
 
-
-
-
         //либо искать ОРГ по ИНН = 1027700043502 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", /*"ОАО \"НК \"Роснефть\""*/ "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
-            @"D:\work\test\export-2016.11.11.Nov.31.1478867467.xlsx", @"http://www.uniplast-kbe.ru/test/reshenie-29-333.doc", "linkName", "Успешно сохранен!", MeetingStatus.itemMeetOpen,
-              TestName = "56915.Проверка добавл вопроса и проектов решений,админ ЕВотинга")]
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56915.Проверка добавл вопроса и проектов решений,админ ЕВотинга"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56915.Проверка добавл вопроса и проектов решений,представитель эмитента"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56915.Проверка добавл вопроса и проектов решений,представитель регистратора")]
         // [TestCaseSource("ALM")]
-        public void Test56915(string menuPar, string loginPar, string login, string pass, string orgName, string fileMaterials, string urlFileMaterials, string linkName, string message, string meetStat)
+        public void Test56915(string menuPar, string loginPar, string login, string pass, string orgName, string photoCandidatefile, string message, string meetStat)
         {
 
             Console.WriteLine(DateTime.Now);
 
             autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
-
-            //LoginLocalPage.runLogin(login, pass);
-            //Assert.True(PortalPage.isTruePage(),"должна быть страница собраний");
-
-
-
             PortalPage.setMeetingsSearhText(orgName);//фильтр
-            PortalPage.selectMeetingStatusFilterItems(meetStat);//создано общее собр или открыто эмитенту и рег или перенесено на портал голосов или опублик общ собрание
+            PortalPage.selectMeetingStatusFilterItems(meetStat);
+            //долэно быть создано общее собр или открыто эмитенту и рег или перенесено на портал голосов или опублик общ собрание
             PortalPage.editMeetingOfTable(orgName);
             Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
 
             // ! аттрибут "введен бюллютень" для собрания - false
-            
+            MeetingPage.gotoMenuBullet();
+            Assert.True(MeetingPage.isBulletenPanel("повестка дня"));
+            //3
+            MeetingPage.addQuestion();
+            MeetingPage.addQuestionWithoutChoice();
+            MeetingPage.addNoticeOfQuestion("test text max 1024 symb");
+            //4
+            MeetingPage.clickAddDecision();
+            //5
+            MeetingPage.clickAddDecisionSimple();
+            //6 настроить выпуски ЦБ - голосубющие по вопросу - только для собрания по акциям
+            MeetingPage.checkProceduralQuestion(true);// ???????? может не то?
+            //7
+            MeetingPage.addDescriptionOfQuestion("test text max 1024 symb");
+            //8
+            MeetingPage.saveQuestion();
 
-            sda
+            //9
+            MeetingPage.addQuestion();
+            MeetingPage.addQuestionWithoutChoice();
 
-            /*
-            MeetingPage.gotoMenuMater();
-            Assert.True(MeetingPage.isMaterialPanel(), "должна быть панель материалов");
+            //10
+            MeetingPage.addNoticeOfQuestion("test text max 1024 symb");
+            //11
+            MeetingPage.clickAddDecision();
+            MeetingPage.clickAddDecisionDiff();
+            //12 настроить выпуски ЦБ - голосубющие по вопросу - только для собрания по акциям
+            MeetingPage.checkProceduralQuestion(true);// ???????? может не то?
+            //13
+            MeetingPage.addDescriptionOfQuestion("test text max 1024 symb");
+            //14 ??
+            MeetingPage.setKoefficient(5);
+            //15 добавление кандидатов
+            MeetingPage.addCandidate(1, "ФИО", photoCandidatefile, "независимый кандидат", "рекомендован советом директоров");
 
-            MeetingPage.addButt();
-            MeetingPage.addFileButt();
-            Assert.True(MeetingPage.isAddFilePanel(), "должна быть форма прикрепления файла ");
-            MeetingPage.loadFile(fileMaterials);
-            Assert.True(MeetingPage.isLoadingFile(fileMaterials), "файл должен загрузиться");
-            MeetingPage.clickTypeMaterial();
-            MeetingPage.selectTypeMaterial(MaterialSelect.materialMeeting);
-            MeetingPage.clickTypeMaterialLang();
-            MeetingPage.selectTypeMaterialLang("Русский");
-            MeetingPage.addFileMaterials();
-            Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
-            Assert.True(MeetingPage.isExistsMaterialOfTable(fileMaterials), "файл должен быть в списке собрания в мат");
+            //16
+            MeetingPage.save();
 
-            MeetingPage.addButt();
-            MeetingPage.addLinkButt();
-            Assert.True(MeetingPage.isAddLinkPanel(), "должна быть форма прикрепления ссылки ");
-            MeetingPage.setLinkName(linkName);
-            MeetingPage.setLinkUrl(urlFileMaterials);
-            MeetingPage.clickTypeMaterial();
-            MeetingPage.selectTypeMaterial(MaterialSelect.materialMeeting);
-            MeetingPage.addFileMaterials();
-            Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
-            Assert.True(MeetingPage.isExistsMaterialOfTable(linkName), "ссылка должен быть в списке собрания в мат");
-
-            */
         }
-        
+
+
+
+        //либо искать ОРГ по ИНН = 1027700043502 
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56916.Проверка отмены добавл вопроса и проектов решений,админ ЕВотинга"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56916.Проверка отмены добавл вопроса и проектов решений,представитель эмитента"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56916.Проверка отмены добавл вопроса и проектов решений,представитель регистратора")]
+        // [TestCaseSource("ALM")]
+        public void Test56916(string menuPar, string loginPar, string login, string pass, string orgName, string photoCandidatefile, string message, string meetStat)
+        {
+
+            Console.WriteLine(DateTime.Now);
+
+            autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
+
+            PortalPage.setMeetingsSearhText(orgName);//фильтр
+            PortalPage.selectMeetingStatusFilterItems(meetStat);
+            //долэно быть создано общее собр или открыто эмитенту и рег или перенесено на портал голосов или опублик общ собрание
+            PortalPage.editMeetingOfTable(orgName);
+            Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
+
+            // ! аттрибут "введен бюллютень" для собрания - false
+            MeetingPage.gotoMenuBullet();
+            Assert.True(MeetingPage.isBulletenPanel("повестка дня"));
+            //1-2
+            MeetingPage.addQuestion();
+            MeetingPage.addQuestionWithoutChoice();
+            MeetingPage.addNoticeOfQuestion("test text max 1024 symb");
+            //3
+            MeetingPage.clickAddDecision();
+            //4
+            MeetingPage.clickAddDecisionSimple();
+            // настроить выпуски ЦБ - голосубющие по вопросу - только для собрания по акциям
+            MeetingPage.checkProceduralQuestion(true);// ???????? может не то?
+            //5
+            MeetingPage.addDescriptionOfQuestion("test text max 1024 symb");
+            //6
+            MeetingPage.cancelQuestion();
+
+        }
 
         [TearDown]
         public void TearDown()
         {
-            
+
         }
 
         [OneTimeTearDown]
