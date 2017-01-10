@@ -7,7 +7,7 @@ using EVotingProject.Pages;
 using EVotingProject.Helpers;
 using EVotingProject.Models;
 using HP.LFT.Report;
-
+using System.Collections.Generic;
 
 namespace EVotingProject
 {
@@ -117,5 +117,22 @@ namespace EVotingProject
             PortalPage.logout();
             browser.Close();
         }
+
+
+
+
+        /// <summary>
+        /// загрузка данных для тестов из файла
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerable<string[]> GetTestDataList()
+        {
+            var reader = new CsvReader(File.OpenText("путь к csv-файлу"));
+            while (reader.Read())
+            {
+                yield return new string[] { reader.GetField<string>(0), reader.GetField<string>(1) };
+            }
+        }
+
     }
 }
