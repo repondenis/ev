@@ -109,7 +109,7 @@ namespace EVotingProject
             }
         }
 
-        [TestCase("Петров", "Петр", "Петрович", "adm_reg", "16141618111", "не должно вылететь ошибки", availRoles.adminOfRegistrators,
+        [TestCase("Петров", "Петр", "Петрович", "adm_recorder", "16141618111", "не должно вылететь ошибки", availRoles.adminOfRegistrators,
          TestName = "57049. 3.Проверка заполнения полей логина, снилс, 57049")]
         public void Test57049(string lastName, string firstName, string otherName, string login, string snils, string message, string role)
         {

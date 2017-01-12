@@ -39,8 +39,8 @@ namespace EVotingProject
 
         //либо искать ОРГ по ИНН = 1027700043502 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56917.Проверка корректировки вопроса и проектов решений,админ ЕВотинга"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56917.Проверка корректировки вопроса и проектов решений,представитель эмитента"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56917.Проверка корректировки вопроса и проектов решений,представитель регистратора")]
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56917.Проверка корректировки вопроса и проектов решений,представитель эмитента"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_recorder", "adm_recorder", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56917.Проверка корректировки вопроса и проектов решений,представитель регистратора")]
         // [TestCaseSource("ALM")]
         public void Test56917(string menuPar, string loginPar, string login, string pass, string orgName, string photoCandidatefile, string message, string meetStat)
         {
@@ -78,8 +78,8 @@ namespace EVotingProject
 
         //либо искать ОРГ по ИНН = 1027700043502 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56918.Проверка отмены корректировки вопроса и проектов решений,админ ЕВотинга"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56918.Проверка отмены корректировки вопроса и проектов решений,представитель эмитента"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56918.Проверка отмены корректировки вопроса и проектов решений,представитель регистратора")]
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56918.Проверка отмены корректировки вопроса и проектов решений,представитель эмитента"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_recorder", "adm_recorder", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\photo.png", "Успешно сохранен!", MeetingStatus.itemMeetOpen, TestName = "56918.Проверка отмены корректировки вопроса и проектов решений,представитель регистратора")]
         // [TestCaseSource("ALM")]
         public void Test56918(string menuPar, string loginPar, string login, string pass, string orgName, string photoCandidatefile, string message, string meetStat)
         {

@@ -35,7 +35,7 @@ namespace EVotingProject.Tests.release1
 
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_recorder", "adm_recorder",
                      TestName = "1.Проверка инициации добавления нового уч сч комиссии регистратора E-Voting, 57061")]
         public void Test57061(string menuPar, string loginPar, string login, string pass)
         {

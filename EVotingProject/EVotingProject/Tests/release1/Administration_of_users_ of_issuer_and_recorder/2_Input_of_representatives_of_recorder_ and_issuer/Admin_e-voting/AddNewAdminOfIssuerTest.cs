@@ -110,7 +110,7 @@ namespace EVotingProject.Tests.release1
             }
         }
 
-        [TestCase("Иванов", "Иван", "Иванович", "adm_iss", "26242628212", "ОАО \"НК \"Роснефть\"", "не должно вылететь ошибки", availRoles.adminOfIssuer,
+        [TestCase("Иванов", "Иван", "Иванович", "adm_issuer", "26242628212", "ОАО \"НК \"Роснефть\"", "не должно вылететь ошибки", availRoles.adminOfIssuer,
             MenuParam.organizators, LoginParam.login, "admin", "admin",
                     TestName = "57041. 3.Проверка заполнения полей логина, снилс, 57041")]
         public void Test57041(string lastName, string firstName, string otherName, string loginNew, string snils, string orgName, string message, string role, string menuPar, string loginPar, string login, string pass)

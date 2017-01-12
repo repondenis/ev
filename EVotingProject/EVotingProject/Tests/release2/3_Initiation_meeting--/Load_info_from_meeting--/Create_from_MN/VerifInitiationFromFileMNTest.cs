@@ -38,7 +38,7 @@ namespace EVotingProject
 
         //либо искать ОРГ по ИНН = 1027700043502
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
-            @"D:\work\test\MN НРД (Роснефть) 1.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml", "Успешно сохранен!",
+            @"C:\work\test\MN НРД (Роснефть) 2.xml", @"C:\work\test\tests.xml", "Успешно сохранен!",
               TestName = "56943.проверка инициации передачи файла сообщ о собрании MN админ ЕВотинга")]
         public void Test56943(string menuPar, string loginPar, string login, string pass, string orgName, string filePathTrueXSD, string filePathBadXSD, string message)
         {
@@ -58,9 +58,11 @@ namespace EVotingProject
 
                 //1
                 NewMeetingPage.loadFromFile(filePathTrueXSD);
+                Assert.False(NewMeetingPage.isErrorMsg(), "не должно быть ошибки после загрузки файла");
 
                 //2 - файл не явл сообщ о проведении собрания XML
                 NewMeetingPage.loadFromFile(filePathBadXSD);
+                Assert.True(NewMeetingPage.isErrorMsg(), "должна быть ошибка после загрузки файла");
             }
             catch (AssertionException e)
             {
@@ -155,7 +157,7 @@ namespace EVotingProject
             NewMeetingPage.cancel();
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer",
             "D:\\temp\\MN НРД (Роснефть) 2.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
         TestName = "56944Step9-10.проверка типа KD (тип бумаги вид собрания эмитент) MN админ эмитента")]
         public void Test56944Step910(string menuPar, string loginPar, string login, string pass,
@@ -180,7 +182,7 @@ namespace EVotingProject
             NewMeetingPage.logout();
         }
 
-        [TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_recorder", "adm_recorder",
      "D:\\temp\\MN НРД (Роснефть) 2.xml", "D:\\temp\\MN НРД (орг_эмитента) 1.xml", "Успешно сохранен!",
  TestName = "56944Step11-12.проверка типа KD (тип бумаги вид собрания эмитент) MN админ регистратора")]
         public void Test56944Step1112(string menuPar, string loginPar, string login, string pass,
@@ -330,7 +332,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         /// <param name="filePath"></param>
         /// <param name="message"></param>
         /// <param name="contractName"></param>
-        [TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "ОАО \"НК \"Роснефть\"",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "ОАО \"НК \"Роснефть\"",
         @"D:\work\test\MN НРД (Роснефть) 2.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml",
         "Успешно сохранен!", "012345",
         TestName = "56957.проверка отображения стр собрания и подтвержд созд собрания, адм evot) MN участник сч комиссии")]
@@ -462,7 +464,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         [TearDown]
         public void TearDown()
         {
-            
+
         }
 
         [OneTimeTearDown]

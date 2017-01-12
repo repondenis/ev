@@ -35,7 +35,7 @@ namespace EVotingProject
 
         }
 
-        [TestCase(MenuParam.registrators, LoginParam.login, "adm_iss", "adm_iss", "Андрей Денисов", "Успешно сохранен!",
+        [TestCase(MenuParam.registrators, LoginParam.login, "adm_issuer", "adm_issuer", "Андрей Денисов", "Успешно сохранен!",
               TestName = "1.Проверка инициации изменения полномочий, 57017")]
         public void Test57017(string menuPar, string loginPar, string login, string pass, string userName, string message)
         {

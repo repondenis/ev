@@ -39,8 +39,8 @@ namespace EVotingProject
 
         //либо искать ОРГ по ИНН = 1027700043502 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,админ ЕВотинга"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,представитель эмитента"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,представитель регистратора")]
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,представитель эмитента"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_recorder", "adm_recorder", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,представитель регистратора")]
         // [TestCaseSource("ALM")]
         public void Test56890(string menuPar, string loginPar, string login, string pass, string orgName, string photoCandidatefile, string message, string meetStat, string cancelCode)
         {
@@ -67,8 +67,8 @@ namespace EVotingProject
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56894.Проверка состава полей в зависимости от типа ЦБ,админ ЕВотинга"),
- TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56894.Проверка состава полей в зависимости от типа ЦБ,представитель эмитента"),
- TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56894.Проверка состава полей в зависимости от типа ЦБ,представитель регистратора")]
+ TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56894.Проверка состава полей в зависимости от типа ЦБ,представитель эмитента"),
+ TestCase(MenuParam.organizators, LoginParam.login, "adm_recorder", "adm_recorder", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56894.Проверка состава полей в зависимости от типа ЦБ,представитель регистратора")]
         // [TestCaseSource("ALM")]
         public void Test56894(string menuPar, string loginPar, string login, string pass, string orgName, string photoCandidatefile, string message, string meetStat, string cancelCode)
         {
@@ -121,18 +121,7 @@ namespace EVotingProject
 
 
 
-        /// <summary>
-        /// загрузка данных для тестов из файла
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerable<string[]> GetTestDataList()
-        {
-            var reader = new CsvReader(File.OpenText("путь к csv-файлу"));
-            while (reader.Read())
-            {
-                yield return new string[] { reader.GetField<string>(0), reader.GetField<string>(1) };
-            }
-        }
+
 
     }
 }

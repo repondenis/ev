@@ -36,7 +36,7 @@ namespace EVotingProject
 
         }
 
-        [TestCase(MenuParam.registrators, LoginParam.login, "adm_reg", "adm_reg", "ОАО \"НК \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
+        [TestCase(MenuParam.registrators, LoginParam.login, "adm_recorder", "adm_recorder", "ОАО \"НК \"Роснефть\"", "D:\\work\\test\\logoh.png", "D:\\work\\test\\logol.png", "#001199", "Успешно сохранен!",
               TestName = "56852.Проверка инициации настройки брендирования, представитель регистратора")]
         public void Test56852(string menuPar, string loginPar, string login, string pass, string orgName, string filePathHeader, string filePathList, string color, string message)
         {

@@ -37,7 +37,7 @@ namespace EVotingProject
         }
 
         //либо искать ОРГ по ИНН = 1027700043502
-        [TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
+        [TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"",
             @"D:\work\test\MI НРД (Роснефть) 3 без деном.xml", "Успешно сохранен!",
               TestName = "56972.Проверка логического контроля админ эмитента")]
         public void Test56972(string menuPar, string loginPar, string login, string pass, string orgName, string filePathMi, string message)

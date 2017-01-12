@@ -7,7 +7,7 @@ using HP.LFT.SDK.Web;
 using EVotingProject.Pages;
 using EVotingProject.Helpers;
 using EVotingProject.Models;
-
+using System.Collections.Generic;
 
 namespace EVotingProject
 {
@@ -36,14 +36,11 @@ namespace EVotingProject
         /// <param name="password"></param>
         public static void autorizeFromEVoting(string url, string loginParam, string menuParam, string login, string password)
         {
-
             try
             {
                 //Console.WriteLine(DateTime.Now + " autorizeFromEVoting().");
                 //  if (PublicPage.isTruePage())
                 //      PublicPage.gotoPortalPage();
-
-
                 PortalPage.logout();
                 browser.Navigate(urlDemo);
                 Assert.True(LoginPage.isTruePage());
@@ -185,4 +182,27 @@ public class SetupFixture : UnitTestSuiteBase
 
         Reporter.GenerateReport();
     }
+
+
+
+    /// <summary>
+    /// загрузка данных для тестов из файла
+    /// </summary>
+    /// <returns></returns>
+    public static IEnumerable<string[]> GetTestDataList()
+    {
+        /*var reader = new CsvReader(File.OpenText("путь к csv-файлу"));
+        while (reader.Read())
+        {
+            yield return new string[] { reader.GetField<string>(0), reader.GetField<string>(1) };
+        }
+        */
+
+
+        ReadXmlHelper.loadXml(@"D:\work\test\tests.xml");
+        Console.WriteLine(ReadXmlHelper.getElement("Test"));
+
+        return null;
+    }
+
 }

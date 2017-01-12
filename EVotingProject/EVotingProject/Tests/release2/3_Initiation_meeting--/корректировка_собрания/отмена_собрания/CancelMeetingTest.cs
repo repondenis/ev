@@ -39,8 +39,8 @@ namespace EVotingProject
 
         //либо искать ОРГ по ИНН = 1027700043502 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemMeetOpen, СancelDialogCode.errorEdit, TestName = "56939.Проверка отмены собрания,админ ЕВотинга"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_iss", "adm_iss", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemMeetOpen, СancelDialogCode.errorEdit, TestName = "56939.Проверка отмены собрания,представитель эмитента"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_reg", "adm_reg", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemMeetOpen, СancelDialogCode.errorEdit, TestName = "56939.Проверка отмены собрания,представитель регистратора")]
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemMeetOpen, СancelDialogCode.errorEdit, TestName = "56939.Проверка отмены собрания,представитель эмитента"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_recorder", "adm_recorder", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemMeetOpen, СancelDialogCode.errorEdit, TestName = "56939.Проверка отмены собрания,представитель регистратора")]
         // [TestCaseSource("ALM")]
         public void Test56939(string menuPar, string loginPar, string login, string pass, string orgName, string photoCandidatefile, string message, string meetStat, string cancelCode)
         {
