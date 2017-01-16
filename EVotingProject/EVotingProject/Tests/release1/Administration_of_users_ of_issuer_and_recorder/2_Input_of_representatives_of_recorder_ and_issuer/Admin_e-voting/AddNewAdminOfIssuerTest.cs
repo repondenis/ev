@@ -112,14 +112,12 @@ namespace EVotingProject.Tests.release1
 
         [TestCase("Иванов", "Иван", "Иванович", "adm_issuer", "26242628212", "ОАО \"НК \"Роснефть\"", "не должно вылететь ошибки", availRoles.adminOfIssuer,
             MenuParam.organizators, LoginParam.login, "admin", "admin",
-                    TestName = "57041. 3.Проверка заполнения полей логина, снилс, 57041")]
+                    TestName = "57041. 3.Проверка заполнения полей логина, снилс, 57041 + проходит")]
         public void Test57041(string lastName, string firstName, string otherName, string loginNew, string snils, string orgName, string message, string role, string menuPar, string loginPar, string login, string pass)
         {
-
             try
             {
                 Console.WriteLine(DateTime.Now);
-
 
                 //step1
 
@@ -128,7 +126,7 @@ namespace EVotingProject.Tests.release1
                 PortalPage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage(), "должна быть страница Пользователей");
                 EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя");
+                Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя1");
 
                 NewEmployeePage.setOrganization(orgName);
 
@@ -137,12 +135,13 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.setOtherName(otherName);
 
                 NewEmployeePage.setLogin(loginNew);
+                NewEmployeePage.setLoginLocal(loginNew);
 
-                NewEmployeePage.setPhone("+7(927)159-11-81");
+                NewEmployeePage.setPhone("79271591181");//("+7(927)159-11-81");
                 NewEmployeePage.setMail("test@test.ru");
 
                 NewEmployeePage.save();
-                Assert.True(NewEmployeePage.isMessageGrowleOk(message), message);
+                Assert.True(NewEmployeePage.isMessageGrowleOk("Успешно сохранено!"), "Успешно сохранено!1");// ("Недопустимые символы или длина"), "Недопустимые символы или длина");
 
                 NewEmployeePage.unblock();
                 NewEmployeePage.save();
@@ -152,7 +151,7 @@ namespace EVotingProject.Tests.release1
                 Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
                 NewEmployeePage.save();
-                Assert.True(NewEmployeePage.isMessageGrowleOk(message), message);
+                Assert.True(NewEmployeePage.isMessageGrowleOk("Успешно сохранено!"), "Успешно сохранено!2");
 
                 NewEmployeePage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage(), "должна быть страница Пользователей");
@@ -161,7 +160,9 @@ namespace EVotingProject.Tests.release1
                 EmployeePage.getEmployeesTable(lastName + " " + firstName + " " + otherName);
 
                 //step2
-                Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя");
+                EmployeePage.addNewUser();
+                Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя2");
+                NewEmployeePage.setOrganization(orgName);
                 NewEmployeePage.setLastName(lastName);
                 NewEmployeePage.setFirstName(firstName);
                 NewEmployeePage.setOtherName(otherName);
@@ -172,7 +173,7 @@ namespace EVotingProject.Tests.release1
                 NewEmployeePage.setMail("test@test.ru");
 
                 NewEmployeePage.save();
-                Assert.True(NewEmployeePage.isMessageGrowleOk(message), message);
+                Assert.True(NewEmployeePage.isMessageGrowleOk("Успешно сохранено!"), "Успешно сохранено!3");
 
                 NewEmployeePage.unblock();
                 NewEmployeePage.save();
@@ -182,10 +183,10 @@ namespace EVotingProject.Tests.release1
                 Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
                 NewEmployeePage.save();
-                Assert.True(NewEmployeePage.isMessageGrowleOk(message), message);
+                Assert.True(NewEmployeePage.isMessageGrowleOk("Успешно сохранено!"), "Успешно сохранено!4");
 
                 NewEmployeePage.gotoMenuEmployees();
-                Assert.True(EmployeePage.isTruePage(), "должна быть страница Пользователей");
+                Assert.True(EmployeePage.isTruePage(), "должна быть страница Пользователей3");
 
                 //проверяем есть ли текущий пользователь в табл пользователей
                 EmployeePage.getEmployeesTable(lastName + " " + firstName + " " + otherName);
@@ -215,7 +216,7 @@ namespace EVotingProject.Tests.release1
                 PortalPage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage(), "должна быть страница Пользователей");
                 EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя");
+                Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя1");
                 NewEmployeePage.setOrganization(orgNameTrue);
 
 
@@ -224,7 +225,7 @@ namespace EVotingProject.Tests.release1
                 PortalPage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage(), "должна быть страница Пользователей");
                 EmployeePage.addNewUser();
-                Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя");
+                Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя2");
                 NewEmployeePage.setOrganization(orgNameTrue);
                 //
 

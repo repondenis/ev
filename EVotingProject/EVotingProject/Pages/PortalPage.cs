@@ -297,9 +297,10 @@ namespace EVotingProject.Pages
                     if (columns != null && columns.Length > 1)
                         if (columns[columnNumberEquals].InnerText.Contains(@v))
                         {
-                            Console.WriteLine("содержит {0}", v);
+                            Console.WriteLine("{1}содержит {0}", v, columns[columnNumberEquals].InnerText);
                             //columns[columnNumberLink].Describe<ILink>( new CSSDescription(".//a[text()='Удалить']") ).Click();
                             columns[columnNumberLink].Describe<ILink>(descr).Click();
+                            break;
                         }
                 }
         }

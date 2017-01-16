@@ -29,7 +29,7 @@ namespace EVotingProject.Pages
         //string divMethodCreateMeeting = ".//div[@id='create-meeting-page']/div[div[label[text()='Способ создания собрания']]]";
 
         //загрузить из файла
-        private static CSSDescription uploadFile = new CSSDescription("a.upload-file-link"); // Загрузить файл
+        private static CSSDescription uploadFile = new CSSDescription("div#create-meeting-page span.ui-fileupload-choose");//??("a.upload-file-link"); // Загрузить файл
         //private static WindowDescription uploadFileWin = new WindowDescription { WindowTitleRegExp = "Выгрузка файла" };
 
         //ранее загруженные собрания
@@ -88,7 +88,7 @@ namespace EVotingProject.Pages
         private static CSSDescription contractsInputh = new CSSDescription("input[id='form:contracts_hinput']");
         private static CSSDescription contractInputToggle = new CSSDescription("div.contracts-auto span[id='form:contracts'] button");//  span.ui-button-icon-primary
         private static CSSDescription contractInputSelect = new CSSDescription("div[id='form:contracts_panel']");
-        private static CSSDescription contractInputList = new CSSDescription("div[id='form:contracts_panel'] ul li");
+        private static CSSDescription contractInputList = new CSSDescription("div[id='form:contracts_panel'] ul");//"div[id='form:contracts_panel'] ul li"
 
         private static XPathDescription submitb = new XPathDescription(".//button[span[text()='Продолжить']]");
         private static XPathDescription cancelb = new XPathDescription(".//button[span[text()='Отменить']]");
@@ -135,7 +135,7 @@ namespace EVotingProject.Pages
             select.Select(method);
         }
 
-#region
+        #region
         /*
         /// <summary>
         /// загрузить файл
@@ -180,7 +180,7 @@ namespace EVotingProject.Pages
             }
         }
         */
-#endregion
+        #endregion
 
         /// <summary>
         /// загрузить файл
@@ -192,13 +192,16 @@ namespace EVotingProject.Pages
             {
                 ReadXmlHelper.loadXml(filePath);
 
-                var upload = browser.Describe<ILink>(uploadFile);
+                Console.WriteLine(filePath + " is exist " + System.IO.File.Exists(filePath));
+
+                var upload = browser.Describe<IWebElement>(uploadFile); ;//browser.Describe<ILink>(uploadFile);
 
                 click2Object(upload);
 
                 WindowsHelper.setFilePath2WinDialog(browser.Version.Type, filePath);
 
             }
+            else throw new Exception();
         }
 
         public static void setMeetingStartInput(string v)
@@ -299,9 +302,10 @@ namespace EVotingProject.Pages
         /// <param name="position"></param>
         public static void selectItemOfContract(string v)
         {
+            Console.WriteLine(v);
             browser.Describe<IListBox>(contractInputList).Select(v);
-            
 
+            
         }
 
 

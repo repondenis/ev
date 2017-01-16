@@ -34,7 +34,7 @@ namespace EVotingProject.Helpers
                     break;
             }
 
-            //Console.WriteLine(browserType + ", "+ winClassRegExp + ", " + winTitleRegExp);
+            Console.WriteLine(browserType + ", "+ winClassRegExp + ", " + winTitleRegExp);
 
             var chromeWind = HP.LFT.SDK.Desktop.Describe<IWindow>(new WindowDescription
             {
@@ -43,7 +43,7 @@ namespace EVotingProject.Helpers
                 WindowClassRegExp = winClassRegExp,
                 WindowTitleRegExp = winTitleRegExp
             });
-           // Console.WriteLine("Wind-" + chromeWind.Exists());
+            Console.WriteLine("Wind-" + chromeWind.Exists());
 
             var dialogWind = chromeWind.Describe<IDialog>(new DialogDescription
             {
@@ -54,7 +54,7 @@ namespace EVotingProject.Helpers
                 WindowTitleRegExp = browserTitle,
                 IsVisible = true
             });
-           // Console.WriteLine("dialog-" + dialogWind.Exists());
+            Console.WriteLine("dialog-" + dialogWind.Exists());
 
             var editFileLabel = dialogWind.Describe<IEditField>(new EditFieldDescription
             {

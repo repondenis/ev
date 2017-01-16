@@ -21,15 +21,36 @@ namespace EVotingProject.Pages
         private static XPathDescription adminAdd = new XPathDescription(
     ".//button[span[text()='Добавить администратора e-voting']]");
 
-        private static CSSDescription fioSnilsFilter = new CSSDescription("div#employee-block>div>div>div>div>input.ui-inputfield");//28112016("div#employee-block>div>div:nth-child(2)>div:nth-child(2) input");
-        private static CSSDescription role = new CSSDescription("div#employee-block>div>div.vertical-align-flex>div:nth-child(3) label");//("div#employee-block>div>div:nth-child(2)>div:nth-child(4) input");//("div#employee-block>div>div:nth-child(2) span>input[placeholder='Все роли']");
+        private static CSSDescription fioSnilsFilter = new CSSDescription("input.ui-inputfield[placeholder='ФИО, организация, СНИЛС или Логин passport.moex']");//("div#employee-block>div>div>div>div>input.ui-inputfield");//28112016("div#employee-block>div>div:nth-child(2)>div:nth-child(2) input");
+        private static CSSDescription role = new CSSDescription("div#employee-block div#panel1>div.vertical-align-flex>div:nth-child(3)>div>label");//("div#employee-block>div>div:nth-child(2)>div:nth-child(4) input");//("div#employee-block>div>div:nth-child(2) span>input[placeholder='Все роли']");
         private static CSSDescription roleToggle = new CSSDescription("div#employee-block>div>div.vertical-align-flex>div:nth-child(3) span");//("div#employee-block>div>div:nth-child(2)>div:nth-child(4) button");
-        private static CSSDescription active = new CSSDescription("div#employee-block>div>div.vertical-align-flex>div:nth-child(5) label");//("div#employee-block>div>div:nth-child(2)>div:nth-child(6) input");//("div#employee-block>div>div:nth-child(2) span>input[placeholder='Не важно']");
+        private static CSSDescription roleList = new CSSDescription("body>div:nth-child(5) ul");
+        private static CSSDescription active = new CSSDescription("div#employee-block div#panel1>div.vertical-align-flex>div:nth-child(5)>div>label");//("div#employee-block>div>div:nth-child(2)>div:nth-child(6) input");//("div#employee-block>div>div:nth-child(2) span>input[placeholder='Не важно']");
         private static CSSDescription activeToggle = new CSSDescription("div#employee-block>div>div.vertical-align-flex>div:nth-child(5) span");//("div#employee-block>div>div:nth-child(2)>div:nth-child(6) button");
+        private static CSSDescription activeList = new CSSDescription("body>div:nth-child(6) ul");
 
         private static CSSDescription employeesDateTabl = new CSSDescription("div[id='personForm:employeeTable'] table.table-condensed");//("tbody[id='personForm:employeeTable_data']");
-        //private static CSSDescription employeesDateTabl2 = new CSSDescription("thead[id='personForm:employeeTable_head']");//("tbody[id='personForm:employeeTable_data']");
+                                                                                                                                         //private static CSSDescription employeesDateTabl2 = new CSSDescription("thead[id='personForm:employeeTable_head']");//("tbody[id='personForm:employeeTable_data']");
 
+        public static void clickRoleToggle()
+        {
+            browser.Describe<IWebElement>(role).Click();
+        }
+
+        public static void clickActiveToggle()
+        {
+            browser.Describe<IWebElement>(active).Click();
+        }
+
+        public static void selectRole(string v)
+        {
+            browser.Describe<IListBox>(roleList).Select(v);
+        }
+
+        public static void selectActive(string v)
+        {
+            browser.Describe<IListBox>(activeList).Select(v);
+        }
 
         private static CSSDescription employeesDate = new CSSDescription(
             "tbody[id='personForm:employeeTable_data'] tr");//count empl

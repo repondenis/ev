@@ -35,6 +35,7 @@ namespace EVotingProject.Pages
 
         private static CSSDescription otherName = new CSSDescription("input[id='form:tabView:middleName']");
         private static CSSDescription login = new CSSDescription("div#employee-data-custom>div.ui-g>div:nth-child(2)>div:nth-child(1) input");//28112016//("div#employee-data-custom>div:nth-child(6) input");
+        private static CSSDescription loginLocal = new CSSDescription("div#employee-data-custom>div.ui-g>div:nth-child(2)>div:nth-child(2) input");
         private static CSSDescription snils = new CSSDescription("div#employee-data-custom>div.ui-g>div:nth-child(2)>div:nth-child(2) input");
         private static CSSDescription mail = new CSSDescription("input[id='form:tabView:email']");
         //ЕНД ДАННЫЕ
@@ -74,8 +75,8 @@ namespace EVotingProject.Pages
         private static XPathDescription cancelB = new XPathDescription(".//button[span[text()='Отменить']]");
 
 
-        private static XPathDescription unblockB = new XPathDescription(".//button[span[text()='Разблокировать']]");
-        private static XPathDescription blockB = new XPathDescription(".//button[span[text()='Заблокировать']]");
+        private static XPathDescription unblockB = new XPathDescription(".//a[text()='Разблокировать']");//(".//button[span[text()='Разблокировать']]");
+        private static XPathDescription blockB = new XPathDescription(".//a[text()='Заблокировать']");//(".//button[span[text()='Заблокировать']]");
 
 
 
@@ -109,6 +110,12 @@ namespace EVotingProject.Pages
         {
             return browser.Describe<IEditField>(login).Value;
         }
+
+        internal static string getLoginLocal()
+        {
+            return browser.Describe<IEditField>(loginLocal).Value;
+        }
+
         public static bool isOrganizationPanelAppear()
         {
             return browser.Describe<IWebElement>(organizationPanel).Exists();
@@ -145,17 +152,18 @@ namespace EVotingProject.Pages
                 if (searchButton.Exists() && searchButton.IsVisible)
                 {
 
-                   Console.WriteLine("В ТАБЛ = "+ getItemOfTable(browser.Describe<IWebElement>(orgSearchTable),0,0) );
+                    //Console.WriteLine("В ТАБЛ = " + getItemOfTable(browser.Describe<IWebElement>(orgSearchTable), 0, 0));
 
                     searchButton.Click();
                     Thread.Sleep(1000);
 
-                    Console.WriteLine("В ТАБЛ = " + getItemOfTable(browser.Describe<IWebElement>(orgSearchTable), 0, 0));
+                   // Console.WriteLine("В ТАБЛ = " + getItemOfTable(browser.Describe<IWebElement>(orgSearchTable), 0, 0));
 
                     //Console.WriteLine("нажали searchButton");
                     var table = browser.Describe<IWebElement>(orgSearchTable);
                     clickLinkOfTable(v, table, 0, 4, new CSSDescription("a"));
-                   // selectOrgOfTable(v, table);
+                   
+                    // selectOrgOfTable(v, table);
                 }
             }
         }
@@ -235,6 +243,11 @@ namespace EVotingProject.Pages
             browser.Describe<IEditField>(login).SetValue(v);
         }
 
+        public static void setLoginLocal(string v)
+        {
+            browser.Describe<IEditField>(loginLocal).SetValue(v);
+        }
+
         public static void setSnils(string v)
         {
             browser.Describe<IEditField>(snils).SetValue(v);
@@ -278,13 +291,13 @@ namespace EVotingProject.Pages
 
         public static bool isUnblockExist()
         {
-            return browser.Describe<IButton>(unblockB).Exists();
+            return browser.Describe<ILink>(unblockB).Exists();
         }
 
         public static void unblock()
         {
             isUnblockExist();
-            browser.Describe<IButton>(unblockB).Click();
+            browser.Describe<ILink>(unblockB).Click();
         }
 
         /// <summary>
@@ -293,13 +306,13 @@ namespace EVotingProject.Pages
         /// <returns></returns>
         public static bool isBlockExist()
         {
-            return browser.Describe<IButton>(blockB).Exists();
+            return browser.Describe<ILink>(blockB).Exists();
         }
 
         public static void block()
         {
             isBlockExist();
-            browser.Describe<IButton>(blockB).Click();
+            browser.Describe<ILink>(blockB).Click();
         }
 
         public static void gotoInfoPanel()
@@ -335,7 +348,7 @@ namespace EVotingProject.Pages
 
         public static void selectAvailRolesList(string v)
         {
-           // Console.WriteLine(browser.Describe<IWebElement>(availRolesSelect).InnerText);
+            // Console.WriteLine(browser.Describe<IWebElement>(availRolesSelect).InnerText);
             browser.Describe<IListBox>(availRolesSelect).Select(v);
         }
 
@@ -350,7 +363,7 @@ namespace EVotingProject.Pages
 
         public static bool isAvailRoleList(string str)
         {
-            return browser.Describe<IWebElement>(availRoleList).Exists() && 
+            return browser.Describe<IWebElement>(availRoleList).Exists() &&
                 browser.Describe<IWebElement>(availRoleList).InnerText.Contains(str);
         }
 

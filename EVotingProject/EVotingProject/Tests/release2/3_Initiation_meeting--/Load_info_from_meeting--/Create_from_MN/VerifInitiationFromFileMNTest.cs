@@ -333,7 +333,7 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
         /// <param name="message"></param>
         /// <param name="contractName"></param>
         [TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "ОАО \"НК \"Роснефть\"",
-        @"D:\work\test\MN НРД (Роснефть) 2.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml", @"D:\work\test\MN НРД (Роснефть) 1.xml",
+        @"C:\work\test\MN НРД (Роснефть) 2.xml", @"C:\work\test\MN НРД (Роснефть) 2.xml", @"C:\work\test\MN НРД (Роснефть) 2.xml",
         "Успешно сохранен!", "012345",
         TestName = "56957.проверка отображения стр собрания и подтвержд созд собрания, адм evot) MN участник сч комиссии")]
         public void Test56957(string menuPar, string loginPar, string login, string pass, string orgName,

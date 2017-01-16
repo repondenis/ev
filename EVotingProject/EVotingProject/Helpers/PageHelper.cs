@@ -86,12 +86,12 @@ namespace EVotingProject.Helpers
 
         public static bool isMessageGrowleOk(string str)
         {
-            var msg = browser.Describe<IWebElement>(messageGrowle);
-            if (msg.Exists())
+            var msg = browser.FindChildren<IWebElement>(messageGrowle);
+            if (msg.Length > 0)
             {
-                Console.WriteLine("MSG: " + msg.Describe<IWebElement>(messageGrowleText).InnerHTML + ", " + DateTime.Now);
+                Console.WriteLine("MSG: " + msg[0].Describe<IWebElement>(messageGrowleText).InnerHTML + ", " + DateTime.Now);
                 //return browser.Describe<IWebElement>(messageGrowleError).Exists();
-                return msg.Describe<IWebElement>(messageGrowleInfo).Exists() && msg.Describe<IWebElement>(messageGrowleText).InnerHTML.Contains(str);
+                return msg[0].Describe<IWebElement>(messageGrowleInfo).Exists() && msg[0].Describe<IWebElement>(messageGrowleText).InnerHTML.Contains(str);
             }
             return false;
         }
