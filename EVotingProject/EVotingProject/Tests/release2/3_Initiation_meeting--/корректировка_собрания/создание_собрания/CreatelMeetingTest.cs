@@ -38,11 +38,11 @@ namespace EVotingProject
 
 
         //либо искать ОРГ по ИНН = 1027700043502 
-        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,админ ЕВотинга"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,представитель эмитента"),
-         TestCase(MenuParam.organizators, LoginParam.login, "adm_recorder", "adm_recorder", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,представитель регистратора")]
+        [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, formType.absentBallot, formType.notSendList, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,админ ЕВотинга"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_issuer", "adm_issuer", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, formType.absentBallot, formType.notSendList, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,представитель эмитента"),
+         TestCase(MenuParam.organizators, LoginParam.login, "adm_recorder", "adm_recorder", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, formType.absentBallot, formType.notSendList, TestName = "56890.Создание собрания, проверка инициации коррестировки общей инф ОС,представитель регистратора")]
         // [TestCaseSource("ALM")]
-        public void Test56890(string menuPar, string loginPar, string login, string pass, string orgName, string photoCandidatefile, string message, string meetStat, string cancelCode)
+        public void Test56890(string menuPar, string loginPar, string login, string pass, string orgName, string photoCandidatefile, string message, string meetStat, string cancelCode, string formType, string formType2)
         {
 
             Console.WriteLine(DateTime.Now);
@@ -55,15 +55,20 @@ namespace EVotingProject
             PortalPage.editMeetingOfTable(orgName);
             Assert.True(MeetingPage.isTruePage(), "должна быть страница собрания");
             //2 - форма проведения ОС - заочное голосование
-            MeetingPage.setformTypeLabel(MeetingStatus.itemZaoResultsComplete);
+            MeetingPage.setformTypeLabel(formType);
             //проверить заблокированы ли поля дата проведения, страна и адрес, время проведен, начало регистр лиц
+            MeetingPage.getmeetingStartState();
 
             //3
-            MeetingPage.setformTypeLabel("??? очное собрание без заочного голосования");
+            MeetingPage.setformTypeLabel(formType2);
+            MeetingPage.getmeetingStartState();
 
             //4
-            MeetingPage.setentitlementFixingDate_input(DateTime.Now.ToString("dd.MM.yyyy"));
+            //Console.WriteLine(DateTime.Now.ToString("ddMMyyyy"));
+            MeetingPage.setEntitlementFixingDate_input("01302016");// DateTime.Now.ToString("ddMMyyyy") ("dd.MM.yyyy")
+            MeetingPage.getentitlementFixingDate();
 
+            MeetingPage.save();
         }
 
         [TestCase(MenuParam.organizators, LoginParam.login, "admin", "admin", "Открытое акционерное общество \"Нефтяная компания \"Роснефть\"", @"D:\work\test\cancelMeeting.pdf", "Причина отмены", MeetingStatus.itemLoadMN, СancelDialogCode.errorEdit, TestName = "56894.Проверка состава полей в зависимости от типа ЦБ,админ ЕВотинга"),

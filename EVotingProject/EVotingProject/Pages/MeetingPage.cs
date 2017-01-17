@@ -92,6 +92,7 @@ namespace EVotingProject.Pages
         private static CSSDescription issuerFullName = new CSSDescription("input[id='tabView:mainForm:issuerFullName']");//Полное фирменное наименование эмитента
         private static CSSDescription meetingId = new CSSDescription("input[id='tabView:mainForm:meetingId']");//Идентификатор собрания
         private static CSSDescription formTypeLabel = new CSSDescription("label[id='tabView:mainForm:formType_label']");//Форма проведения общего собрания
+        private static CSSDescription formTypeLabelList = new CSSDescription("ul[id='tabView:mainForm:formType_items']");//список выпад
         private static CSSDescription meetingStartInput = new CSSDescription("input[id='tabView:mainForm:meetingStart_input']");//Дата и время проведения собрания
 
         private static CSSDescription meetingCountryInput = new CSSDescription("input[id='tabView:mainForm:meetingCountry_input']");//Страна проведения собрания
@@ -586,13 +587,18 @@ namespace EVotingProject.Pages
 
         public static void setissuerFullName(string v) { browser.Describe<IEditField>(issuerFullName).SetValue(v); }
         public static void setmeetingId(string v) { browser.Describe<IEditField>(meetingId).SetValue(v); }
-        public static void setformTypeLabel(string v) { browser.Describe<IEditField>(formTypeLabel).SetValue(v); }
+        public static void setformTypeLabel(string v)
+        {
+            browser.Describe<IWebElement>(formTypeLabel).Click();
+            browser.Describe<IListBox>(formTypeLabelList).Select(v);
+
+        }
         public static void setmeetingStartInput(string v) { browser.Describe<IEditField>(meetingStartInput).SetValue(v); }
         public static void setmeetingCountryInput(string v) { browser.Describe<IEditField>(meetingCountryInput).SetValue(v); }
         public static void setmeetingAddress(string v) { browser.Describe<IEditField>(meetingAddress).SetValue(v); }
         public static void setvoteMktDdlnInput(string v) { browser.Describe<IEditField>(voteMktDdlnInput).SetValue(v); }
         public static void setparticipantsRegisterStartInput(string v) { browser.Describe<IEditField>(participantsRegisterStartInput).SetValue(v); }
-        public static void setentitlementFixingDate_input(string v) { browser.Describe<IEditField>(entitlementFixingDate_input).SetValue(v); }
+        public static void setEntitlementFixingDate_input(string v) { browser.Describe<IEditField>(entitlementFixingDate_input).SetValue(v); }
         public static void setpostCountry_input(string v) { browser.Describe<IEditField>(postCountry_input).SetValue(v); }
         public static void setpostAddressInput(string v) { browser.Describe<IEditField>(postAddressInput).SetValue(v); }
         public static void setagenda(string v) { browser.Describe<IEditField>(agenda).SetValue(v); }
@@ -602,6 +608,11 @@ namespace EVotingProject.Pages
         public static string getmeetingId() { return browser.Describe<IEditField>(meetingId).Value; }
         public static string getformTypeLabel() { return browser.Describe<IEditField>(formTypeLabel).Value; }
         public static string getmeetingStart() { return browser.Describe<IEditField>(meetingStartInput).Value; }
+        public static string getmeetingStartState() {
+            Console.WriteLine(browser.Describe<IEditField>(meetingStartInput).GetAttribute("aria-disabled"));
+            Console.WriteLine(browser.Describe<IEditField>(meetingStartInput).GetAttribute("class"));
+            return browser.Describe<IEditField>(meetingStartInput).GetAttribute("");
+        }
         public static string getmeetingCountry() { return browser.Describe<IEditField>(meetingCountryInput).Value; }
         public static string getMeetingAddress() { return browser.Describe<IEditField>(meetingAddress).Value; }
         public static string getVoteMktDdln() { return browser.Describe<IEditField>(voteMktDdlnInput).Value; }
@@ -862,7 +873,7 @@ namespace EVotingProject.Pages
         public static void cancelQuestion()
         {
             browser.Describe<ILink>(questionCancel).Click();
-           
+
         }
 
         /// <summary>

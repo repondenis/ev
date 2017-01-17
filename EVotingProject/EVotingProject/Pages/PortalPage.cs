@@ -58,7 +58,8 @@ namespace EVotingProject.Pages
         //список собраний - редактировать выбранное - ИЗМЕНИЛ селекты!
         private static CSSDescription meetingsList = new CSSDescription("div[id='form:meetingsList_content']>ul>li");//список созданных собраний:
         private static CSSDescription meetingState = new CSSDescription("div.main-info__status>span.text");//внутри("span.status-meeting-item"); //статус внутри meetingsList
-        private static CSSDescription meetingOrgName = new CSSDescription("div.main-info__header>span.text");//внутри("span.header-meeting-item"); // наименование орг -//-
+        private static CSSDescription meetingType = new CSSDescription("div.main-info__header>span.text");//внутри("span.header-meeting-item"); // наименование орг -//-
+        private static CSSDescription meetingOrgName = new CSSDescription("div.main-info__issuer>span.text");// Открытое акционерное общество "Нефтяная компания "Роснефть"
         private static CSSDescription meetingDate = new CSSDescription("div.additional-info__data-meeting>span.data");//внутри(".//div[div[contains(text(),'Дата собрания')]]/div/span");//дата собрания -//-
         private static CSSDescription meetingDateFix = new CSSDescription("div.additional-info__data-fixing>span.data");//внутри(".//div[div[contains(text(),'Дата фиксации списка участников')]]/div/span");//Дата фиксации списка участников-//-
         private static CSSDescription meetingEdit = new CSSDescription("div.additional-info__actions>div.action__edit>a");//(".//a[text()='Редактирование']");//ведет на MeetingPage
@@ -237,11 +238,13 @@ namespace EVotingProject.Pages
         /// <param name="orgName">Открытое акционерное общество \"Нефтяная компания \"Роснефть\"</param>
         public static void editMeetingOfTable(string orgNameT)
         {
+            //Console.WriteLine("find - " + orgNameT);
             var liMeetings = browser.FindChildren<IWebElement>(meetingsList);
             if (liMeetings != null && liMeetings.Length > 0)
                 for (int i = 0; i < liMeetings.Length; i++)
                 {
-                    var meetingChldr = liMeetings[i].Describe<IWebElement>(meetingOrgName);
+                    //   var meetingChldr = liMeetings[i].Describe<IWebElement>(meetingType); // тип собрания  - Годовое собрание акционеров
+                    var meetingChldr = liMeetings[i].Describe<IWebElement>(meetingOrgName); //
 
                     //Console.WriteLine("{0}:{1}", i, meetingChldr.InnerText);
                     if (meetingChldr.Exists() && meetingChldr.InnerText.Equals(orgNameT))
