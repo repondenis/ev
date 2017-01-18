@@ -23,6 +23,7 @@ namespace EVotingProject.Pages
         /// </summary>
         public static void gotoPortalPage()
         {
+
             browser.Describe<ILink>(manageMeeting).Click();
         }
 

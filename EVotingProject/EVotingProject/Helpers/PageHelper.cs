@@ -93,6 +93,8 @@ namespace EVotingProject.Helpers
                 //return browser.Describe<IWebElement>(messageGrowleError).Exists();
                 return msg[0].Describe<IWebElement>(messageGrowleInfo).Exists() && msg[0].Describe<IWebElement>(messageGrowleText).InnerHTML.Contains(str);
             }
+            else Console.WriteLine("MSG: not");
+
             return false;
         }
 

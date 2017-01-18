@@ -26,7 +26,10 @@ namespace EVotingProject.Pages
         private static CSSDescription state = new CSSDescription("div.meeting-menu div span.result-header-page");//статус - Доступно заочное голосование на собрании
         private static XPathDescription nameMeet = new XPathDescription(".//div[@class='meeting-menu']/div[1]/div[2]/span");//28-11("div.meeting-menu>div:nth-child(2)>span.header-meeting-item");//Годовое собрание акционеров
         private static XPathDescription nameOrg = new XPathDescription(".//div[@class='meeting-menu']/div[1]/div[3]/span");//28-11("div.meeting-menu>div:nth-child(3)>span.header-meeting-item");//org name
-                                                                                                                           //  private static CSSDescription emitent = new CSSDescription("div.meeting-menu div span.header-meeting-item");//Акционерный коммерческий Сберегательный бан
+
+
+
+        //  private static CSSDescription emitent = new CSSDescription("div.meeting-menu div span.header-meeting-item");//Акционерный коммерческий Сберегательный бан
 
         private static CSSDescription dateMeet = new CSSDescription("form#controlPanelForm div span.result-label-data");//Дата собрания
 
@@ -96,7 +99,7 @@ namespace EVotingProject.Pages
         private static CSSDescription meetingStartInput = new CSSDescription("input[id='tabView:mainForm:meetingStart_input']");//Дата и время проведения собрания
 
         private static CSSDescription meetingCountryInput = new CSSDescription("input[id='tabView:mainForm:meetingCountry_input']");//Страна проведения собрания
-        private static CSSDescription meetingAddress = new CSSDescription("input[id='tabView:mainForm:meetingAddress']");//Адрес проведения собрания
+        private static CSSDescription meetingAddress = new CSSDescription("input[id='tabView:mainForm:meetingAddressRU']");//("input[id='tabView:mainForm:meetingAddress']");//Адрес проведения собрания
         private static CSSDescription voteMktDdlnInput = new CSSDescription("input[id='tabView:mainForm:voteMktDdln_input']");//Дата окончания приема бюллетеней
         private static CSSDescription participantsRegisterStartInput = new CSSDescription("input[id='tabView:mainForm:participantsRegisterStart_input']");//Время начала регистрации участников
         private static CSSDescription entitlementFixingDate_input = new CSSDescription("input[id='tabView:mainForm:entitlementFixingDate_input']");//Дата определения участников собрания
@@ -428,6 +431,8 @@ namespace EVotingProject.Pages
                 && browser.Describe<IWebElement>(nameOrg).InnerText.Equals(orgName);
         }
 
+
+
         public static void gotoMenuBullet()
         {
             browser.Describe<ILink>(menuBullet).Click();
@@ -452,6 +457,9 @@ namespace EVotingProject.Pages
         {
             browser.Describe<ILink>(menuList).Click();
         }
+
+
+
 
         /// <summary>
         /// Отменить собрание
@@ -591,6 +599,8 @@ namespace EVotingProject.Pages
         {
             browser.Describe<IWebElement>(formTypeLabel).Click();
             browser.Describe<IListBox>(formTypeLabelList).Select(v);
+            browser.Describe<IWebElement>(formTypeLabel).WaitUntil(s => s.InnerText.Equals(v), 1000);
+
 
         }
         public static void setmeetingStartInput(string v) { browser.Describe<IEditField>(meetingStartInput).SetValue(v); }
@@ -608,11 +618,48 @@ namespace EVotingProject.Pages
         public static string getmeetingId() { return browser.Describe<IEditField>(meetingId).Value; }
         public static string getformTypeLabel() { return browser.Describe<IEditField>(formTypeLabel).Value; }
         public static string getmeetingStart() { return browser.Describe<IEditField>(meetingStartInput).Value; }
-        public static string getmeetingStartState() {
+        public static bool getmeetingStartState()
+        {
+            /*
             Console.WriteLine(browser.Describe<IEditField>(meetingStartInput).GetAttribute("aria-disabled"));
+            Console.WriteLine(browser.Describe<IEditField>(meetingStartInput).GetAttribute("aria-readonly"));
             Console.WriteLine(browser.Describe<IEditField>(meetingStartInput).GetAttribute("class"));
+            dfgd
+
             return browser.Describe<IEditField>(meetingStartInput).GetAttribute("");
+            */
+            return getReadOnlyState(browser.Describe<IEditField>(meetingStartInput));
         }
+
+        public static bool getmeetingCountryState()
+        {
+            return getReadOnlyState(browser.Describe<IEditField>(meetingCountryInput));
+        }
+        public static bool getmeetingAddrState()
+        {
+            return getReadOnlyState(browser.Describe<IEditField>(meetingAddress));
+        }
+        public static bool getmeetingRegisterStartState()
+        {
+            return getReadOnlyState(browser.Describe<IEditField>(participantsRegisterStartInput));
+        }
+        public static bool getReadOnlyVoteMktDdln()
+        {
+            return getReadOnlyState(browser.Describe<IEditField>(voteMktDdlnInput));
+
+        }
+
+        /// <summary>
+        /// если елемент только для чтения
+        /// заблокирована запись
+        /// </summary>
+        /// <param name="elem"></param>
+        /// <returns></returns>
+        private static bool getReadOnlyState(IWebElement elem)
+        {
+            return elem.GetAttribute("aria-disabled").Equals("true");
+        }
+
         public static string getmeetingCountry() { return browser.Describe<IEditField>(meetingCountryInput).Value; }
         public static string getMeetingAddress() { return browser.Describe<IEditField>(meetingAddress).Value; }
         public static string getVoteMktDdln() { return browser.Describe<IEditField>(voteMktDdlnInput).Value; }

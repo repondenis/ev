@@ -343,10 +343,12 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
             {
                 Console.WriteLine(DateTime.Now);
 
-                addNewContract(orgName, contractName);
+                //addNewContract(orgName, contractName);
 
                 autorizeFromEVoting(urlDemo, loginPar, menuPar, login, pass);
 
+                if (PublicPage.isTruePage())
+                    PublicPage.gotoPortalPage();
 
                 PortalPage.clickNewMeeting();
                 Assert.True(NewMeetingPage.isTruePage(), "должна быть страница создания собрания");
@@ -354,11 +356,12 @@ string filePathAnyIssuer, string filePathItIssuer, string message)
                 NewMeetingPage.selectMethodCreateMeeting(MeetingMethodCreate.FILE);
 
                 NewMeetingPage.loadFromFile(filePath);
-
+                Console.WriteLine(DateTime.Now + " 1");
                 Assert.False(NewMeetingPage.isErrorMsg(), "не должно быть ошибки после загрузки файла");
-
+                Console.WriteLine(DateTime.Now + " 2");
 
                 Assert.True(NewMeetingPage.getIssuerOrganization(orgName), "должна поменяться организация");
+                Console.WriteLine(DateTime.Now + " 3");
 
                 //NewMeetingPage.setContract(contractName);
                 NewMeetingPage.clickContractInputToggle();

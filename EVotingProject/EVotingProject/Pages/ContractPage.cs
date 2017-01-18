@@ -12,7 +12,7 @@ namespace EVotingProject.Pages
         private static CSSDescription pageTitle = new CSSDescription("label.main-header-page");//28112016("div#contract-block>div>div>label.main-header-page")
         private static XPathDescription newContractBt = new XPathDescription(".//button[span[text()='добавить новый']]");
         private static CSSDescription contractDateTabl = new CSSDescription("table[role='grid']");
-        private static CSSDescription contractFilter = new CSSDescription("input[id='contractForm:contractTable:globalFilter']");
+        private static CSSDescription contractFilter = new CSSDescription("input[id='contractForm:contractTable:searchText']");//("input[id='contractForm:contractTable:globalFilter']");
 
         //статус
         private static CSSDescription contractStatusFilterLabel = new CSSDescription("div.ui-selectonemenu>label");//статус собрания - текст, нажимается-выпадает
@@ -23,7 +23,7 @@ namespace EVotingProject.Pages
 
         public static new bool isTruePage()
         {
-            browser.Sync();
+           // browser.Sync();
             return browser.Describe<IWebElement>(pageTitle).Exists() && 
                 browser.Describe<IWebElement>(pageTitle).InnerText.Equals("Договоры");
         }

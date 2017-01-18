@@ -36,7 +36,7 @@ namespace EVotingProject.Pages
         private static CSSDescription otherName = new CSSDescription("input[id='form:tabView:middleName']");
         private static CSSDescription login = new CSSDescription("div#employee-data-custom>div.ui-g>div:nth-child(2)>div:nth-child(1) input");//28112016//("div#employee-data-custom>div:nth-child(6) input");
         private static CSSDescription loginLocal = new CSSDescription("div#employee-data-custom>div.ui-g>div:nth-child(2)>div:nth-child(2) input");
-        private static CSSDescription snils = new CSSDescription("div#employee-data-custom>div.ui-g>div:nth-child(2)>div:nth-child(2) input");
+        private static CSSDescription snils = new CSSDescription("div#employee-data-custom>div.ui-g>div:nth-child(2)>div:nth-child(3) input");
         private static CSSDescription mail = new CSSDescription("input[id='form:tabView:email']");
         //ЕНД ДАННЫЕ
 
@@ -151,11 +151,11 @@ namespace EVotingProject.Pages
                 var searchButton = browser.Describe<IButton>(orgSearchButton);
                 if (searchButton.Exists() && searchButton.IsVisible)
                 {
-
+                    
                     //Console.WriteLine("В ТАБЛ = " + getItemOfTable(browser.Describe<IWebElement>(orgSearchTable), 0, 0));
 
                     searchButton.Click();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
 
                    // Console.WriteLine("В ТАБЛ = " + getItemOfTable(browser.Describe<IWebElement>(orgSearchTable), 0, 0));
 

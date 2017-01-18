@@ -89,6 +89,7 @@ namespace EVotingProject.Pages
         private static CSSDescription contractInputToggle = new CSSDescription("div.contracts-auto span[id='form:contracts'] button");//  span.ui-button-icon-primary
         private static CSSDescription contractInputSelect = new CSSDescription("div[id='form:contracts_panel']");
         private static CSSDescription contractInputList = new CSSDescription("div[id='form:contracts_panel'] ul");//"div[id='form:contracts_panel'] ul li"
+        private static CSSDescription contractInputLi = new CSSDescription("div[id='form:contracts_panel'] ul>li");
 
         private static XPathDescription submitb = new XPathDescription(".//button[span[text()='Продолжить']]");
         private static XPathDescription cancelb = new XPathDescription(".//button[span[text()='Отменить']]");
@@ -192,7 +193,7 @@ namespace EVotingProject.Pages
             {
                 ReadXmlHelper.loadXml(filePath);
 
-                Console.WriteLine(filePath + " is exist " + System.IO.File.Exists(filePath));
+               // Console.WriteLine(filePath + " is exist " + System.IO.File.Exists(filePath));
 
                 var upload = browser.Describe<IWebElement>(uploadFile); ;//browser.Describe<ILink>(uploadFile);
 
@@ -303,9 +304,10 @@ namespace EVotingProject.Pages
         public static void selectItemOfContract(string v)
         {
             Console.WriteLine(v);
-            browser.Describe<IListBox>(contractInputList).Select(v);
+            // browser.Describe<IListBox>(contractInputList).Select(v);
+            selectItemLiOfListUL(v, contractInputLi);
 
-            
+
         }
 
 

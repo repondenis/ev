@@ -27,9 +27,11 @@ namespace EVotingProject.Pages
 
         public static new bool isTruePage()
         {
-            browser.Sync();
+
+           // browser.Sync();
             return browser.Describe<IWebElement>(pageTitle).Exists() &&
-                (browser.Describe<IWebElement>(pageTitle).InnerText.Equals("новый договор") | browser.Describe<IWebElement>(pageTitle).InnerText.Contains("договор №"));//
+                (browser.Describe<IWebElement>(pageTitle).InnerText.Equals("новый договор") |
+                browser.Describe<IWebElement>(pageTitle).InnerText.Contains("договор №"));//
         }
 
         public static bool isOrganizationPanelAppear()
@@ -41,7 +43,7 @@ namespace EVotingProject.Pages
         {
 
             browser.Describe<IListBox>(organizationPanel).Select(name);
-            
+
             /*
             var orgSelect = browser.Describe<IWebElement>(organizationPanel).Describe<IWebElement>(new CSSDescription("li"));
 

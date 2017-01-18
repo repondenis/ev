@@ -8,6 +8,7 @@ using EVotingProject.Pages;
 using EVotingProject.Helpers;
 using EVotingProject.Models;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace EVotingProject
 {
@@ -18,10 +19,10 @@ namespace EVotingProject
     {
 
         public static IBrowser browser;
-        public static string urlDemo = "http://demo-evoting.test.gosuslugi.ru/";//idp/sso#/
-        public static string urlDemoAdmin = "https://demo-evoting.test.gosuslugi.ru/idp/sso/#/?admin";//28112016"https://demo-evoting.test.gosuslugi.ru/idp/sso#/local?admin=";//ивотинг для администратора
-        public static string urlDev = "https://portal-dev-evoting.test.gosuslugi.ru/";
-        public static string urlDevAdmin = "https://portal-dev-evoting.test.gosuslugi.ru/idp/sso#/local?admin";//ивотинг для администратора
+        public const string urlDemo = "http://demo-evoting.test.gosuslugi.ru/";//idp/sso#/
+        public const string urlDemoAdmin = "https://demo-evoting.test.gosuslugi.ru/idp/sso/#/?admin";//28112016"https://demo-evoting.test.gosuslugi.ru/idp/sso#/local?admin=";//ивотинг для администратора
+        public const string urlDev = "https://portal-dev-evoting.test.gosuslugi.ru/";
+        public const string urlDevAdmin = "https://portal-dev-evoting.test.gosuslugi.ru/idp/sso#/local?admin";//ивотинг для администратора
 
         public static string adminEvotingLogin = "admin";
         public static string adminEvotingPassword = "admin";
@@ -38,6 +39,8 @@ namespace EVotingProject
         {
             try
             {
+                Console.WriteLine(new StackFrame(1).GetMethod().Name);
+
                 //Console.WriteLine(DateTime.Now + " autorizeFromEVoting().");
                 //  if (PublicPage.isTruePage())
                 //      PublicPage.gotoPortalPage();
@@ -55,9 +58,12 @@ namespace EVotingProject
                 Assert.True(LoginLocalPage.isTruePage(), "должна быть страница авториз по логину-паролю");
 
                 LoginLocalPage.runLogin(login, password);
+                Console.WriteLine(DateTime.Now);
                 Assert.True(PublicPage.isTruePage(), "должна быть общая страница голосований");
                 PublicPage.gotoPortalPage();
+                Console.WriteLine(DateTime.Now);
                 Assert.True(PortalPage.isTruePage(), "должна быть страница собраний");
+                Console.WriteLine(DateTime.Now);
             }
             catch (AssertionException)
             {

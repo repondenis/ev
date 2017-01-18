@@ -47,6 +47,8 @@ namespace EVotingProject.Pages
         private static CSSDescription meetingsStartInput = new CSSDescription("form:meetingStart_input");//("input#form:meetingsList:meetingStart_input");// дата собр, текст поле
         private static CSSDescription meetingsFixingDateInput = new CSSDescription("input[id='form:entitlementFixingDate_input']");//28-11-16("input#form:meetingsList:entitlementFixingDate_input");// дата фиксац списка участн, текст поле
 
+        private static CSSDescription noMeeting = new CSSDescription("div.ui-datalist-empty-message");
+
         //статус
         private static CSSDescription meetingStatusFilterLabel = new CSSDescription("label[id='form:meetingStatusFilter_label']");//("label#form:meetingsList:meetingStatusFilter_label");//статус собрания - текст, нажимается-выпадает
         private static XPathDescription meetingStatusFilterToggle = new XPathDescription(".//div[@id='form:meetingStatusFilter']/div/span");//(".//div[@id='form:meetingsList:meetingStatusFilter']/div/span");
@@ -71,10 +73,21 @@ namespace EVotingProject.Pages
         /// <returns></returns>
         public static bool isTruePage()
         {
-            browser.Sync();
+           // browser.Sync();
             //Console.WriteLine("textMeeting=" + browser.Describe<IWebElement>(organizationTitle).InnerText);
             return browser.Describe<IWebElement>(organizationTitle).Exists() &&
                 browser.Describe<IWebElement>(organizationTitle).InnerText.Equals("собрания");
+        }
+
+        /// <summary>
+        /// если нет собраний, попад под фильтр и выводится сообщ - 
+        /// "Нет доступных собраний"
+        /// </summary>
+        /// <returns></returns>
+        public static bool isNotExistMeeting()
+        {
+
+            return browser.Describe<IWebElement>(noMeeting).Exists();
         }
 
         /// <summary>
@@ -329,29 +342,30 @@ namespace EVotingProject.Pages
             return null;
         }
 
-        /*// <summary>
+        // <summary>
         /// выбор элемента/клик из списка по совпадению
         /// select LI from UL list
         /// </summary>
         /// <param name="nameItem"></param>
         /// <param name="descr"></param>
-        public static void selectItemLiOfListUL(string nameItem, CSSDescription descr)
+        public static void selectItemLiOfListUL(string nameItem, CSSDescription descrUlLi)
         {
-            browser.Describe<IListBox>(descr).Select(nameItem);
+           // browser.Describe<IListBox>(descr).Select(nameItem);
 
-            /*
-            var select = browser.FindChildren<IWebElement>(descr);
+
+            var select = browser.FindChildren<IWebElement>(descrUlLi);
             if (select.Length > 0)
                 for (int i = 0; i < select.Length; i++)
                     if (select[i].Exists() && select[i].IsVisible && select[i].InnerText.Contains(nameItem))
                     {
                         // Console.WriteLine("_ " + select[i].InnerText);
                         select[i].Click();
+                        break;
                     }
-            /
-                    
+
+
         }
-        */
+
 
 
     }

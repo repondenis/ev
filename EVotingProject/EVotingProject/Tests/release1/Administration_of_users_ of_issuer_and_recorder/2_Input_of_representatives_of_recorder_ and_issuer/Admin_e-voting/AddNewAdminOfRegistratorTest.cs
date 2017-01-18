@@ -109,15 +109,16 @@ namespace EVotingProject
             }
         }
 
-        [TestCase("Петров", "Петр", "Петрович", "adm_recorder", "16141618111", "не должно вылететь ошибки", availRoles.adminOfRegistrators,
+        [TestCase(MenuParam.organizators, LoginParam.login, "Петров", "Петр", "Петрович", "adm_recorder", "adm_recorder", "12345678911", "Успешно сохранено!", availRoles.adminOfRegistrators, "admin", "admin", "ОАО \"НК \"Роснефть\"",
          TestName = "57049. 3.Проверка заполнения полей логина, снилс, 57049")]
-        public void Test57049(string lastName, string firstName, string otherName, string login, string snils, string message, string role)
+        public void Test57049(string menuPar, string loginPar, string lastName, string firstName, string otherName, string loginNewU, string passNewU, string snils, string message, string role, string login, string pass, string orgName)
         {
-
             try
             {
                 Console.WriteLine(DateTime.Now);
                 PageHelper.setBrowser(browser);
+
+                autorizeFromEVoting(urlDemoAdmin, loginPar, menuPar, login, pass);
 
                 //step1
                 PortalPage.gotoMenuEmployees();
@@ -125,11 +126,14 @@ namespace EVotingProject
                 EmployeePage.addNewUser();
                 Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя");
 
+                NewEmployeePage.setOrganization(orgName);
+
                 NewEmployeePage.setLastName(lastName);
                 NewEmployeePage.setFirstName(firstName);
                 NewEmployeePage.setOtherName(otherName);
 
-                NewEmployeePage.setLogin(login);
+                NewEmployeePage.setLogin(loginNewU);
+                NewEmployeePage.setLoginLocal(loginNewU);
 
                 NewEmployeePage.setPhone("+7(927)159-11-81");
                 NewEmployeePage.setMail("test@test.ru");
@@ -144,6 +148,8 @@ namespace EVotingProject
                 NewEmployeePage.gotoRolePanel();
                 Assert.True(NewEmployeePage.isRolePanel()); NewEmployeePage.clickSelectRole();
                 NewEmployeePage.selectAvailRolesList(role);//выбрать роль
+                NewEmployeePage.save();
+                Assert.True(NewEmployeePage.isMessageGrowleOk(message), "Успешно сохранено!2");
 
                 NewEmployeePage.gotoMenuEmployees();
                 Assert.True(EmployeePage.isTruePage(), "должна быть страница Пользователей");
@@ -152,7 +158,10 @@ namespace EVotingProject
                 EmployeePage.getEmployeesTable(lastName + " " + firstName + " " + otherName);
 
                 //step2
+                EmployeePage.addNewUser();
                 Assert.True(NewEmployeePage.isTruePage(), "должна быть страница Добавления нов пользователя");
+                NewEmployeePage.setOrganization(orgName);
+
                 NewEmployeePage.setLastName(lastName);
                 NewEmployeePage.setFirstName(firstName);
                 NewEmployeePage.setOtherName(otherName);
@@ -215,7 +224,7 @@ namespace EVotingProject
                 NewEmployeePage.setOrganization(orgNameFalse);
                 //
                 //Reporter.ReportEvent(GetTestName(), "", Status.Warning, browser.GetSnapshot());
-                
+
                 /*
                 //step-1
                 PortalPage.gotoMenuOrganizations();
@@ -501,7 +510,7 @@ namespace EVotingProject
         [TearDown]
         public void TearDown()
         {
-            
+
         }
 
         [OneTimeTearDown]
